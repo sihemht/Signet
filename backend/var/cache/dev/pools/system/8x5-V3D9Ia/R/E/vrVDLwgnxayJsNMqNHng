@@ -1,0 +1,49 @@
+<?php //easyadmin.routes.fqcn_to_route
+
+return [PHP_INT_MAX, [
+    'App\\Controller\\Admin\\DashboardController' => [
+        '' => [
+            '' => 'dashboard',
+        ],
+        'App\\Controller\\Admin\\AdminCrudController' => [
+            'index' => 'dashboard_admin_index',
+            'new' => 'dashboard_admin_new',
+            'batchDelete' => 'dashboard_admin_batch_delete',
+            'autocomplete' => 'dashboard_admin_autocomplete',
+            'renderFilters' => 'dashboard_admin_render_filters',
+            'edit' => 'dashboard_admin_edit',
+            'delete' => 'dashboard_admin_delete',
+            'detail' => 'dashboard_admin_detail',
+        ],
+        'App\\Controller\\Admin\\EventCrudController' => [
+            'index' => 'dashboard_event_index',
+            'new' => 'dashboard_event_new',
+            'batchDelete' => 'dashboard_event_batch_delete',
+            'autocomplete' => 'dashboard_event_autocomplete',
+            'renderFilters' => 'dashboard_event_render_filters',
+            'edit' => 'dashboard_event_edit',
+            'delete' => 'dashboard_event_delete',
+            'detail' => 'dashboard_event_detail',
+        ],
+        'App\\Controller\\Admin\\UserCrudController' => [
+            'index' => 'dashboard_user_index',
+            'new' => 'dashboard_user_new',
+            'batchDelete' => 'dashboard_user_batch_delete',
+            'autocomplete' => 'dashboard_user_autocomplete',
+            'renderFilters' => 'dashboard_user_render_filters',
+            'edit' => 'dashboard_user_edit',
+            'delete' => 'dashboard_user_delete',
+            'detail' => 'dashboard_user_detail',
+        ],
+        'App\\Controller\\Admin\\VoteCrudController' => [
+            'index' => 'dashboard_vote_index',
+            'new' => 'dashboard_vote_new',
+            'batchDelete' => 'dashboard_vote_batch_delete',
+            'autocomplete' => 'dashboard_vote_autocomplete',
+            'renderFilters' => 'dashboard_vote_render_filters',
+            'edit' => 'dashboard_vote_edit',
+            'delete' => 'dashboard_vote_delete',
+            'detail' => 'dashboard_vote_detail',
+        ],
+    ],
+]];

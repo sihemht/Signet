@@ -1,21 +1,21 @@
-# Use a descriptive tag for the base image
-FROM php:8.2-fpm-alpine AS base
+FROM php:8.2-fpm
 
+# 1. Installation des dépendances système (nécessaires pour PHP et Composer)
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    libzip-dev \
+    unzip \
+    git \
+    && docker-php-ext-install pdo pdo_pgsql zip
 
-# Install Composer
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
+
+# 2. Installation de Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-# Install Symfony CLI (optional)
-RUN curl -LsS https://github.com/symfony/cli/releases/latest/download/symfony_linux_amd64.gz | \
-    gzip -d -c > /usr/local/bin/symfony && \
-    chmod +x /usr/local/bin/symfony \
 
-# Install PDO extension
-RUN docker-php-ext-install pdo
+# 3. Installation de la CLI Symfony (Correction de la syntaxe ici)
+RUN curl -LsS https://github.com/symfony/cli/releases/latest/download/symfony_linux_amd64.gz | gzip -d -c > /usr/local/bin/symfony && \
+    chmod +x /usr/local/bin/symfony
 
-WORKDIR /var/www/html
-RUN apk add icu-dev
-RUN docker-php-ext-install mysqli pdo pdo_mysql
-RUN docker-php-ext-configure intl && docker-php-ext-install intl
-
-# Install pdo_mysql extension
-RUN docker-php-ext-install pdo_mysql
+WORKDIR /var/www/html/backend

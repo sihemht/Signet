@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma Collection - Kitab{% endblock %}
+
+{% block body %}
+    <div class="container py-4">
+        {# En-tête avec titre et bouton d'ajout #}
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="fw-bold h2 mb-0" style="color: var(--primary-color);">Ma Collection</h1>
+                <p class="text-muted small mb-0">{{ books|length }} livres enregistrés</p>
+            </div>
+            <a class="btn shadow-sm rounded-circle d-flex align-items-center justify-content-center"
+               href="{{ path('app_books_new') }}"
+               style="background-color: var(--primary-color); color: white; width: 45px; height: 45px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                </svg>
+            </a>
+        </div>
+
+        <div class="row g-3">
+            {% for book in books %}
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm position-relative overflow-hidden" style="border-radius: 18px;">
+
+                        {# Badge de Statut Workflow #}
+                        <div class="position-absolute top-0 start-0 m-2 z-3">
+                            {% if book.readingStatus == 'reading' %}
+                                <span class="badge rounded-pill bg-primary shadow-sm">En cours</span>
+                            {% elseif book.readingStatus == 'finished' %}
+                                <span class="badge rounded-pill bg-success shadow-sm">Terminé</span>
+                            {% else %}
+                                <span class="badge rounded-pill bg-secondary shadow-sm">À lire</span>
+                            {% endif %}
+                        </div>
+
+                        {# Image de couverture #}
+                        <div style="aspect-ratio: 2/3; background-color: #f8f9fa;">
+                            <img src="{{ book.imageCover ?: '/images/6940546.jpg' }}"
+                                 class="w-100 h-100"
+                                 style="object-fit: cover;"
+                                 alt="{{ book.title }}">
+                        </div>
+
+                        <div class="card-body p-2 px-3">
+                            <h6 class="fw-bold mb-0 text-truncate" style="font-size: 0.9rem;">{{ book.title }}</h6>
+                            <p class="text-muted small mb-2 text-truncate" style="font-size: 0.75rem;">
+                                {{ book.authors|join(', ') ?: 'Auteur inconnu' }}
+                            </p>
+
+                            {# Tags Saga et Note #}
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                {% if book.saga %}
+                                    <span class="badge bg-light text-dark border-0 small fw-normal" style="font-size: 0.65rem;">
+                                    {{ book.saga }} {% if book.number %}#{{ book.number }}{% endif %}
+                                </span>
+                                {% endif %}
+
+                                {% if book.rating %}
+                                    <span class="text-warning small" style="font-size: 0.7rem;">
+                                    ★ {{ book.rating }}
+                                </span>
+                                {% endif %}
+                            </div>
+
+                            {# Actions rapides invisibles sur mobile, visibles au clic ou via lien sur toute la carte #}
+                            <a href="{{ path('app_books_show', {'id': book.id}) }}" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12 text-center py-5">
+                    <div class="mb-3">📚</div>
+                    <p class="text-muted">Votre bibliothèque est vide.</p>
+                    <a href="{{ path('search_books') }}" class="btn btn-sm btn-outline-primary rounded-pill">Rechercher un livre</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

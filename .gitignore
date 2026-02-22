@@ -50,3 +50,20 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+# Symfony Récent
+.env.local
+.env.local.php
+.env.*.local
+/public/bundles/
+/public/build/
+
+# Base de données SQLite
+/*.db
+/*.sqlite
+
+# IDE & Système
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

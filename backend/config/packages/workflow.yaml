@@ -1,5 +1,6 @@
 framework:
     workflows:
+        # Les événements
         event_publishing:
             type: 'state_machine'
             marking_store:
@@ -8,19 +9,29 @@ framework:
             supports:
                 - App\Entity\Event
             initial_marking: draft
-            places:
-                - draft
-                - reviewed
-                - published
-                - rejected
+            places: [draft, reviewed, published, rejected]
             transitions:
-                to_review:
-                    from: draft
-                    to: reviewed
-                publish:
-                    from: reviewed
-                    to: published
-                rejected:
-                    from: [reviewed, draft]
-                    to: rejected
+                to_review: { from: draft, to: reviewed }
+                publish: { from: reviewed, to: published }
+                rejected: { from: [reviewed, draft], to: rejected }
 
+        # Pour tes livres
+        book_reading:
+            type: 'state_machine'
+            marking_store:
+                type: 'method'
+                property: 'readingStatus'
+            supports:
+                - App\Entity\Books
+            initial_marking: to_read
+            places:
+                - to_read
+                - reading
+                - completed
+            transitions:
+                start_reading:
+                    from: to_read
+                    to: reading
+                finish_reading:
+                    from: reading
+                    to: completed

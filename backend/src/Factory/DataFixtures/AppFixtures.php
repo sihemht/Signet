@@ -13,7 +13,8 @@ use App\Factory\EventFactory;
 
 class AppFixtures extends Fixture{
     
-    public function load(ObjectManager $manager){
+    public function load(ObjectManager $manager): void
+    {
         AdminFactory::new()->createMany(20);
         UserFactory::new()->createMany(20);
         EventFactory::new()->createMany(20);

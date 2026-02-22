@@ -3,10 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use Symfony\Component\Form\Extension\Core\Type\{PasswordType};
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\{ArrayField, TextField, EmailField, IdField};
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\{ArrayField, EmailField, IdField, TextField};
 
 
 class UserCrudController extends AbstractCrudController
