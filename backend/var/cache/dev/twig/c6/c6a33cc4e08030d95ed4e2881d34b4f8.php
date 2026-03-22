@@ -100,9 +100,11 @@ class __TwigTemplate_953fde743696cbe11726d4be004bac1e extends Template
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 16, $this->source); })()), "request", [], "any", false, false, false, 16), "query", [], "any", false, false, false, 16), "get", ["query"], "method", false, false, false, 16), "html", null, true);
         yield "\"
                        required>
-                <button type=\"submit\" class=\"btn rounded-pill px-4\" style=\"background-color: var(--primary-color); color: white;\">
+                ";
+        // line 19
+        yield "                <button type=\"submit\" class=\"btn rounded-pill px-4\" style=\"background-color: var(--primary-color); color: white;\">
                     <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" fill=\"currentColor\" class=\"bi bi-search\" viewBox=\"0 0 16 16\">
-                        <path d=\"M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0\"/>
+                        <path d=\"M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 1-1.414 1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0\"/>
                     </svg>
                 </button>
             </form>
@@ -110,42 +112,41 @@ class __TwigTemplate_953fde743696cbe11726d4be004bac1e extends Template
     </div>
 
     ";
-        // line 28
+        // line 29
         yield "    <div class=\"row g-3\">
         ";
-        // line 29
+        // line 30
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["books"]) || array_key_exists("books", $context) ? $context["books"] : (function () { throw new RuntimeError('Variable "books" does not exist.', 29, $this->source); })()));
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["books"]) || array_key_exists("books", $context) ? $context["books"] : (function () { throw new RuntimeError('Variable "books" does not exist.', 30, $this->source); })()));
         $context['_iterated'] = false;
         foreach ($context['_seq'] as $context["_key"] => $context["book"]) {
-            // line 30
+            // line 31
             yield "            <div class=\"col-6 col-md-4 col-lg-3\">
                 <div class=\"card h-100 border-0 shadow-sm overflow-hidden\" style=\"border-radius: 20px;\">
 
                     ";
-            // line 34
+            // line 35
             yield "                    <div class=\"position-relative\" style=\"aspect-ratio: 2/3; background-color: #f0f0f0;\">
                         ";
-            // line 35
-            $context["cover_url"] = ((CoreExtension::getAttribute($this->env, $this->source, $context["book"], "cover_i", [], "any", true, true, false, 35)) ? ((("https://covers.openlibrary.org/b/id/" . CoreExtension::getAttribute($this->env, $this->source,             // line 36
-$context["book"], "cover_i", [], "any", false, false, false, 36)) . "-L.jpg")) : ("/images/6940604.jpg"));
-            // line 38
+            // line 36
+            $context["cover_url"] = ((CoreExtension::getAttribute($this->env, $this->source, $context["book"], "cover_i", [], "any", true, true, false, 36)) ? ((("https://covers.openlibrary.org/b/id/" . CoreExtension::getAttribute($this->env, $this->source,             // line 37
+$context["book"], "cover_i", [], "any", false, false, false, 37)) . "-L.jpg")) : ("/images/6940604.jpg"));
+            // line 39
             yield "
                         <img src=\"";
-            // line 39
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["cover_url"]) || array_key_exists("cover_url", $context) ? $context["cover_url"] : (function () { throw new RuntimeError('Variable "cover_url" does not exist.', 39, $this->source); })()), "html", null, true);
+            // line 40
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["cover_url"]) || array_key_exists("cover_url", $context) ? $context["cover_url"] : (function () { throw new RuntimeError('Variable "cover_url" does not exist.', 40, $this->source); })()), "html", null, true);
             yield "\"
                              class=\"w-100 h-100\"
                              style=\"object-fit: cover;\"
                              alt=\"";
-            // line 42
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["book"], "title", [], "any", false, false, false, 42), "html", null, true);
+            // line 43
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["book"], "title", [], "any", false, false, false, 43), "html", null, true);
             yield "\"
                              onerror=\"this.src='/images/6940604.jpg';\">
 
                         ";
             // line 46
-            yield "                        ";
             if (CoreExtension::getAttribute($this->env, $this->source, $context["book"], "first_publish_year", [], "any", true, true, false, 46)) {
                 // line 47
                 yield "                            <span class=\"position-absolute bottom-0 end-0 m-2 badge bg-dark opacity-75\">
@@ -186,24 +187,55 @@ $context["book"], "cover_i", [], "any", false, false, false, 36)) . "-L.jpg")) :
             // line 63
             yield "                        </p>
 
-                        <form action=\"";
-            // line 65
+                        ";
+            // line 66
+            yield "                        <form action=\"";
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("add_book");
             yield "\" method=\"post\" class=\"mt-auto pb-1\">
                             <input type=\"hidden\" name=\"title\" value=\"";
-            // line 66
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["book"], "title", [], "any", false, false, false, 66), "html", null, true);
+            // line 67
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["book"], "title", [], "any", false, false, false, 67), "html", null, true);
             yield "\">
                             <input type=\"hidden\" name=\"authors\" value=\"";
-            // line 67
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::join(((CoreExtension::getAttribute($this->env, $this->source, $context["book"], "author_name", [], "any", true, true, false, 67)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, $context["book"], "author_name", [], "any", false, false, false, 67), [])) : ([])), ", "), "html", null, true);
+            // line 68
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::join(((CoreExtension::getAttribute($this->env, $this->source, $context["book"], "author_name", [], "any", true, true, false, 68)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, $context["book"], "author_name", [], "any", false, false, false, 68), [])) : ([])), ", "), "html", null, true);
             yield "\">
-";
+                            <input type=\"hidden\" name=\"openLibraryKey\" value=\"";
             // line 69
-            yield "                            <input type=\"hidden\" name=\"imageCover\" value=\"";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["cover_url"]) || array_key_exists("cover_url", $context) ? $context["cover_url"] : (function () { throw new RuntimeError('Variable "cover_url" does not exist.', 69, $this->source); })()), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["book"], "key", [], "any", false, false, false, 69), "html", null, true);
+            yield "\">
+                            <input type=\"hidden\" name=\"imageCover\" value=\"";
+            // line 70
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["cover_url"]) || array_key_exists("cover_url", $context) ? $context["cover_url"] : (function () { throw new RuntimeError('Variable "cover_url" does not exist.', 70, $this->source); })()), "html", null, true);
+            yield "\">
+                            <input type=\"hidden\" name=\"isbn\" value=\"";
+            // line 71
+            yield ((CoreExtension::getAttribute($this->env, $this->source, $context["book"], "isbn", [], "any", true, true, false, 71)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["book"], "isbn", [], "any", false, false, false, 71), 0, [], "array", false, false, false, 71), "html", null, true)) : (""));
             yield "\">
 
+                            ";
+            // line 74
+            yield "                            ";
+            if ((CoreExtension::getAttribute($this->env, $this->source, $context["book"], "subject", [], "any", true, true, false, 74) && is_iterable(CoreExtension::getAttribute($this->env, $this->source, $context["book"], "subject", [], "any", false, false, false, 74)))) {
+                // line 75
+                yield "                                ";
+                $context['_parent'] = $context;
+                $context['_seq'] = CoreExtension::ensureTraversable(Twig\Extension\CoreExtension::slice($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["book"], "subject", [], "any", false, false, false, 75), 0, 5));
+                foreach ($context['_seq'] as $context["_key"] => $context["sub"]) {
+                    // line 76
+                    yield "                                    <input type=\"hidden\" name=\"subjects[]\" value=\"";
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["sub"], "html", null, true);
+                    yield "\">
+                                ";
+                }
+                $_parent = $context['_parent'];
+                unset($context['_seq'], $context['_key'], $context['sub'], $context['_parent']);
+                $context = array_intersect_key($context, $_parent) + $_parent;
+                // line 78
+                yield "                            ";
+            }
+            // line 79
+            yield "
                             <button type=\"submit\" class=\"btn btn-sm w-100 rounded-pill fw-bold border-2 btn-outline-primary\">
                                 + Ajouter
                             </button>
@@ -214,25 +246,25 @@ $context["book"], "cover_i", [], "any", false, false, false, 36)) . "-L.jpg")) :
         ";
             $context['_iterated'] = true;
         }
-        // line 78
+        // line 87
         if (!$context['_iterated']) {
-            // line 79
+            // line 88
             yield "            ";
-            if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 79, $this->source); })()), "request", [], "any", false, false, false, 79), "query", [], "any", false, false, false, 79), "get", ["query"], "method", false, false, false, 79)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-                // line 80
+            if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 88, $this->source); })()), "request", [], "any", false, false, false, 88), "query", [], "any", false, false, false, 88), "get", ["query"], "method", false, false, false, 88)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                // line 89
                 yield "                <div class=\"col-12 text-center py-5\">
                     <img src=\"https://illustrations.popsy.co/amber/search-not-found.svg\" alt=\"Not found\" style=\"height: 150px;\">
                     <p class=\"text-muted mt-3\">Aucun livre trouvé pour cette recherche.</p>
                 </div>
             ";
             }
-            // line 85
+            // line 94
             yield "        ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['book'], $context['_parent'], $context['_iterated']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 86
+        // line 95
         yield "    </div>
 ";
         
@@ -262,7 +294,7 @@ $context["book"], "cover_i", [], "any", false, false, false, 36)) . "-L.jpg")) :
      */
     public function getDebugInfo(): array
     {
-        return array (  236 => 86,  230 => 85,  223 => 80,  220 => 79,  218 => 78,  203 => 69,  199 => 67,  195 => 66,  191 => 65,  187 => 63,  183 => 61,  177 => 59,  175 => 58,  169 => 55,  165 => 54,  160 => 51,  154 => 48,  151 => 47,  148 => 46,  142 => 42,  136 => 39,  133 => 38,  131 => 36,  130 => 35,  127 => 34,  122 => 30,  117 => 29,  114 => 28,  100 => 16,  91 => 11,  85 => 6,  75 => 5,  58 => 3,  41 => 1,);
+        return array (  268 => 95,  262 => 94,  255 => 89,  252 => 88,  250 => 87,  238 => 79,  235 => 78,  226 => 76,  221 => 75,  218 => 74,  213 => 71,  209 => 70,  205 => 69,  201 => 68,  197 => 67,  192 => 66,  188 => 63,  184 => 61,  178 => 59,  176 => 58,  170 => 55,  166 => 54,  161 => 51,  155 => 48,  152 => 47,  150 => 46,  144 => 43,  138 => 40,  135 => 39,  133 => 37,  132 => 36,  129 => 35,  124 => 31,  119 => 30,  116 => 29,  105 => 19,  100 => 16,  91 => 11,  85 => 6,  75 => 5,  58 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -284,9 +316,10 @@ $context["book"], "cover_i", [], "any", false, false, false, 36)) . "-L.jpg")) :
                        placeholder=\"Titre, auteur, ISBN...\"
                        value=\"{{ app.request.query.get('query') }}\"
                        required>
+                {# Le champ openLibraryKey a été supprimé d'ici car il n'a rien à faire dans la recherche globale #}
                 <button type=\"submit\" class=\"btn rounded-pill px-4\" style=\"background-color: var(--primary-color); color: white;\">
                     <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" fill=\"currentColor\" class=\"bi bi-search\" viewBox=\"0 0 16 16\">
-                        <path d=\"M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0\"/>
+                        <path d=\"M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 1-1.414 1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0\"/>
                     </svg>
                 </button>
             </form>
@@ -311,7 +344,6 @@ $context["book"], "cover_i", [], "any", false, false, false, 36)) . "-L.jpg")) :
                              alt=\"{{ book.title }}\"
                              onerror=\"this.src='/images/6940604.jpg';\">
 
-                        {# Badge discret pour le format #}
                         {% if book.first_publish_year is defined %}
                             <span class=\"position-absolute bottom-0 end-0 m-2 badge bg-dark opacity-75\">
                                 {{ book.first_publish_year }}
@@ -331,11 +363,20 @@ $context["book"], "cover_i", [], "any", false, false, false, 36)) . "-L.jpg")) :
                             {% endif %}
                         </p>
 
+                        {# Formulaire d'ajout rapide enrichi #}
                         <form action=\"{{ path('add_book') }}\" method=\"post\" class=\"mt-auto pb-1\">
                             <input type=\"hidden\" name=\"title\" value=\"{{ book.title }}\">
                             <input type=\"hidden\" name=\"authors\" value=\"{{ book.author_name|default([])|join(', ') }}\">
-{#                            <input type=\"hidden\" name=\"authors[]\" value=\"{{ book.author_name|join(', ') }}\">#}
+                            <input type=\"hidden\" name=\"openLibraryKey\" value=\"{{ book.key }}\">
                             <input type=\"hidden\" name=\"imageCover\" value=\"{{ cover_url }}\">
+                            <input type=\"hidden\" name=\"isbn\" value=\"{{ (book.isbn is defined) ? book.isbn[0] : '' }}\">
+
+                            {# Les sujets sont passés ici pour aider le contrôleur #}
+                            {% if book.subject is defined and book.subject is iterable %}
+                                {% for sub in book.subject|slice(0, 5) %}
+                                    <input type=\"hidden\" name=\"subjects[]\" value=\"{{ sub }}\">
+                                {% endfor %}
+                            {% endif %}
 
                             <button type=\"submit\" class=\"btn btn-sm w-100 rounded-pill fw-bold border-2 btn-outline-primary\">
                                 + Ajouter

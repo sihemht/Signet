@@ -64,6 +64,15 @@ class Books
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $imageCover = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $isbn = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?array $subjects = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -216,6 +225,42 @@ class Books
     public function setImageCover(?string $imageCover): self
     {
         $this->imageCover = $imageCover;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getIsbn(): ?string
+    {
+        return $this->isbn;
+    }
+
+    public function setIsbn(?string $isbn): static
+    {
+        $this->isbn = $isbn;
+
+        return $this;
+    }
+
+    public function getSubjects(): ?array
+    {
+        return $this->subjects;
+    }
+
+    public function setSubjects(?array $subjects): static
+    {
+        $this->subjects = $subjects;
 
         return $this;
     }

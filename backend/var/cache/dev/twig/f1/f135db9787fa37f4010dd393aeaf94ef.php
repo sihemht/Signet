@@ -97,40 +97,64 @@ class __TwigTemplate_5f74be2ecda67dee9f05e6eba7fbc4f3 extends Template
                     </svg> Retour à la liste
                 </a>
 
-                ";
-        // line 18
-        yield "                <div class=\"card border-0 shadow-sm overflow-hidden\" style=\"border-radius: 25px;\">
+                <div class=\"card border-0 shadow-sm overflow-hidden\" style=\"border-radius: 25px;\">
                     ";
-        // line 20
-        yield "                    <div class=\"text-center p-4 bg-light\">
+        // line 19
+        yield "                    <div class=\"p-4 bg-light text-center\">
                         ";
-        // line 21
-        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 21, $this->source); })()), "imageCover", [], "any", false, false, false, 21)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-            // line 22
+        // line 20
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 20, $this->source); })()), "imageCover", [], "any", false, false, false, 20)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 21
             yield "                            <img src=\"";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 22, $this->source); })()), "imageCover", [], "any", false, false, false, 22), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 21, $this->source); })()), "imageCover", [], "any", false, false, false, 21), "html", null, true);
             yield "\" class=\"shadow-lg rounded-3 mb-3\" style=\"width: 150px; height: 220px; object-fit: cover;\" alt=\"";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 22, $this->source); })()), "title", [], "any", false, false, false, 22), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 21, $this->source); })()), "title", [], "any", false, false, false, 21), "html", null, true);
             yield "\">
                         ";
         } else {
-            // line 24
+            // line 23
             yield "                            <div class=\"bg-secondary-subtle mx-auto d-flex align-items-center justify-content-center rounded-3 shadow-sm mb-3\" style=\"width: 150px; height: 220px;\">
                                 <span class=\"text-muted small px-2\">Pas de couverture</span>
                             </div>
                         ";
         }
-        // line 28
+        // line 27
         yield "
-                        <h1 class=\"h3 fw-bold mb-1\" style=\"color: var(--primary-color);\">";
+                        ";
         // line 29
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 29, $this->source); })()), "title", [], "any", false, false, false, 29), "html", null, true);
-        yield "</h1>
-                        <p class=\"text-muted mb-2\">
+        yield "                        <div class=\"mb-2\">
                             ";
+        // line 30
+        $context["statusClass"] = "bg-secondary";
         // line 31
+        yield "                            ";
+        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 31, $this->source); })()), "readingStatus", [], "any", false, false, false, 31) == "reading")) {
+            $context["statusClass"] = "bg-primary";
+            // line 32
+            yield "                            ";
+        } elseif ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 32, $this->source); })()), "readingStatus", [], "any", false, false, false, 32) == "finished")) {
+            $context["statusClass"] = "bg-success";
+        }
+        // line 33
+        yield "                            <span class=\"badge rounded-pill ";
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["statusClass"]) || array_key_exists("statusClass", $context) ? $context["statusClass"] : (function () { throw new RuntimeError('Variable "statusClass" does not exist.', 33, $this->source); })()), "html", null, true);
+        yield " px-3 py-2 shadow-sm\" style=\"font-size: 0.7rem;\">
+                                ";
+        // line 34
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::capitalize($this->env->getCharset(), Twig\Extension\CoreExtension::replace(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 34, $this->source); })()), "readingStatus", [], "any", false, false, false, 34), ["_" => " "])), "html", null, true);
+        yield "
+                            </span>
+                        </div>
+
+                        <h1 class=\"h3 fw-bold mb-1\" style=\"color: var(--primary-color);\">";
+        // line 38
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 38, $this->source); })()), "title", [], "any", false, false, false, 38), "html", null, true);
+        yield "</h1>
+                        <p class=\"text-muted mb-0\">
+                            ";
+        // line 40
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 31, $this->source); })()), "authors", [], "any", false, false, false, 31));
+        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 40, $this->source); })()), "authors", [], "any", false, false, false, 40));
         $context['_iterated'] = false;
         $context['loop'] = [
           'parent' => $context['_parent'],
@@ -146,13 +170,13 @@ class __TwigTemplate_5f74be2ecda67dee9f05e6eba7fbc4f3 extends Template
             $context['loop']['last'] = 1 === $length;
         }
         foreach ($context['_seq'] as $context["_key"] => $context["author"]) {
-            // line 32
+            // line 41
             yield "                                ";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["author"], "html", null, true);
-            if ((($tmp =  !CoreExtension::getAttribute($this->env, $this->source, $context["loop"], "last", [], "any", false, false, false, 32)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            if ((($tmp =  !CoreExtension::getAttribute($this->env, $this->source, $context["loop"], "last", [], "any", false, false, false, 41)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
                 yield ", ";
             }
-            // line 33
+            // line 42
             yield "                            ";
             $context['_iterated'] = true;
             ++$context['loop']['index0'];
@@ -165,40 +189,15 @@ class __TwigTemplate_5f74be2ecda67dee9f05e6eba7fbc4f3 extends Template
             }
         }
         if (!$context['_iterated']) {
-            // line 34
+            // line 43
             yield "                                Auteur inconnu
                             ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['author'], $context['_parent'], $context['_iterated'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 36
+        // line 45
         yield "                        </p>
-
-                        ";
-        // line 39
-        yield "                        ";
-        $context["statusClass"] = "bg-secondary";
-        // line 40
-        yield "                        ";
-        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 40, $this->source); })()), "readingStatus", [], "any", false, false, false, 40) == "reading")) {
-            $context["statusClass"] = "bg-primary";
-            // line 41
-            yield "                        ";
-        } elseif ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 41, $this->source); })()), "readingStatus", [], "any", false, false, false, 41) == "finished")) {
-            $context["statusClass"] = "bg-success";
-        }
-        // line 42
-        yield "
-                        <span class=\"badge rounded-pill ";
-        // line 43
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["statusClass"]) || array_key_exists("statusClass", $context) ? $context["statusClass"] : (function () { throw new RuntimeError('Variable "statusClass" does not exist.', 43, $this->source); })()), "html", null, true);
-        yield " px-3 py-2\">
-                        ";
-        // line 44
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::capitalize($this->env->getCharset(), Twig\Extension\CoreExtension::replace(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 44, $this->source); })()), "readingStatus", [], "any", false, false, false, 44), ["_" => " "])), "html", null, true);
-        yield "
-                    </span>
                     </div>
 
                     <div class=\"card-body px-4\">
@@ -211,9 +210,9 @@ class __TwigTemplate_5f74be2ecda67dee9f05e6eba7fbc4f3 extends Template
         $context['_seq'] = CoreExtension::ensureTraversable(range(1, 5));
         foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
             // line 52
-            yield "                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"";
+            yield "                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" fill=\"";
             yield ((($context["i"] <= ((CoreExtension::getAttribute($this->env, $this->source, ($context["book"] ?? null), "rating", [], "any", true, true, false, 52)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 52, $this->source); })()), "rating", [], "any", false, false, false, 52), 0)) : (0)))) ? ("#ffc107") : ("#dee2e6"));
-            yield "\" class=\"bi bi-star-fill\" viewBox=\"0 0 16 16\">
+            yield "\" class=\"bi bi-star-fill mx-1\" viewBox=\"0 0 16 16\">
                                     <path d=\"M3.612 15.443c-.387.197-.859-.141-.741-.557l.794-2.825-2.057-2.003c-.306-.298-.138-.813.298-.876l2.875-.415 1.285-2.603a.523.523 0 0 1 .925 0l1.285 2.603 2.875.415c.436.063.604.578.298.876l-2.057 2.003.794 2.825c.119.416-.354.754-.741.557l-2.528-1.328-2.528 1.328z\"/>
                                 </svg>
                             ";
@@ -224,78 +223,97 @@ class __TwigTemplate_5f74be2ecda67dee9f05e6eba7fbc4f3 extends Template
         // line 56
         yield "                        </div>
 
-                        <div class=\"row g-3\">
+                        ";
+        // line 59
+        yield "                        ";
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 59, $this->source); })()), "description", [], "any", false, false, false, 59)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 60
+            yield "                            <div class=\"mb-4\">
+                                <h6 class=\"fw-bold border-start border-4 ps-2\" style=\"border-color: var(--primary-color) !important;\">Résumé</h6>
+                                <p class=\"text-muted small text-start\" style=\"line-height: 1.6;\">";
+            // line 62
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 62, $this->source); })()), "description", [], "any", false, false, false, 62), "html", null, true);
+            yield "</p>
+                            </div>
+                        ";
+        }
+        // line 65
+        yield "
+                        ";
+        // line 67
+        yield "                        ";
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 67, $this->source); })()), "subjects", [], "any", false, false, false, 67)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 68
+            yield "                            <div class=\"mb-4 d-flex flex-wrap gap-1\">
+                                ";
+            // line 69
+            $context['_parent'] = $context;
+            $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 69, $this->source); })()), "subjects", [], "any", false, false, false, 69));
+            foreach ($context['_seq'] as $context["_key"] => $context["subject"]) {
+                // line 70
+                yield "                                    <span class=\"badge rounded-pill bg-white text-dark border fw-normal\" style=\"font-size: 0.65rem;\">";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["subject"], "html", null, true);
+                yield "</span>
+                                ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_key'], $context['subject'], $context['_parent']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 72
+            yield "                            </div>
+                        ";
+        }
+        // line 74
+        yield "
+                        <div class=\"row g-3 py-3 border-top border-bottom bg-light bg-opacity-50 rounded-4\">
                             <div class=\"col-6\">
-                                <small class=\"text-muted d-block small fw-bold text-uppercase\">Saga</small>
+                                <small class=\"text-muted d-block small fw-bold text-uppercase\" style=\"font-size: 0.6rem;\">Saga</small>
                                 <span class=\"small\">";
-        // line 61
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, ($context["book"] ?? null), "saga", [], "any", true, true, false, 61)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 61, $this->source); })()), "saga", [], "any", false, false, false, 61), "-")) : ("-")), "html", null, true);
+        // line 78
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, ($context["book"] ?? null), "saga", [], "any", true, true, false, 78)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 78, $this->source); })()), "saga", [], "any", false, false, false, 78), "-")) : ("-")), "html", null, true);
         yield " ";
-        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 61, $this->source); })()), "number", [], "any", false, false, false, 61)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 78, $this->source); })()), "number", [], "any", false, false, false, 78)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
             yield "(T.";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 61, $this->source); })()), "number", [], "any", false, false, false, 61), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 78, $this->source); })()), "number", [], "any", false, false, false, 78), "html", null, true);
             yield ")";
         }
         yield "</span>
                             </div>
                             <div class=\"col-6\">
-                                <small class=\"text-muted d-block small fw-bold text-uppercase\">Pages</small>
+                                <small class=\"text-muted d-block small fw-bold text-uppercase\" style=\"font-size: 0.6rem;\">Pages</small>
                                 <span class=\"small\">";
-        // line 65
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, ($context["book"] ?? null), "numberOfPage", [], "any", true, true, false, 65)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 65, $this->source); })()), "numberOfPage", [], "any", false, false, false, 65), "Non précisé")) : ("Non précisé")), "html", null, true);
+        // line 82
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, ($context["book"] ?? null), "numberOfPage", [], "any", true, true, false, 82)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 82, $this->source); })()), "numberOfPage", [], "any", false, false, false, 82), "Non précisé")) : ("Non précisé")), "html", null, true);
         yield "</span>
                             </div>
                             <div class=\"col-6\">
-                                <small class=\"text-muted d-block small fw-bold text-uppercase\">Achat</small>
-                                <span class=\"small\">";
-        // line 69
-        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 69, $this->source); })()), "monthOfPurchase", [], "any", false, false, false, 69)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 69, $this->source); })()), "monthOfPurchase", [], "any", false, false, false, 69), "M Y"), "html", null, true)) : ("-"));
+                                <small class=\"text-muted d-block small fw-bold text-uppercase\" style=\"font-size: 0.6rem;\">Identifiant ISBN</small>
+                                <span class=\"small text-truncate d-block\">";
+        // line 86
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, ($context["book"] ?? null), "isbn", [], "any", true, true, false, 86)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 86, $this->source); })()), "isbn", [], "any", false, false, false, 86), "-")) : ("-")), "html", null, true);
         yield "</span>
                             </div>
                             <div class=\"col-6\">
-                                <small class=\"text-muted d-block small fw-bold text-uppercase\">Genres</small>
-                                <div class=\"d-flex flex-wrap gap-1 mt-1\">
-                                    ";
-        // line 74
-        $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 74, $this->source); })()), "genres", [], "any", false, false, false, 74));
-        $context['_iterated'] = false;
-        foreach ($context['_seq'] as $context["_key"] => $context["genre"]) {
-            // line 75
-            yield "                                        <span class=\"badge bg-light text-dark border fw-normal\" style=\"font-size: 0.7rem;\">";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["genre"], "html", null, true);
-            yield "</span>
-                                    ";
-            $context['_iterated'] = true;
-        }
-        // line 76
-        if (!$context['_iterated']) {
-            // line 77
-            yield "                                        <span class=\"text-muted small\">Aucun genre</span>
-                                    ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_key'], $context['genre'], $context['_parent'], $context['_iterated']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 79
-        yield "                                </div>
+                                <small class=\"text-muted d-block small fw-bold text-uppercase\" style=\"font-size: 0.6rem;\">Achat</small>
+                                <span class=\"small\">";
+        // line 90
+        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 90, $this->source); })()), "monthOfPurchase", [], "any", false, false, false, 90)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 90, $this->source); })()), "monthOfPurchase", [], "any", false, false, false, 90), "M Y"), "html", null, true)) : ("-"));
+        yield "</span>
                             </div>
                         </div>
 
-                        <hr class=\"my-4 opacity-50\">
-
                         ";
-        // line 86
-        yield "                        <div class=\"d-grid gap-2 mb-2\">
+        // line 95
+        yield "                        <div class=\"d-grid gap-2 mt-4\">
                             <a href=\"";
-        // line 87
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_books_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 87, $this->source); })()), "id", [], "any", false, false, false, 87)]), "html", null, true);
+        // line 96
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_books_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 96, $this->source); })()), "id", [], "any", false, false, false, 96)]), "html", null, true);
         yield "\" class=\"btn btn-primary rounded-pill py-2\" style=\"background-color: var(--primary-color); border: none;\">
                                 Modifier les informations
                             </a>
                             <div class=\"text-center mt-2\">
                                 ";
-        // line 91
+        // line 100
         yield Twig\Extension\CoreExtension::include($this->env, $context, "books/_delete_form.html.twig");
         yield "
                             </div>
@@ -304,9 +322,7 @@ class __TwigTemplate_5f74be2ecda67dee9f05e6eba7fbc4f3 extends Template
                 </div>
             </div>
         </div>
-        ";
-        // line 99
-        yield "        <div style=\"height: 40px;\"></div>
+        <div style=\"height: 40px;\"></div>
     </div>
 ";
         
@@ -336,7 +352,7 @@ class __TwigTemplate_5f74be2ecda67dee9f05e6eba7fbc4f3 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  309 => 99,  299 => 91,  292 => 87,  289 => 86,  281 => 79,  274 => 77,  272 => 76,  265 => 75,  260 => 74,  252 => 69,  245 => 65,  232 => 61,  225 => 56,  214 => 52,  210 => 51,  207 => 50,  199 => 44,  195 => 43,  192 => 42,  187 => 41,  183 => 40,  180 => 39,  176 => 36,  169 => 34,  156 => 33,  150 => 32,  132 => 31,  127 => 29,  124 => 28,  118 => 24,  110 => 22,  108 => 21,  105 => 20,  102 => 18,  92 => 11,  86 => 6,  76 => 5,  58 => 3,  41 => 1,);
+        return array (  317 => 100,  310 => 96,  307 => 95,  300 => 90,  293 => 86,  286 => 82,  273 => 78,  267 => 74,  263 => 72,  254 => 70,  250 => 69,  247 => 68,  244 => 67,  241 => 65,  235 => 62,  231 => 60,  228 => 59,  224 => 56,  213 => 52,  209 => 51,  206 => 50,  200 => 45,  193 => 43,  180 => 42,  174 => 41,  156 => 40,  151 => 38,  144 => 34,  139 => 33,  134 => 32,  130 => 31,  128 => 30,  125 => 29,  122 => 27,  116 => 23,  108 => 21,  106 => 20,  103 => 19,  92 => 11,  86 => 6,  76 => 5,  58 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -350,17 +366,16 @@ class __TwigTemplate_5f74be2ecda67dee9f05e6eba7fbc4f3 extends Template
         <div class=\"row justify-content-center\">
             <div class=\"col-12 col-md-8 col-lg-6\">
 
-                {# Bouton retour discret #}
+                {# Bouton retour #}
                 <a href=\"{{ path('app_books_index') }}\" class=\"text-decoration-none text-muted small mb-3 d-inline-block\">
                     <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-chevron-left\" viewBox=\"0 0 16 16\">
                         <path fill-rule=\"evenodd\" d=\"M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0\"/>
                     </svg> Retour à la liste
                 </a>
 
-                {# Fiche Livre #}
                 <div class=\"card border-0 shadow-sm overflow-hidden\" style=\"border-radius: 25px;\">
-                    {# En-tête avec Image de couverture #}
-                    <div class=\"text-center p-4 bg-light\">
+                    {# En-tête #}
+                    <div class=\"p-4 bg-light text-center\">
                         {% if book.imageCover %}
                             <img src=\"{{ book.imageCover }}\" class=\"shadow-lg rounded-3 mb-3\" style=\"width: 150px; height: 220px; object-fit: cover;\" alt=\"{{ book.title }}\">
                         {% else %}
@@ -369,64 +384,74 @@ class __TwigTemplate_5f74be2ecda67dee9f05e6eba7fbc4f3 extends Template
                             </div>
                         {% endif %}
 
+                        {# Statut déplacé en haut pour une meilleure visibilité #}
+                        <div class=\"mb-2\">
+                            {% set statusClass = 'bg-secondary' %}
+                            {% if book.readingStatus == 'reading' %}{% set statusClass = 'bg-primary' %}
+                            {% elseif book.readingStatus == 'finished' %}{% set statusClass = 'bg-success' %}{% endif %}
+                            <span class=\"badge rounded-pill {{ statusClass }} px-3 py-2 shadow-sm\" style=\"font-size: 0.7rem;\">
+                                {{ book.readingStatus|replace({'_': ' '})|capitalize }}
+                            </span>
+                        </div>
+
                         <h1 class=\"h3 fw-bold mb-1\" style=\"color: var(--primary-color);\">{{ book.title }}</h1>
-                        <p class=\"text-muted mb-2\">
+                        <p class=\"text-muted mb-0\">
                             {% for author in book.authors %}
                                 {{ author }}{% if not loop.last %}, {% endif %}
                             {% else %}
                                 Auteur inconnu
                             {% endfor %}
                         </p>
-
-                        {# Affichage du Workflow/Status avec couleurs dynamiques #}
-                        {% set statusClass = 'bg-secondary' %}
-                        {% if book.readingStatus == 'reading' %}{% set statusClass = 'bg-primary' %}
-                        {% elseif book.readingStatus == 'finished' %}{% set statusClass = 'bg-success' %}{% endif %}
-
-                        <span class=\"badge rounded-pill {{ statusClass }} px-3 py-2\">
-                        {{ book.readingStatus|replace({'_': ' '})|capitalize }}
-                    </span>
                     </div>
 
                     <div class=\"card-body px-4\">
-                        {# Rating avec étoiles #}
+                        {# Rating #}
                         <div class=\"text-center mb-4\">
                             {% for i in 1..5 %}
-                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"{{ i <= book.rating|default(0) ? '#ffc107' : '#dee2e6' }}\" class=\"bi bi-star-fill\" viewBox=\"0 0 16 16\">
+                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" fill=\"{{ i <= book.rating|default(0) ? '#ffc107' : '#dee2e6' }}\" class=\"bi bi-star-fill mx-1\" viewBox=\"0 0 16 16\">
                                     <path d=\"M3.612 15.443c-.387.197-.859-.141-.741-.557l.794-2.825-2.057-2.003c-.306-.298-.138-.813.298-.876l2.875-.415 1.285-2.603a.523.523 0 0 1 .925 0l1.285 2.603 2.875.415c.436.063.604.578.298.876l-2.057 2.003.794 2.825c.119.416-.354.754-.741.557l-2.528-1.328-2.528 1.328z\"/>
                                 </svg>
                             {% endfor %}
                         </div>
 
-                        <div class=\"row g-3\">
+                        {# Résumé (Aligné à gauche pour la lecture) #}
+                        {% if book.description %}
+                            <div class=\"mb-4\">
+                                <h6 class=\"fw-bold border-start border-4 ps-2\" style=\"border-color: var(--primary-color) !important;\">Résumé</h6>
+                                <p class=\"text-muted small text-start\" style=\"line-height: 1.6;\">{{ book.description }}</p>
+                            </div>
+                        {% endif %}
+
+                        {# Tags #}
+                        {% if book.subjects %}
+                            <div class=\"mb-4 d-flex flex-wrap gap-1\">
+                                {% for subject in book.subjects %}
+                                    <span class=\"badge rounded-pill bg-white text-dark border fw-normal\" style=\"font-size: 0.65rem;\">{{ subject }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <div class=\"row g-3 py-3 border-top border-bottom bg-light bg-opacity-50 rounded-4\">
                             <div class=\"col-6\">
-                                <small class=\"text-muted d-block small fw-bold text-uppercase\">Saga</small>
+                                <small class=\"text-muted d-block small fw-bold text-uppercase\" style=\"font-size: 0.6rem;\">Saga</small>
                                 <span class=\"small\">{{ book.saga|default('-') }} {% if book.number %}(T.{{ book.number }}){% endif %}</span>
                             </div>
                             <div class=\"col-6\">
-                                <small class=\"text-muted d-block small fw-bold text-uppercase\">Pages</small>
+                                <small class=\"text-muted d-block small fw-bold text-uppercase\" style=\"font-size: 0.6rem;\">Pages</small>
                                 <span class=\"small\">{{ book.numberOfPage|default('Non précisé') }}</span>
                             </div>
                             <div class=\"col-6\">
-                                <small class=\"text-muted d-block small fw-bold text-uppercase\">Achat</small>
-                                <span class=\"small\">{{ book.monthOfPurchase ? book.monthOfPurchase|date('M Y') : '-' }}</span>
+                                <small class=\"text-muted d-block small fw-bold text-uppercase\" style=\"font-size: 0.6rem;\">Identifiant ISBN</small>
+                                <span class=\"small text-truncate d-block\">{{ book.isbn|default('-') }}</span>
                             </div>
                             <div class=\"col-6\">
-                                <small class=\"text-muted d-block small fw-bold text-uppercase\">Genres</small>
-                                <div class=\"d-flex flex-wrap gap-1 mt-1\">
-                                    {% for genre in book.genres %}
-                                        <span class=\"badge bg-light text-dark border fw-normal\" style=\"font-size: 0.7rem;\">{{ genre }}</span>
-                                    {% else %}
-                                        <span class=\"text-muted small\">Aucun genre</span>
-                                    {% endfor %}
-                                </div>
+                                <small class=\"text-muted d-block small fw-bold text-uppercase\" style=\"font-size: 0.6rem;\">Achat</small>
+                                <span class=\"small\">{{ book.monthOfPurchase ? book.monthOfPurchase|date('M Y') : '-' }}</span>
                             </div>
                         </div>
 
-                        <hr class=\"my-4 opacity-50\">
-
                         {# Actions #}
-                        <div class=\"d-grid gap-2 mb-2\">
+                        <div class=\"d-grid gap-2 mt-4\">
                             <a href=\"{{ path('app_books_edit', {'id': book.id}) }}\" class=\"btn btn-primary rounded-pill py-2\" style=\"background-color: var(--primary-color); border: none;\">
                                 Modifier les informations
                             </a>
@@ -438,7 +463,6 @@ class __TwigTemplate_5f74be2ecda67dee9f05e6eba7fbc4f3 extends Template
                 </div>
             </div>
         </div>
-        {# Petit espace pour ne pas coller à la navbar basse #}
         <div style=\"height: 40px;\"></div>
     </div>
 {% endblock %}", "books/show.html.twig", "/var/www/html/backend/templates/books/show.html.twig");

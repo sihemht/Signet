@@ -15,9 +15,10 @@
                        placeholder="Titre, auteur, ISBN..."
                        value="{{ app.request.query.get('query') }}"
                        required>
+                {# Le champ openLibraryKey a été supprimé d'ici car il n'a rien à faire dans la recherche globale #}
                 <button type="submit" class="btn rounded-pill px-4" style="background-color: var(--primary-color); color: white;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 1-1.414 1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                     </svg>
                 </button>
             </form>
@@ -42,7 +43,6 @@
                              alt="{{ book.title }}"
                              onerror="this.src='/images/6940604.jpg';">
 
-                        {# Badge discret pour le format #}
                         {% if book.first_publish_year is defined %}
                             <span class="position-absolute bottom-0 end-0 m-2 badge bg-dark opacity-75">
                                 {{ book.first_publish_year }}
@@ -62,11 +62,20 @@
                             {% endif %}
                         </p>
 
+                        {# Formulaire d'ajout rapide enrichi #}
                         <form action="{{ path('add_book') }}" method="post" class="mt-auto pb-1">
                             <input type="hidden" name="title" value="{{ book.title }}">
                             <input type="hidden" name="authors" value="{{ book.author_name|default([])|join(', ') }}">
-{#                            <input type="hidden" name="authors[]" value="{{ book.author_name|join(', ') }}">#}
+                            <input type="hidden" name="openLibraryKey" value="{{ book.key }}">
                             <input type="hidden" name="imageCover" value="{{ cover_url }}">
+                            <input type="hidden" name="isbn" value="{{ (book.isbn is defined) ? book.isbn[0] : '' }}">
+
+                            {# Les sujets sont passés ici pour aider le contrôleur #}
+                            {% if book.subject is defined and book.subject is iterable %}
+                                {% for sub in book.subject|slice(0, 5) %}
+                                    <input type="hidden" name="subjects[]" value="{{ sub }}">
+                                {% endfor %}
+                            {% endif %}
 
                             <button type="submit" class="btn btn-sm w-100 rounded-pill fw-bold border-2 btn-outline-primary">
                                 + Ajouter

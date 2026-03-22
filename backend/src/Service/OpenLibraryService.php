@@ -41,4 +41,12 @@ class OpenLibraryService
 
         return $response->toArray();
     }
+
+    public function getWorkDetails(string $workKey): array{
+        $response = $this->client->request('GET', 'https://openlibrary.org'. $workKey.'.json' );
+        if ($response->getStatusCode() !== 200) {
+            throw new \Exception('Failed to fetch data from Open Library');
+        }
+        return $response->toArray();
+    }
 }
