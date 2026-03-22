@@ -64,7 +64,7 @@ class __TwigTemplate_953fde743696cbe11726d4be004bac1e extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
-        yield "Rechercher un livre - Kitab";
+        yield "Rechercher un livre";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -301,7 +301,7 @@ $context["book"], "cover_i", [], "any", false, false, false, 37)) . "-L.jpg")) :
     {
         return new Source("{% extends 'base.html.twig' %}
 
-{% block title %}Rechercher un livre - Kitab{% endblock %}
+{% block title %}Rechercher un livre{% endblock %}
 
 {% block body %}
     <div class=\"row justify-content-center mb-4 mt-2\">

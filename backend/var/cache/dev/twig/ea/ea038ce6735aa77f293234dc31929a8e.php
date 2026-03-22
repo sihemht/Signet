@@ -66,7 +66,7 @@ class __TwigTemplate_e254270a6c483b4bd7d8813662f6b951 extends Template
 
         yield "Modifier ";
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 3, $this->source); })()), "title", [], "any", false, false, false, 3), "html", null, true);
-        yield " - Kitab";
+        yield " ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -190,7 +190,7 @@ class __TwigTemplate_e254270a6c483b4bd7d8813662f6b951 extends Template
     {
         return new Source("{% extends 'base.html.twig' %}
 
-{% block title %}Modifier {{ book.title }} - Kitab{% endblock %}
+{% block title %}Modifier {{ book.title }} {% endblock %}
 
 {% block body %}
     <div class=\"container py-4\">

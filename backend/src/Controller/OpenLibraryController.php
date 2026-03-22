@@ -92,7 +92,7 @@ class OpenLibraryController extends AbstractController
         $authorsArray = is_array($authorsRaw) ? $authorsRaw : array_map('trim', explode(',', (string)$authorsRaw));
         $book->setAuthors($authorsArray);
 
-        // Valeurs par défaut Kitab
+        // Valeurs par défaut
         $book->setReadingStatus('to_read');
         $book->setRating(0);
 

@@ -64,7 +64,7 @@ class __TwigTemplate_1e008411a636d22293dd35cb6823aff3 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
-        yield "Ma Collection - Kitab";
+        yield "Ma Collection ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -267,7 +267,7 @@ $context["book"], "readingStatus", [], "any", false, false, false, 31) == "finis
     {
         return new Source("{% extends 'base.html.twig' %}
 
-{% block title %}Ma Collection - Kitab{% endblock %}
+{% block title %}Ma Collection {% endblock %}
 
 {% block body %}
     <div class=\"container py-4\">

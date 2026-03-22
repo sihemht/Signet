@@ -64,7 +64,7 @@ class __TwigTemplate_2716b6d59666cbbc6911d5ed370c8612 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
-        yield "Ajouter un livre - Kitab";
+        yield "Ajouter un livre - Signet";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -168,7 +168,7 @@ class __TwigTemplate_2716b6d59666cbbc6911d5ed370c8612 extends Template
     {
         return new Source("{% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un livre - Kitab{% endblock %}
+{% block title %}Ajouter un livre - Signet{% endblock %}
 
 {% block body %}
     <div class=\"container py-4\">
