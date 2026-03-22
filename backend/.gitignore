@@ -1,10 +1,28 @@
+###> Symfony Standard ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/*.php
+/config/secrets/*.key
+/public/bundles/
+/var/
+/vendor/
+###< Symfony Standard ###
 
-###> phpunit/phpunit ###
+###> PHPUnit ###
 /phpunit.xml
 .phpunit.result.cache
-###< phpunit/phpunit ###
+###< PHPUnit ###
 
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
-###< symfony/phpunit-bridge ###
+###> IDE & OS ###
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+###< IDE & OS ###
+
+###> Divers ###
+/public/build/
+/node_modules/
+npm-debug.log
+yarn-error.log

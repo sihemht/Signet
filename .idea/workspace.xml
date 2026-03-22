@@ -5,26 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="157bea1c-f3f1-414a-b5f1-e2b35549ccb1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/NijiEvent.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/Controller/OpenLibraryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/Controller/OpenLibraryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/Entity/Books.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/Entity/Books.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/Service/OpenLibraryService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/Service/OpenLibraryService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/templates/books/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/backend/templates/books/show.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/templates/open_library/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/backend/templates/open_library/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.php.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.php.meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.php.meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.preload.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.preload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.xml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.xml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.xml.meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.xml.meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainerDeprecations.log" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainerDeprecations.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/ContainerXbsxS44.legacy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/twig/c6/c6a33cc4e08030d95ed4e2881d34b4f8.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/twig/c6/c6a33cc4e08030d95ed4e2881d34b4f8.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/twig/f1/f135db9787fa37f4010dd393aeaf94ef.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/twig/f1/f135db9787fa37f4010dd393aeaf94ef.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/log/dev.log" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/log/dev.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +26,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -282,11 +265,22 @@
       <workItem from="1739012276274" duration="397000" />
       <workItem from="1739012687438" duration="151000" />
       <workItem from="1739012852367" duration="9957000" />
-      <workItem from="1770844337464" duration="46698000" />
+      <workItem from="1770844337464" duration="47278000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
