@@ -6,7 +6,27 @@
   <component name="ChangeListManager">
     <list default="true" id="157bea1c-f3f1-414a-b5f1-e2b35549ccb1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/Controller/OpenLibraryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/Controller/OpenLibraryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/backend/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/templates/books/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/backend/templates/books/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/templates/books/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/backend/templates/books/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/templates/books/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/backend/templates/books/new.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/templates/books/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/backend/templates/books/show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/templates/open_library/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/backend/templates/open_library/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/twig/46/4634af1f96423b278352579f2f4c0a42.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/twig/46/4634af1f96423b278352579f2f4c0a42.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/twig/75/75ced0651a8a4fb67e33559a9fadcc2f.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/twig/75/75ced0651a8a4fb67e33559a9fadcc2f.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/twig/ae/ae01c204748f9369fb2fb276fc2ed87f.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/twig/ae/ae01c204748f9369fb2fb276fc2ed87f.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/twig/c6/c6a33cc4e08030d95ed4e2881d34b4f8.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/twig/c6/c6a33cc4e08030d95ed4e2881d34b4f8.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/twig/ea/ea038ce6735aa77f293234dc31929a8e.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/twig/ea/ea038ce6735aa77f293234dc31929a8e.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/twig/f1/f135db9787fa37f4010dd393aeaf94ef.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/twig/f1/f135db9787fa37f4010dd393aeaf94ef.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/var/log/dev.log" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/log/dev.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entrypoint.sh" beforeDir="false" afterPath="$PROJECT_DIR$/docker/php/entrypoint.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx.Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/docker/nginx/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx/default.conf" beforeDir="false" afterPath="$PROJECT_DIR$/docker/nginx/default.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php.Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/docker/php/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/docker/reeact/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +224,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "feat-enrichissement-api",
+    "git-widget-placeholder": "fix/global-polish",
     "last_opened_file_path": "/Users/sihem/kitab/api/public/images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.stylelint": "true",
@@ -227,6 +247,9 @@
       <recent name="$PROJECT_DIR$/public/images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docker/php" />
+      <recent name="$PROJECT_DIR$/docker/nginx" />
+      <recent name="$PROJECT_DIR$/docker/reeact" />
       <recent name="$PROJECT_DIR$/backend/public" />
       <recent name="$PROJECT_DIR$/backend/templates" />
     </key>

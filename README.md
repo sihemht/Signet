@@ -1,6 +1,6 @@
 # 📚 Signet - Bibliothèque Numérique Personnelle
 
-Lulit est une application web développée avec **Symfony**, conçue pour les passionnés de lecture. Elle permet de gérer sa collection de livres physique ou numérique de manière intuitive en s'appuyant sur les données riches de l'API Open Library.
+Signet est une application web développée avec **Symfony**, conçue pour les passionnés de lecture. Elle permet de gérer sa collection de livres physique ou numérique de manière intuitive en s'appuyant sur les données riches de l'API Open Library.
 
 ## ✨ Fonctionnalités
 
