@@ -13,10 +13,7 @@ return [[
         'app' => [
             'js' => [
                 '/build/runtime.05dacd30.js',
-                '/build/app.53d71f57.js',
-            ],
-            'css' => [
-                '/build/app.b75294ae.css',
+                '/build/app.ca6e7dc3.js',
             ],
         ],
     ],

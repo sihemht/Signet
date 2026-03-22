@@ -24,7 +24,7 @@ final class MenuItem
     /**
      * @param string|null $icon The full CSS classes of the FontAwesome icon to render (see https://fontawesome.com/v6/search?m=free)
      */
-    public static function linkToCrud(TranslatableInterface|string $label, ?string $icon, string $entityFqcn): CrudMenuItem
+    public static function linkToCrud(TranslatableInterface|string|null $label, ?string $icon, string $entityFqcn): CrudMenuItem
     {
         return new CrudMenuItem($label, $icon, $entityFqcn);
     }
@@ -54,7 +54,8 @@ final class MenuItem
     }
 
     /**
-     * @param string|null $icon The full CSS classes of the FontAwesome icon to render (see https://fontawesome.com/v6/search?m=free)
+     * @param string|null          $icon            The full CSS classes of the FontAwesome icon to render (see https://fontawesome.com/v6/search?m=free)
+     * @param array<string, mixed> $routeParameters
      */
     public static function linkToRoute(TranslatableInterface|string $label, ?string $icon, string $routeName, array $routeParameters = []): RouteMenuItem
     {

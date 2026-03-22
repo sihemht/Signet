@@ -38,15 +38,18 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
     private $accessTokenVerification;
     private $blocklistToken;
     private $_usedProperties = [];
+    private $_hasDeprecatedCalls = false;
 
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
-     * @deprecated The "lexik_jwt_authentication.private_key_path" configuration key is deprecated since version 2.5. Use "lexik_jwt_authentication.secret_key" instead.
+     * @deprecated Since lexik/jwt-authentication-bundle 2.5: The "lexik_jwt_authentication.private_key_path" configuration key is deprecated since version 2.5. Use "lexik_jwt_authentication.secret_key" instead.
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function privateKeyPath($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['privateKeyPath'] = true;
         $this->privateKeyPath = $value;
 
@@ -56,11 +59,13 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
-     * @deprecated The "lexik_jwt_authentication.public_key_path" configuration key is deprecated since version 2.5. Use "lexik_jwt_authentication.public_key" instead.
+     * @deprecated Since lexik/jwt-authentication-bundle 2.5: The "lexik_jwt_authentication.public_key_path" configuration key is deprecated since version 2.5. Use "lexik_jwt_authentication.public_key" instead.
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function publicKeyPath($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['publicKeyPath'] = true;
         $this->publicKeyPath = $value;
 
@@ -72,9 +77,11 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
      * @default null
      * @param ParamConfigurator|mixed $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function publicKey($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['publicKey'] = true;
         $this->publicKey = $value;
 
@@ -85,9 +92,11 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
      * @param ParamConfigurator|list<ParamConfigurator|mixed> $value
      *
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function additionalPublicKeys(ParamConfigurator|array $value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['additionalPublicKeys'] = true;
         $this->additionalPublicKeys = $value;
 
@@ -99,9 +108,11 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
      * @default null
      * @param ParamConfigurator|mixed $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function secretKey($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['secretKey'] = true;
         $this->secretKey = $value;
 
@@ -112,9 +123,11 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
      * The key passphrase (useless for HMAC)
      * @param ParamConfigurator|mixed $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function passPhrase($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['passPhrase'] = true;
         $this->passPhrase = $value;
 
@@ -125,9 +138,11 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
      * @default 3600
      * @param ParamConfigurator|mixed $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function tokenTtl($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['tokenTtl'] = true;
         $this->tokenTtl = $value;
 
@@ -139,9 +154,11 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
      * @default false
      * @param ParamConfigurator|bool $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function allowNoExpiration($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['allowNoExpiration'] = true;
         $this->allowNoExpiration = $value;
 
@@ -152,9 +169,11 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
      * @default 0
      * @param ParamConfigurator|mixed $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function clockSkew($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['clockSkew'] = true;
         $this->clockSkew = $value;
 
@@ -163,9 +182,11 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
 
     /**
      * @default {"service":"lexik_jwt_authentication.encoder.lcobucci","signature_algorithm":"RS256","crypto_engine":"openssl"}
-    */
+     * @deprecated since Symfony 7.4
+     */
     public function encoder(array $value = []): \Symfony\Config\LexikJwtAuthentication\EncoderConfig
     {
+        $this->_hasDeprecatedCalls = true;
         if (null === $this->encoder) {
             $this->_usedProperties['encoder'] = true;
             $this->encoder = new \Symfony\Config\LexikJwtAuthentication\EncoderConfig($value);
@@ -179,11 +200,13 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
     /**
      * @default 'username'
      * @param ParamConfigurator|mixed $value
-     * @deprecated The "lexik_jwt_authentication.user_identity_field" configuration key is deprecated since version 2.16, use "lexik_jwt_authentication.user_id_claim" or implement "Symfony\Component\Security\Core\User\UserInterface::getUserIdentifier()" instead.
+     * @deprecated Since lexik/jwt-authentication-bundle 2.16: The "lexik_jwt_authentication.user_identity_field" configuration key is deprecated since version 2.16, use "lexik_jwt_authentication.user_id_claim" or implement "Symfony\Component\Security\Core\User\UserInterface::getUserIdentifier()" instead.
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function userIdentityField($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['userIdentityField'] = true;
         $this->userIdentityField = $value;
 
@@ -195,9 +218,11 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
      * @default null
      * @param ParamConfigurator|mixed $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function userIdClaim($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['userIdClaim'] = true;
         $this->userIdClaim = $value;
 
@@ -206,9 +231,11 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
 
     /**
      * @default {"authorization_header":{"enabled":true,"prefix":"Bearer","name":"Authorization"},"cookie":{"enabled":false,"name":"BEARER"},"query_parameter":{"enabled":false,"name":"bearer"},"split_cookie":{"enabled":false,"cookies":[]}}
-    */
+     * @deprecated since Symfony 7.4
+     */
     public function tokenExtractors(array $value = []): \Symfony\Config\LexikJwtAuthentication\TokenExtractorsConfig
     {
+        $this->_hasDeprecatedCalls = true;
         if (null === $this->tokenExtractors) {
             $this->_usedProperties['tokenExtractors'] = true;
             $this->tokenExtractors = new \Symfony\Config\LexikJwtAuthentication\TokenExtractorsConfig($value);
@@ -223,17 +250,23 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
      * @default true
      * @param ParamConfigurator|mixed $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function removeTokenFromBodyWhenCookiesUsed($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['removeTokenFromBodyWhenCookiesUsed'] = true;
         $this->removeTokenFromBodyWhenCookiesUsed = $value;
 
         return $this;
     }
 
+    /**
+     * @deprecated since Symfony 7.4
+     */
     public function setCookies(string $name, array $value = []): \Symfony\Config\LexikJwtAuthentication\SetCookiesConfig
     {
+        $this->_hasDeprecatedCalls = true;
         if (!isset($this->setCookies[$name])) {
             $this->_usedProperties['setCookies'] = true;
             $this->setCookies[$name] = new \Symfony\Config\LexikJwtAuthentication\SetCookiesConfig($value);
@@ -245,15 +278,17 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
     }
 
     /**
-     * @template TValue
+     * @template TValue of array|bool
      * @param TValue $value
      * API Platform compatibility: add check_path in OpenAPI documentation.
      * @default {"enabled":false,"check_path":null,"username_path":null,"password_path":null}
      * @return \Symfony\Config\LexikJwtAuthentication\ApiPlatformConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\LexikJwtAuthentication\ApiPlatformConfig : static)
+     * @deprecated since Symfony 7.4
      */
-    public function apiPlatform(array $value = []): \Symfony\Config\LexikJwtAuthentication\ApiPlatformConfig|static
+    public function apiPlatform(array|bool $value = []): \Symfony\Config\LexikJwtAuthentication\ApiPlatformConfig|static
     {
+        $this->_hasDeprecatedCalls = true;
         if (!\is_array($value)) {
             $this->_usedProperties['apiPlatform'] = true;
             $this->apiPlatform = $value;
@@ -272,14 +307,16 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
     }
 
     /**
-     * @template TValue
+     * @template TValue of array|bool
      * @param TValue $value
      * @default {"enabled":false,"signature":[],"encryption":{"enabled":false}}
      * @return \Symfony\Config\LexikJwtAuthentication\AccessTokenIssuanceConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\LexikJwtAuthentication\AccessTokenIssuanceConfig : static)
+     * @deprecated since Symfony 7.4
      */
-    public function accessTokenIssuance(array $value = []): \Symfony\Config\LexikJwtAuthentication\AccessTokenIssuanceConfig|static
+    public function accessTokenIssuance(array|bool $value = []): \Symfony\Config\LexikJwtAuthentication\AccessTokenIssuanceConfig|static
     {
+        $this->_hasDeprecatedCalls = true;
         if (!\is_array($value)) {
             $this->_usedProperties['accessTokenIssuance'] = true;
             $this->accessTokenIssuance = $value;
@@ -298,14 +335,16 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
     }
 
     /**
-     * @template TValue
+     * @template TValue of array|bool
      * @param TValue $value
      * @default {"enabled":false,"signature":{"header_checkers":[],"claim_checkers":["exp_with_clock_skew","iat_with_clock_skew","nbf_with_clock_skew"],"mandatory_claims":[],"allowed_algorithms":[]},"encryption":{"enabled":false,"continue_on_decryption_failure":false,"header_checkers":["iat_with_clock_skew","nbf_with_clock_skew","exp_with_clock_skew"],"allowed_key_encryption_algorithms":[],"allowed_content_encryption_algorithms":[]}}
      * @return \Symfony\Config\LexikJwtAuthentication\AccessTokenVerificationConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\LexikJwtAuthentication\AccessTokenVerificationConfig : static)
+     * @deprecated since Symfony 7.4
      */
-    public function accessTokenVerification(array $value = []): \Symfony\Config\LexikJwtAuthentication\AccessTokenVerificationConfig|static
+    public function accessTokenVerification(array|bool $value = []): \Symfony\Config\LexikJwtAuthentication\AccessTokenVerificationConfig|static
     {
+        $this->_hasDeprecatedCalls = true;
         if (!\is_array($value)) {
             $this->_usedProperties['accessTokenVerification'] = true;
             $this->accessTokenVerification = $value;
@@ -324,14 +363,16 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
     }
 
     /**
-     * @template TValue
+     * @template TValue of array|bool
      * @param TValue $value
      * @default {"enabled":false,"cache":"cache.app"}
      * @return \Symfony\Config\LexikJwtAuthentication\BlocklistTokenConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\LexikJwtAuthentication\BlocklistTokenConfig : static)
+     * @deprecated since Symfony 7.4
      */
-    public function blocklistToken(array $value = []): \Symfony\Config\LexikJwtAuthentication\BlocklistTokenConfig|static
+    public function blocklistToken(array|bool $value = []): \Symfony\Config\LexikJwtAuthentication\BlocklistTokenConfig|static
     {
+        $this->_hasDeprecatedCalls = true;
         if (!\is_array($value)) {
             $this->_usedProperties['blocklistToken'] = true;
             $this->blocklistToken = $value;
@@ -354,124 +395,124 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
         return 'lexik_jwt_authentication';
     }
 
-    public function __construct(array $value = [])
+    public function __construct(array $config = [])
     {
-        if (array_key_exists('private_key_path', $value)) {
+        if (array_key_exists('private_key_path', $config)) {
             $this->_usedProperties['privateKeyPath'] = true;
-            $this->privateKeyPath = $value['private_key_path'];
-            unset($value['private_key_path']);
+            $this->privateKeyPath = $config['private_key_path'];
+            unset($config['private_key_path']);
         }
 
-        if (array_key_exists('public_key_path', $value)) {
+        if (array_key_exists('public_key_path', $config)) {
             $this->_usedProperties['publicKeyPath'] = true;
-            $this->publicKeyPath = $value['public_key_path'];
-            unset($value['public_key_path']);
+            $this->publicKeyPath = $config['public_key_path'];
+            unset($config['public_key_path']);
         }
 
-        if (array_key_exists('public_key', $value)) {
+        if (array_key_exists('public_key', $config)) {
             $this->_usedProperties['publicKey'] = true;
-            $this->publicKey = $value['public_key'];
-            unset($value['public_key']);
+            $this->publicKey = $config['public_key'];
+            unset($config['public_key']);
         }
 
-        if (array_key_exists('additional_public_keys', $value)) {
+        if (array_key_exists('additional_public_keys', $config)) {
             $this->_usedProperties['additionalPublicKeys'] = true;
-            $this->additionalPublicKeys = $value['additional_public_keys'];
-            unset($value['additional_public_keys']);
+            $this->additionalPublicKeys = $config['additional_public_keys'];
+            unset($config['additional_public_keys']);
         }
 
-        if (array_key_exists('secret_key', $value)) {
+        if (array_key_exists('secret_key', $config)) {
             $this->_usedProperties['secretKey'] = true;
-            $this->secretKey = $value['secret_key'];
-            unset($value['secret_key']);
+            $this->secretKey = $config['secret_key'];
+            unset($config['secret_key']);
         }
 
-        if (array_key_exists('pass_phrase', $value)) {
+        if (array_key_exists('pass_phrase', $config)) {
             $this->_usedProperties['passPhrase'] = true;
-            $this->passPhrase = $value['pass_phrase'];
-            unset($value['pass_phrase']);
+            $this->passPhrase = $config['pass_phrase'];
+            unset($config['pass_phrase']);
         }
 
-        if (array_key_exists('token_ttl', $value)) {
+        if (array_key_exists('token_ttl', $config)) {
             $this->_usedProperties['tokenTtl'] = true;
-            $this->tokenTtl = $value['token_ttl'];
-            unset($value['token_ttl']);
+            $this->tokenTtl = $config['token_ttl'];
+            unset($config['token_ttl']);
         }
 
-        if (array_key_exists('allow_no_expiration', $value)) {
+        if (array_key_exists('allow_no_expiration', $config)) {
             $this->_usedProperties['allowNoExpiration'] = true;
-            $this->allowNoExpiration = $value['allow_no_expiration'];
-            unset($value['allow_no_expiration']);
+            $this->allowNoExpiration = $config['allow_no_expiration'];
+            unset($config['allow_no_expiration']);
         }
 
-        if (array_key_exists('clock_skew', $value)) {
+        if (array_key_exists('clock_skew', $config)) {
             $this->_usedProperties['clockSkew'] = true;
-            $this->clockSkew = $value['clock_skew'];
-            unset($value['clock_skew']);
+            $this->clockSkew = $config['clock_skew'];
+            unset($config['clock_skew']);
         }
 
-        if (array_key_exists('encoder', $value)) {
+        if (array_key_exists('encoder', $config)) {
             $this->_usedProperties['encoder'] = true;
-            $this->encoder = new \Symfony\Config\LexikJwtAuthentication\EncoderConfig($value['encoder']);
-            unset($value['encoder']);
+            $this->encoder = new \Symfony\Config\LexikJwtAuthentication\EncoderConfig($config['encoder']);
+            unset($config['encoder']);
         }
 
-        if (array_key_exists('user_identity_field', $value)) {
+        if (array_key_exists('user_identity_field', $config)) {
             $this->_usedProperties['userIdentityField'] = true;
-            $this->userIdentityField = $value['user_identity_field'];
-            unset($value['user_identity_field']);
+            $this->userIdentityField = $config['user_identity_field'];
+            unset($config['user_identity_field']);
         }
 
-        if (array_key_exists('user_id_claim', $value)) {
+        if (array_key_exists('user_id_claim', $config)) {
             $this->_usedProperties['userIdClaim'] = true;
-            $this->userIdClaim = $value['user_id_claim'];
-            unset($value['user_id_claim']);
+            $this->userIdClaim = $config['user_id_claim'];
+            unset($config['user_id_claim']);
         }
 
-        if (array_key_exists('token_extractors', $value)) {
+        if (array_key_exists('token_extractors', $config)) {
             $this->_usedProperties['tokenExtractors'] = true;
-            $this->tokenExtractors = new \Symfony\Config\LexikJwtAuthentication\TokenExtractorsConfig($value['token_extractors']);
-            unset($value['token_extractors']);
+            $this->tokenExtractors = new \Symfony\Config\LexikJwtAuthentication\TokenExtractorsConfig($config['token_extractors']);
+            unset($config['token_extractors']);
         }
 
-        if (array_key_exists('remove_token_from_body_when_cookies_used', $value)) {
+        if (array_key_exists('remove_token_from_body_when_cookies_used', $config)) {
             $this->_usedProperties['removeTokenFromBodyWhenCookiesUsed'] = true;
-            $this->removeTokenFromBodyWhenCookiesUsed = $value['remove_token_from_body_when_cookies_used'];
-            unset($value['remove_token_from_body_when_cookies_used']);
+            $this->removeTokenFromBodyWhenCookiesUsed = $config['remove_token_from_body_when_cookies_used'];
+            unset($config['remove_token_from_body_when_cookies_used']);
         }
 
-        if (array_key_exists('set_cookies', $value)) {
+        if (array_key_exists('set_cookies', $config)) {
             $this->_usedProperties['setCookies'] = true;
-            $this->setCookies = array_map(fn ($v) => new \Symfony\Config\LexikJwtAuthentication\SetCookiesConfig($v), $value['set_cookies']);
-            unset($value['set_cookies']);
+            $this->setCookies = array_map(fn ($v) => new \Symfony\Config\LexikJwtAuthentication\SetCookiesConfig($v), $config['set_cookies']);
+            unset($config['set_cookies']);
         }
 
-        if (array_key_exists('api_platform', $value)) {
+        if (array_key_exists('api_platform', $config)) {
             $this->_usedProperties['apiPlatform'] = true;
-            $this->apiPlatform = \is_array($value['api_platform']) ? new \Symfony\Config\LexikJwtAuthentication\ApiPlatformConfig($value['api_platform']) : $value['api_platform'];
-            unset($value['api_platform']);
+            $this->apiPlatform = \is_array($config['api_platform']) ? new \Symfony\Config\LexikJwtAuthentication\ApiPlatformConfig($config['api_platform']) : $config['api_platform'];
+            unset($config['api_platform']);
         }
 
-        if (array_key_exists('access_token_issuance', $value)) {
+        if (array_key_exists('access_token_issuance', $config)) {
             $this->_usedProperties['accessTokenIssuance'] = true;
-            $this->accessTokenIssuance = \is_array($value['access_token_issuance']) ? new \Symfony\Config\LexikJwtAuthentication\AccessTokenIssuanceConfig($value['access_token_issuance']) : $value['access_token_issuance'];
-            unset($value['access_token_issuance']);
+            $this->accessTokenIssuance = \is_array($config['access_token_issuance']) ? new \Symfony\Config\LexikJwtAuthentication\AccessTokenIssuanceConfig($config['access_token_issuance']) : $config['access_token_issuance'];
+            unset($config['access_token_issuance']);
         }
 
-        if (array_key_exists('access_token_verification', $value)) {
+        if (array_key_exists('access_token_verification', $config)) {
             $this->_usedProperties['accessTokenVerification'] = true;
-            $this->accessTokenVerification = \is_array($value['access_token_verification']) ? new \Symfony\Config\LexikJwtAuthentication\AccessTokenVerificationConfig($value['access_token_verification']) : $value['access_token_verification'];
-            unset($value['access_token_verification']);
+            $this->accessTokenVerification = \is_array($config['access_token_verification']) ? new \Symfony\Config\LexikJwtAuthentication\AccessTokenVerificationConfig($config['access_token_verification']) : $config['access_token_verification'];
+            unset($config['access_token_verification']);
         }
 
-        if (array_key_exists('blocklist_token', $value)) {
+        if (array_key_exists('blocklist_token', $config)) {
             $this->_usedProperties['blocklistToken'] = true;
-            $this->blocklistToken = \is_array($value['blocklist_token']) ? new \Symfony\Config\LexikJwtAuthentication\BlocklistTokenConfig($value['blocklist_token']) : $value['blocklist_token'];
-            unset($value['blocklist_token']);
+            $this->blocklistToken = \is_array($config['blocklist_token']) ? new \Symfony\Config\LexikJwtAuthentication\BlocklistTokenConfig($config['blocklist_token']) : $config['blocklist_token'];
+            unset($config['blocklist_token']);
         }
 
-        if ([] !== $value) {
-            throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
+        if ($config) {
+            throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($config)));
         }
     }
 
@@ -534,6 +575,9 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
         }
         if (isset($this->_usedProperties['blocklistToken'])) {
             $output['blocklist_token'] = $this->blocklistToken instanceof \Symfony\Config\LexikJwtAuthentication\BlocklistTokenConfig ? $this->blocklistToken->toArray() : $this->blocklistToken;
+        }
+        if ($this->_hasDeprecatedCalls) {
+            trigger_deprecation('symfony/config', '7.4', 'Calling any fluent method on "%s" is deprecated; pass the configuration to the constructor instead.', $this::class);
         }
 
         return $output;

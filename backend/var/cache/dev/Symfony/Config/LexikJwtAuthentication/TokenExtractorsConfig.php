@@ -21,11 +21,22 @@ class TokenExtractorsConfig
     private $_usedProperties = [];
 
     /**
+     * @template TValue of array|bool
+     * @param TValue $value
      * @default {"enabled":true,"prefix":"Bearer","name":"Authorization"}
-    */
-    public function authorizationHeader(array $value = []): \Symfony\Config\LexikJwtAuthentication\TokenExtractors\AuthorizationHeaderConfig
+     * @return \Symfony\Config\LexikJwtAuthentication\TokenExtractors\AuthorizationHeaderConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\LexikJwtAuthentication\TokenExtractors\AuthorizationHeaderConfig : static)
+     */
+    public function authorizationHeader(array|bool $value = []): \Symfony\Config\LexikJwtAuthentication\TokenExtractors\AuthorizationHeaderConfig|static
     {
-        if (null === $this->authorizationHeader) {
+        if (!\is_array($value)) {
+            $this->_usedProperties['authorizationHeader'] = true;
+            $this->authorizationHeader = $value;
+
+            return $this;
+        }
+
+        if (!$this->authorizationHeader instanceof \Symfony\Config\LexikJwtAuthentication\TokenExtractors\AuthorizationHeaderConfig) {
             $this->_usedProperties['authorizationHeader'] = true;
             $this->authorizationHeader = new \Symfony\Config\LexikJwtAuthentication\TokenExtractors\AuthorizationHeaderConfig($value);
         } elseif (0 < \func_num_args()) {
@@ -36,13 +47,13 @@ class TokenExtractorsConfig
     }
 
     /**
-     * @template TValue
+     * @template TValue of array|bool
      * @param TValue $value
      * @default {"enabled":false,"name":"BEARER"}
      * @return \Symfony\Config\LexikJwtAuthentication\TokenExtractors\CookieConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\LexikJwtAuthentication\TokenExtractors\CookieConfig : static)
      */
-    public function cookie(array $value = []): \Symfony\Config\LexikJwtAuthentication\TokenExtractors\CookieConfig|static
+    public function cookie(array|bool $value = []): \Symfony\Config\LexikJwtAuthentication\TokenExtractors\CookieConfig|static
     {
         if (!\is_array($value)) {
             $this->_usedProperties['cookie'] = true;
@@ -62,13 +73,13 @@ class TokenExtractorsConfig
     }
 
     /**
-     * @template TValue
+     * @template TValue of array|bool
      * @param TValue $value
      * @default {"enabled":false,"name":"bearer"}
      * @return \Symfony\Config\LexikJwtAuthentication\TokenExtractors\QueryParameterConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\LexikJwtAuthentication\TokenExtractors\QueryParameterConfig : static)
      */
-    public function queryParameter(array $value = []): \Symfony\Config\LexikJwtAuthentication\TokenExtractors\QueryParameterConfig|static
+    public function queryParameter(array|bool $value = []): \Symfony\Config\LexikJwtAuthentication\TokenExtractors\QueryParameterConfig|static
     {
         if (!\is_array($value)) {
             $this->_usedProperties['queryParameter'] = true;
@@ -88,13 +99,13 @@ class TokenExtractorsConfig
     }
 
     /**
-     * @template TValue
+     * @template TValue of array|bool
      * @param TValue $value
      * @default {"enabled":false,"cookies":[]}
      * @return \Symfony\Config\LexikJwtAuthentication\TokenExtractors\SplitCookieConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\LexikJwtAuthentication\TokenExtractors\SplitCookieConfig : static)
      */
-    public function splitCookie(array $value = []): \Symfony\Config\LexikJwtAuthentication\TokenExtractors\SplitCookieConfig|static
+    public function splitCookie(array|bool $value = []): \Symfony\Config\LexikJwtAuthentication\TokenExtractors\SplitCookieConfig|static
     {
         if (!\is_array($value)) {
             $this->_usedProperties['splitCookie'] = true;
@@ -113,34 +124,34 @@ class TokenExtractorsConfig
         return $this->splitCookie;
     }
 
-    public function __construct(array $value = [])
+    public function __construct(array $config = [])
     {
-        if (array_key_exists('authorization_header', $value)) {
+        if (array_key_exists('authorization_header', $config)) {
             $this->_usedProperties['authorizationHeader'] = true;
-            $this->authorizationHeader = new \Symfony\Config\LexikJwtAuthentication\TokenExtractors\AuthorizationHeaderConfig($value['authorization_header']);
-            unset($value['authorization_header']);
+            $this->authorizationHeader = \is_array($config['authorization_header']) ? new \Symfony\Config\LexikJwtAuthentication\TokenExtractors\AuthorizationHeaderConfig($config['authorization_header']) : $config['authorization_header'];
+            unset($config['authorization_header']);
         }
 
-        if (array_key_exists('cookie', $value)) {
+        if (array_key_exists('cookie', $config)) {
             $this->_usedProperties['cookie'] = true;
-            $this->cookie = \is_array($value['cookie']) ? new \Symfony\Config\LexikJwtAuthentication\TokenExtractors\CookieConfig($value['cookie']) : $value['cookie'];
-            unset($value['cookie']);
+            $this->cookie = \is_array($config['cookie']) ? new \Symfony\Config\LexikJwtAuthentication\TokenExtractors\CookieConfig($config['cookie']) : $config['cookie'];
+            unset($config['cookie']);
         }
 
-        if (array_key_exists('query_parameter', $value)) {
+        if (array_key_exists('query_parameter', $config)) {
             $this->_usedProperties['queryParameter'] = true;
-            $this->queryParameter = \is_array($value['query_parameter']) ? new \Symfony\Config\LexikJwtAuthentication\TokenExtractors\QueryParameterConfig($value['query_parameter']) : $value['query_parameter'];
-            unset($value['query_parameter']);
+            $this->queryParameter = \is_array($config['query_parameter']) ? new \Symfony\Config\LexikJwtAuthentication\TokenExtractors\QueryParameterConfig($config['query_parameter']) : $config['query_parameter'];
+            unset($config['query_parameter']);
         }
 
-        if (array_key_exists('split_cookie', $value)) {
+        if (array_key_exists('split_cookie', $config)) {
             $this->_usedProperties['splitCookie'] = true;
-            $this->splitCookie = \is_array($value['split_cookie']) ? new \Symfony\Config\LexikJwtAuthentication\TokenExtractors\SplitCookieConfig($value['split_cookie']) : $value['split_cookie'];
-            unset($value['split_cookie']);
+            $this->splitCookie = \is_array($config['split_cookie']) ? new \Symfony\Config\LexikJwtAuthentication\TokenExtractors\SplitCookieConfig($config['split_cookie']) : $config['split_cookie'];
+            unset($config['split_cookie']);
         }
 
-        if ([] !== $value) {
-            throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
+        if ($config) {
+            throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($config)));
         }
     }
 
@@ -148,7 +159,7 @@ class TokenExtractorsConfig
     {
         $output = [];
         if (isset($this->_usedProperties['authorizationHeader'])) {
-            $output['authorization_header'] = $this->authorizationHeader->toArray();
+            $output['authorization_header'] = $this->authorizationHeader instanceof \Symfony\Config\LexikJwtAuthentication\TokenExtractors\AuthorizationHeaderConfig ? $this->authorizationHeader->toArray() : $this->authorizationHeader;
         }
         if (isset($this->_usedProperties['cookie'])) {
             $output['cookie'] = $this->cookie instanceof \Symfony\Config\LexikJwtAuthentication\TokenExtractors\CookieConfig ? $this->cookie->toArray() : $this->cookie;

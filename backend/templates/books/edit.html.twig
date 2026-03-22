@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier {{ book.title }} - Kitab{% endblock %}
+
+{% block body %}
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div class="d-flex align-items-center">
+                        <a href="{{ path('app_books_show', {'id': book.id}) }}" class="btn btn-light rounded-circle shadow-sm me-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                            </svg>
+                        </a>
+                        <h1 class="h3 fw-bold mb-0" style="color: var(--primary-color);">Modifier</h1>
+                    </div>
+
+                    {# Lien vers la vue détails pour annuler #}
+                    <a href="{{ path('app_books_show', {'id': book.id}) }}" class="text-muted small text-decoration-none">Annuler</a>
+                </div>
+
+                {# Card principale #}
+                <div class="card border-0 shadow-sm p-4 mb-4" style="border-radius: 25px;">
+                    <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
+                        <div class="flex-shrink-0">
+                            <img src="{{ book.imageCover ?: '/images/6940546.jpg' }}" class="rounded shadow-sm" style="width: 50px; height: 75px; object-fit: cover;" alt="Aperçu">
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="fw-bold mb-0">{{ book.title }}</h6>
+                            <span class="badge rounded-pill bg-light text-dark border fw-normal" style="font-size: 0.7rem;">ID #{{ book.id }}</span>
+                        </div>
+                    </div>
+
+                    {# Inclusion du formulaire avec label personnalisé #}
+                    {{ include('books/_form.html.twig', {'button_label': 'Enregistrer les modifications'}) }}
+                </div>
+
+                {# Suppression #}
+                <div class="card border-0 bg-danger-subtle p-3" style="border-radius: 20px;">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <small class="text-danger opacity-75">Supprimer définitivement ce livre</small>
+                        </div>
+                        {{ include('books/_delete_form.html.twig') }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div style="height: 60px;"></div>
+    </div>
+{% endblock %}

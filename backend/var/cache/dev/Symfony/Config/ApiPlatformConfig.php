@@ -6,6 +6,7 @@ require_once __DIR__.\DIRECTORY_SEPARATOR.'ApiPlatform'.\DIRECTORY_SEPARATOR.'Va
 require_once __DIR__.\DIRECTORY_SEPARATOR.'ApiPlatform'.\DIRECTORY_SEPARATOR.'EagerLoadingConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'ApiPlatform'.\DIRECTORY_SEPARATOR.'CollectionConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'ApiPlatform'.\DIRECTORY_SEPARATOR.'MappingConfig.php';
+require_once __DIR__.\DIRECTORY_SEPARATOR.'ApiPlatform'.\DIRECTORY_SEPARATOR.'SerializerConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'ApiPlatform'.\DIRECTORY_SEPARATOR.'DoctrineConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'ApiPlatform'.\DIRECTORY_SEPARATOR.'DoctrineMongodbOdmConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'ApiPlatform'.\DIRECTORY_SEPARATOR.'OauthConfig.php';
@@ -36,10 +37,12 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     private $version;
     private $showWebby;
     private $eventListenersBackwardCompatibilityLayer;
+    private $useDeprecatedJsonSchemaTypeFactory;
     private $useSymfonyListeners;
     private $nameConverter;
     private $assetPackage;
     private $pathSegmentNameGenerator;
+    private $inflector;
     private $validator;
     private $eagerLoading;
     private $handleSymfonyErrors;
@@ -54,6 +57,7 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     private $collection;
     private $mapping;
     private $resourceClassDirectories;
+    private $serializer;
     private $doctrine;
     private $doctrineMongodbOdm;
     private $oauth;
@@ -73,14 +77,17 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     private $jsonschemaFormats;
     private $defaults;
     private $_usedProperties = [];
+    private $_hasDeprecatedCalls = false;
 
     /**
      * The title of the API.
      * @param ParamConfigurator|mixed $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function title($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['title'] = true;
         $this->title = $value;
 
@@ -91,9 +98,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * The description of the API.
      * @param ParamConfigurator|mixed $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function description($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['description'] = true;
         $this->description = $value;
 
@@ -105,9 +114,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default '0.0.0'
      * @param ParamConfigurator|mixed $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function version($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['version'] = true;
         $this->version = $value;
 
@@ -119,9 +130,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function showWebby($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['showWebby'] = true;
         $this->showWebby = $value;
 
@@ -133,11 +146,29 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default null
      * @param ParamConfigurator|bool $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function eventListenersBackwardCompatibilityLayer($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['eventListenersBackwardCompatibilityLayer'] = true;
         $this->eventListenersBackwardCompatibilityLayer = $value;
+
+        return $this;
+    }
+
+    /**
+     * Use the deprecated type factory, this option will be removed in 4.0.
+     * @default null
+     * @param ParamConfigurator|bool $value
+     * @return $this
+     * @deprecated since Symfony 7.4
+     */
+    public function useDeprecatedJsonSchemaTypeFactory($value): static
+    {
+        $this->_hasDeprecatedCalls = true;
+        $this->_usedProperties['useDeprecatedJsonSchemaTypeFactory'] = true;
+        $this->useDeprecatedJsonSchemaTypeFactory = $value;
 
         return $this;
     }
@@ -147,9 +178,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default null
      * @param ParamConfigurator|bool $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function useSymfonyListeners($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['useSymfonyListeners'] = true;
         $this->useSymfonyListeners = $value;
 
@@ -161,9 +194,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default null
      * @param ParamConfigurator|mixed $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function nameConverter($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['nameConverter'] = true;
         $this->nameConverter = $value;
 
@@ -175,9 +210,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default null
      * @param ParamConfigurator|mixed $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function assetPackage($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['assetPackage'] = true;
         $this->assetPackage = $value;
 
@@ -189,9 +226,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default 'api_platform.metadata.path_segment_name_generator.underscore'
      * @param ParamConfigurator|mixed $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function pathSegmentNameGenerator($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['pathSegmentNameGenerator'] = true;
         $this->pathSegmentNameGenerator = $value;
 
@@ -199,10 +238,28 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     }
 
     /**
-     * @default {"serialize_payload_fields":[],"query_parameter_validation":true,"legacy_validation_exception":true}
-    */
+     * Specify an inflector to use.
+     * @default 'api_platform.metadata.inflector'
+     * @param ParamConfigurator|mixed $value
+     * @return $this
+     * @deprecated since Symfony 7.4
+     */
+    public function inflector($value): static
+    {
+        $this->_hasDeprecatedCalls = true;
+        $this->_usedProperties['inflector'] = true;
+        $this->inflector = $value;
+
+        return $this;
+    }
+
+    /**
+     * @default {"serialize_payload_fields":[],"query_parameter_validation":true,"legacy_validation_exception":true,"legacy_query_parameter_validation":true}
+     * @deprecated since Symfony 7.4
+     */
     public function validator(array $value = []): \Symfony\Config\ApiPlatform\ValidatorConfig
     {
+        $this->_hasDeprecatedCalls = true;
         if (null === $this->validator) {
             $this->_usedProperties['validator'] = true;
             $this->validator = new \Symfony\Config\ApiPlatform\ValidatorConfig($value);
@@ -214,11 +271,24 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     }
 
     /**
+     * @template TValue of array|bool
+     * @param TValue $value
      * @default {"enabled":true,"fetch_partial":false,"max_joins":30,"force_eager":true}
-    */
-    public function eagerLoading(array $value = []): \Symfony\Config\ApiPlatform\EagerLoadingConfig
+     * @return \Symfony\Config\ApiPlatform\EagerLoadingConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\ApiPlatform\EagerLoadingConfig : static)
+     * @deprecated since Symfony 7.4
+     */
+    public function eagerLoading(array|bool $value = []): \Symfony\Config\ApiPlatform\EagerLoadingConfig|static
     {
-        if (null === $this->eagerLoading) {
+        $this->_hasDeprecatedCalls = true;
+        if (!\is_array($value)) {
+            $this->_usedProperties['eagerLoading'] = true;
+            $this->eagerLoading = $value;
+
+            return $this;
+        }
+
+        if (!$this->eagerLoading instanceof \Symfony\Config\ApiPlatform\EagerLoadingConfig) {
             $this->_usedProperties['eagerLoading'] = true;
             $this->eagerLoading = new \Symfony\Config\ApiPlatform\EagerLoadingConfig($value);
         } elseif (0 < \func_num_args()) {
@@ -233,9 +303,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default false
      * @param ParamConfigurator|bool $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function handleSymfonyErrors($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['handleSymfonyErrors'] = true;
         $this->handleSymfonyErrors = $value;
 
@@ -247,9 +319,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function enableSwagger($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['enableSwagger'] = true;
         $this->enableSwagger = $value;
 
@@ -261,9 +335,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function enableSwaggerUi($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['enableSwaggerUi'] = true;
         $this->enableSwaggerUi = $value;
 
@@ -275,9 +351,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function enableReDoc($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['enableReDoc'] = true;
         $this->enableReDoc = $value;
 
@@ -289,9 +367,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function enableEntrypoint($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['enableEntrypoint'] = true;
         $this->enableEntrypoint = $value;
 
@@ -303,9 +383,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function enableDocs($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['enableDocs'] = true;
         $this->enableDocs = $value;
 
@@ -317,9 +399,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function enableProfiler($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['enableProfiler'] = true;
         $this->enableProfiler = $value;
 
@@ -331,9 +415,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function keepLegacyInflector($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['keepLegacyInflector'] = true;
         $this->keepLegacyInflector = $value;
 
@@ -345,9 +431,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @default false
      * @param ParamConfigurator|bool $value
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function enableLinkSecurity($value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['enableLinkSecurity'] = true;
         $this->enableLinkSecurity = $value;
 
@@ -356,9 +444,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
 
     /**
      * @default {"exists_parameter_name":"exists","order":"ASC","order_parameter_name":"order","order_nulls_comparison":null,"pagination":{"enabled":true,"page_parameter_name":"page","enabled_parameter_name":"pagination","items_per_page_parameter_name":"itemsPerPage","partial_parameter_name":"partial"}}
-    */
+     * @deprecated since Symfony 7.4
+     */
     public function collection(array $value = []): \Symfony\Config\ApiPlatform\CollectionConfig
     {
+        $this->_hasDeprecatedCalls = true;
         if (null === $this->collection) {
             $this->_usedProperties['collection'] = true;
             $this->collection = new \Symfony\Config\ApiPlatform\CollectionConfig($value);
@@ -371,9 +461,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
 
     /**
      * @default {"paths":[]}
-    */
+     * @deprecated since Symfony 7.4
+     */
     public function mapping(array $value = []): \Symfony\Config\ApiPlatform\MappingConfig
     {
+        $this->_hasDeprecatedCalls = true;
         if (null === $this->mapping) {
             $this->_usedProperties['mapping'] = true;
             $this->mapping = new \Symfony\Config\ApiPlatform\MappingConfig($value);
@@ -388,9 +480,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @param ParamConfigurator|list<ParamConfigurator|mixed> $value
      *
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function resourceClassDirectories(ParamConfigurator|array $value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['resourceClassDirectories'] = true;
         $this->resourceClassDirectories = $value;
 
@@ -398,11 +492,41 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     }
 
     /**
-     * @default {"enabled":true}
-    */
-    public function doctrine(array $value = []): \Symfony\Config\ApiPlatform\DoctrineConfig
+     * @default {"hydra_prefix":null}
+     * @deprecated since Symfony 7.4
+     */
+    public function serializer(array $value = []): \Symfony\Config\ApiPlatform\SerializerConfig
     {
-        if (null === $this->doctrine) {
+        $this->_hasDeprecatedCalls = true;
+        if (null === $this->serializer) {
+            $this->_usedProperties['serializer'] = true;
+            $this->serializer = new \Symfony\Config\ApiPlatform\SerializerConfig($value);
+        } elseif (0 < \func_num_args()) {
+            throw new InvalidConfigurationException('The node created by "serializer()" has already been initialized. You cannot pass values the second time you call serializer().');
+        }
+
+        return $this->serializer;
+    }
+
+    /**
+     * @template TValue of array|bool
+     * @param TValue $value
+     * @default {"enabled":true}
+     * @return \Symfony\Config\ApiPlatform\DoctrineConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\ApiPlatform\DoctrineConfig : static)
+     * @deprecated since Symfony 7.4
+     */
+    public function doctrine(array|bool $value = []): \Symfony\Config\ApiPlatform\DoctrineConfig|static
+    {
+        $this->_hasDeprecatedCalls = true;
+        if (!\is_array($value)) {
+            $this->_usedProperties['doctrine'] = true;
+            $this->doctrine = $value;
+
+            return $this;
+        }
+
+        if (!$this->doctrine instanceof \Symfony\Config\ApiPlatform\DoctrineConfig) {
             $this->_usedProperties['doctrine'] = true;
             $this->doctrine = new \Symfony\Config\ApiPlatform\DoctrineConfig($value);
         } elseif (0 < \func_num_args()) {
@@ -413,14 +537,16 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     }
 
     /**
-     * @template TValue
+     * @template TValue of array|bool
      * @param TValue $value
      * @default {"enabled":false}
      * @return \Symfony\Config\ApiPlatform\DoctrineMongodbOdmConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\ApiPlatform\DoctrineMongodbOdmConfig : static)
+     * @deprecated since Symfony 7.4
      */
-    public function doctrineMongodbOdm(array $value = []): \Symfony\Config\ApiPlatform\DoctrineMongodbOdmConfig|static
+    public function doctrineMongodbOdm(array|bool $value = []): \Symfony\Config\ApiPlatform\DoctrineMongodbOdmConfig|static
     {
+        $this->_hasDeprecatedCalls = true;
         if (!\is_array($value)) {
             $this->_usedProperties['doctrineMongodbOdm'] = true;
             $this->doctrineMongodbOdm = $value;
@@ -439,14 +565,16 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     }
 
     /**
-     * @template TValue
+     * @template TValue of array|bool
      * @param TValue $value
      * @default {"enabled":false,"clientId":"","clientSecret":"","pkce":false,"type":"oauth2","flow":"application","tokenUrl":"","authorizationUrl":"","refreshUrl":"","scopes":[]}
      * @return \Symfony\Config\ApiPlatform\OauthConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\ApiPlatform\OauthConfig : static)
+     * @deprecated since Symfony 7.4
      */
-    public function oauth(array $value = []): \Symfony\Config\ApiPlatform\OauthConfig|static
+    public function oauth(array|bool $value = []): \Symfony\Config\ApiPlatform\OauthConfig|static
     {
+        $this->_hasDeprecatedCalls = true;
         if (!\is_array($value)) {
             $this->_usedProperties['oauth'] = true;
             $this->oauth = $value;
@@ -465,14 +593,16 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     }
 
     /**
-     * @template TValue
+     * @template TValue of array|bool
      * @param TValue $value
      * @default {"enabled":false,"default_ide":"graphiql","graphiql":{"enabled":false},"graphql_playground":{"enabled":false},"introspection":{"enabled":true},"nesting_separator":"_","collection":{"pagination":{"enabled":true}}}
      * @return \Symfony\Config\ApiPlatform\GraphqlConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\ApiPlatform\GraphqlConfig : static)
+     * @deprecated since Symfony 7.4
      */
-    public function graphql(array $value = []): \Symfony\Config\ApiPlatform\GraphqlConfig|static
+    public function graphql(array|bool $value = []): \Symfony\Config\ApiPlatform\GraphqlConfig|static
     {
+        $this->_hasDeprecatedCalls = true;
         if (!\is_array($value)) {
             $this->_usedProperties['graphql'] = true;
             $this->graphql = $value;
@@ -492,9 +622,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
 
     /**
      * @default {"versions":[3],"api_keys":[],"swagger_ui_extra_configuration":[]}
-    */
+     * @deprecated since Symfony 7.4
+     */
     public function swagger(array $value = []): \Symfony\Config\ApiPlatform\SwaggerConfig
     {
+        $this->_hasDeprecatedCalls = true;
         if (null === $this->swagger) {
             $this->_usedProperties['swagger'] = true;
             $this->swagger = new \Symfony\Config\ApiPlatform\SwaggerConfig($value);
@@ -507,9 +639,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
 
     /**
      * @default {"public":null,"invalidation":{"enabled":false,"varnish_urls":[],"urls":[],"scoped_clients":[],"max_header_length":7500,"request_options":[],"purger":"api_platform.http_cache.purger.varnish","xkey":{"glue":" "}}}
-    */
+     * @deprecated since Symfony 7.4
+     */
     public function httpCache(array $value = []): \Symfony\Config\ApiPlatform\HttpCacheConfig
     {
+        $this->_hasDeprecatedCalls = true;
         if (null === $this->httpCache) {
             $this->_usedProperties['httpCache'] = true;
             $this->httpCache = new \Symfony\Config\ApiPlatform\HttpCacheConfig($value);
@@ -521,14 +655,16 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     }
 
     /**
-     * @template TValue
+     * @template TValue of array|bool
      * @param TValue $value
      * @default {"enabled":false,"hub_url":null,"include_type":false}
      * @return \Symfony\Config\ApiPlatform\MercureConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\ApiPlatform\MercureConfig : static)
+     * @deprecated since Symfony 7.4
      */
-    public function mercure(array $value = []): \Symfony\Config\ApiPlatform\MercureConfig|static
+    public function mercure(array|bool $value = []): \Symfony\Config\ApiPlatform\MercureConfig|static
     {
+        $this->_hasDeprecatedCalls = true;
         if (!\is_array($value)) {
             $this->_usedProperties['mercure'] = true;
             $this->mercure = $value;
@@ -547,14 +683,16 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     }
 
     /**
-     * @template TValue
+     * @template TValue of array|bool
      * @param TValue $value
      * @default {"enabled":false}
      * @return \Symfony\Config\ApiPlatform\MessengerConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\ApiPlatform\MessengerConfig : static)
+     * @deprecated since Symfony 7.4
      */
-    public function messenger(array $value = []): \Symfony\Config\ApiPlatform\MessengerConfig|static
+    public function messenger(array|bool $value = []): \Symfony\Config\ApiPlatform\MessengerConfig|static
     {
+        $this->_hasDeprecatedCalls = true;
         if (!\is_array($value)) {
             $this->_usedProperties['messenger'] = true;
             $this->messenger = $value;
@@ -573,14 +711,16 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     }
 
     /**
-     * @template TValue
+     * @template TValue of array|bool
      * @param TValue $value
      * @default {"enabled":false,"hosts":[],"mapping":[]}
      * @return \Symfony\Config\ApiPlatform\ElasticsearchConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\ApiPlatform\ElasticsearchConfig : static)
+     * @deprecated since Symfony 7.4
      */
-    public function elasticsearch(array $value = []): \Symfony\Config\ApiPlatform\ElasticsearchConfig|static
+    public function elasticsearch(array|bool $value = []): \Symfony\Config\ApiPlatform\ElasticsearchConfig|static
     {
+        $this->_hasDeprecatedCalls = true;
         if (!\is_array($value)) {
             $this->_usedProperties['elasticsearch'] = true;
             $this->elasticsearch = $value;
@@ -600,9 +740,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
 
     /**
      * @default {"contact":{"name":null,"url":null,"email":null},"termsOfService":null,"license":{"name":null,"url":null},"swagger_ui_extra_configuration":[],"overrideResponses":true}
-    */
+     * @deprecated since Symfony 7.4
+     */
     public function openapi(array $value = []): \Symfony\Config\ApiPlatform\OpenapiConfig
     {
+        $this->_hasDeprecatedCalls = true;
         if (null === $this->openapi) {
             $this->_usedProperties['openapi'] = true;
             $this->openapi = new \Symfony\Config\ApiPlatform\OpenapiConfig($value);
@@ -614,11 +756,24 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     }
 
     /**
+     * @template TValue of array|bool
+     * @param TValue $value
      * @default {"enabled":true}
-    */
-    public function maker(array $value = []): \Symfony\Config\ApiPlatform\MakerConfig
+     * @return \Symfony\Config\ApiPlatform\MakerConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\ApiPlatform\MakerConfig : static)
+     * @deprecated since Symfony 7.4
+     */
+    public function maker(array|bool $value = []): \Symfony\Config\ApiPlatform\MakerConfig|static
     {
-        if (null === $this->maker) {
+        $this->_hasDeprecatedCalls = true;
+        if (!\is_array($value)) {
+            $this->_usedProperties['maker'] = true;
+            $this->maker = $value;
+
+            return $this;
+        }
+
+        if (!$this->maker instanceof \Symfony\Config\ApiPlatform\MakerConfig) {
             $this->_usedProperties['maker'] = true;
             $this->maker = new \Symfony\Config\ApiPlatform\MakerConfig($value);
         } elseif (0 < \func_num_args()) {
@@ -630,9 +785,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
 
     /**
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function exceptionToStatus(string $exception_class, ParamConfigurator|int $value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['exceptionToStatus'] = true;
         $this->exceptionToStatus[$exception_class] = $value;
 
@@ -640,22 +797,13 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     }
 
     /**
-     * @template TValue
-     * @param TValue $value
      * The list of enabled formats. The first one will be the default.
-     * @return \Symfony\Config\ApiPlatform\FormatsConfig|$this
-     * @psalm-return (TValue is array ? \Symfony\Config\ApiPlatform\FormatsConfig : static)
+     * @deprecated since Symfony 7.4
      */
-    public function formats(string $format, array $value = []): \Symfony\Config\ApiPlatform\FormatsConfig|static
+    public function formats(string $format, array $value = []): \Symfony\Config\ApiPlatform\FormatsConfig
     {
-        if (!\is_array($value)) {
-            $this->_usedProperties['formats'] = true;
-            $this->formats[$format] = $value;
-
-            return $this;
-        }
-
-        if (!isset($this->formats[$format]) || !$this->formats[$format] instanceof \Symfony\Config\ApiPlatform\FormatsConfig) {
+        $this->_hasDeprecatedCalls = true;
+        if (!isset($this->formats[$format])) {
             $this->_usedProperties['formats'] = true;
             $this->formats[$format] = new \Symfony\Config\ApiPlatform\FormatsConfig($value);
         } elseif (1 < \func_num_args()) {
@@ -666,23 +814,14 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     }
 
     /**
-     * @template TValue
-     * @param TValue $value
      * The list of enabled formats. The first one will be the default.
      * @default {"json":{"mime_types":["application\/merge-patch+json"]}}
-     * @return \Symfony\Config\ApiPlatform\PatchFormatsConfig|$this
-     * @psalm-return (TValue is array ? \Symfony\Config\ApiPlatform\PatchFormatsConfig : static)
+     * @deprecated since Symfony 7.4
      */
-    public function patchFormats(string $format, array $value = []): \Symfony\Config\ApiPlatform\PatchFormatsConfig|static
+    public function patchFormats(string $format, array $value = []): \Symfony\Config\ApiPlatform\PatchFormatsConfig
     {
-        if (!\is_array($value)) {
-            $this->_usedProperties['patchFormats'] = true;
-            $this->patchFormats[$format] = $value;
-
-            return $this;
-        }
-
-        if (!isset($this->patchFormats[$format]) || !$this->patchFormats[$format] instanceof \Symfony\Config\ApiPlatform\PatchFormatsConfig) {
+        $this->_hasDeprecatedCalls = true;
+        if (!isset($this->patchFormats[$format])) {
             $this->_usedProperties['patchFormats'] = true;
             $this->patchFormats[$format] = new \Symfony\Config\ApiPlatform\PatchFormatsConfig($value);
         } elseif (1 < \func_num_args()) {
@@ -693,23 +832,14 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     }
 
     /**
-     * @template TValue
-     * @param TValue $value
      * The list of enabled formats. The first one will be the default.
      * @default {"jsonopenapi":{"mime_types":["application\/vnd.openapi+json"]},"yamlopenapi":{"mime_types":["application\/vnd.openapi+yaml"]},"json":{"mime_types":["application\/json"]},"jsonld":{"mime_types":["application\/ld+json"]},"html":{"mime_types":["text\/html"]}}
-     * @return \Symfony\Config\ApiPlatform\DocsFormatsConfig|$this
-     * @psalm-return (TValue is array ? \Symfony\Config\ApiPlatform\DocsFormatsConfig : static)
+     * @deprecated since Symfony 7.4
      */
-    public function docsFormats(string $format, array $value = []): \Symfony\Config\ApiPlatform\DocsFormatsConfig|static
+    public function docsFormats(string $format, array $value = []): \Symfony\Config\ApiPlatform\DocsFormatsConfig
     {
-        if (!\is_array($value)) {
-            $this->_usedProperties['docsFormats'] = true;
-            $this->docsFormats[$format] = $value;
-
-            return $this;
-        }
-
-        if (!isset($this->docsFormats[$format]) || !$this->docsFormats[$format] instanceof \Symfony\Config\ApiPlatform\DocsFormatsConfig) {
+        $this->_hasDeprecatedCalls = true;
+        if (!isset($this->docsFormats[$format])) {
             $this->_usedProperties['docsFormats'] = true;
             $this->docsFormats[$format] = new \Symfony\Config\ApiPlatform\DocsFormatsConfig($value);
         } elseif (1 < \func_num_args()) {
@@ -720,23 +850,14 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     }
 
     /**
-     * @template TValue
-     * @param TValue $value
      * The list of enabled formats. The first one will be the default.
      * @default {"jsonld":{"mime_types":["application\/ld+json"]},"jsonproblem":{"mime_types":["application\/problem+json"]},"json":{"mime_types":["application\/problem+json","application\/json"]}}
-     * @return \Symfony\Config\ApiPlatform\ErrorFormatsConfig|$this
-     * @psalm-return (TValue is array ? \Symfony\Config\ApiPlatform\ErrorFormatsConfig : static)
+     * @deprecated since Symfony 7.4
      */
-    public function errorFormats(string $format, array $value = []): \Symfony\Config\ApiPlatform\ErrorFormatsConfig|static
+    public function errorFormats(string $format, array $value = []): \Symfony\Config\ApiPlatform\ErrorFormatsConfig
     {
-        if (!\is_array($value)) {
-            $this->_usedProperties['errorFormats'] = true;
-            $this->errorFormats[$format] = $value;
-
-            return $this;
-        }
-
-        if (!isset($this->errorFormats[$format]) || !$this->errorFormats[$format] instanceof \Symfony\Config\ApiPlatform\ErrorFormatsConfig) {
+        $this->_hasDeprecatedCalls = true;
+        if (!isset($this->errorFormats[$format])) {
             $this->_usedProperties['errorFormats'] = true;
             $this->errorFormats[$format] = new \Symfony\Config\ApiPlatform\ErrorFormatsConfig($value);
         } elseif (1 < \func_num_args()) {
@@ -750,9 +871,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
      * @param ParamConfigurator|list<ParamConfigurator|mixed> $value
      *
      * @return $this
+     * @deprecated since Symfony 7.4
      */
     public function jsonschemaFormats(ParamConfigurator|array $value): static
     {
+        $this->_hasDeprecatedCalls = true;
         $this->_usedProperties['jsonschemaFormats'] = true;
         $this->jsonschemaFormats = $value;
 
@@ -760,13 +883,15 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
     }
 
     /**
-     * @template TValue
+     * @template TValue of mixed
      * @param TValue $value
      * @return \Symfony\Config\ApiPlatform\DefaultsConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\ApiPlatform\DefaultsConfig : static)
+     * @deprecated since Symfony 7.4
      */
     public function defaults(mixed $value = []): \Symfony\Config\ApiPlatform\DefaultsConfig|static
     {
+        $this->_hasDeprecatedCalls = true;
         if (!\is_array($value)) {
             $this->_usedProperties['defaults'] = true;
             $this->defaults = $value;
@@ -789,256 +914,274 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
         return 'api_platform';
     }
 
-    public function __construct(array $value = [])
+    public function __construct(array $config = [])
     {
-        if (array_key_exists('title', $value)) {
+        if (array_key_exists('title', $config)) {
             $this->_usedProperties['title'] = true;
-            $this->title = $value['title'];
-            unset($value['title']);
+            $this->title = $config['title'];
+            unset($config['title']);
         }
 
-        if (array_key_exists('description', $value)) {
+        if (array_key_exists('description', $config)) {
             $this->_usedProperties['description'] = true;
-            $this->description = $value['description'];
-            unset($value['description']);
+            $this->description = $config['description'];
+            unset($config['description']);
         }
 
-        if (array_key_exists('version', $value)) {
+        if (array_key_exists('version', $config)) {
             $this->_usedProperties['version'] = true;
-            $this->version = $value['version'];
-            unset($value['version']);
+            $this->version = $config['version'];
+            unset($config['version']);
         }
 
-        if (array_key_exists('show_webby', $value)) {
+        if (array_key_exists('show_webby', $config)) {
             $this->_usedProperties['showWebby'] = true;
-            $this->showWebby = $value['show_webby'];
-            unset($value['show_webby']);
+            $this->showWebby = $config['show_webby'];
+            unset($config['show_webby']);
         }
 
-        if (array_key_exists('event_listeners_backward_compatibility_layer', $value)) {
+        if (array_key_exists('event_listeners_backward_compatibility_layer', $config)) {
             $this->_usedProperties['eventListenersBackwardCompatibilityLayer'] = true;
-            $this->eventListenersBackwardCompatibilityLayer = $value['event_listeners_backward_compatibility_layer'];
-            unset($value['event_listeners_backward_compatibility_layer']);
+            $this->eventListenersBackwardCompatibilityLayer = $config['event_listeners_backward_compatibility_layer'];
+            unset($config['event_listeners_backward_compatibility_layer']);
         }
 
-        if (array_key_exists('use_symfony_listeners', $value)) {
+        if (array_key_exists('use_deprecated_json_schema_type_factory', $config)) {
+            $this->_usedProperties['useDeprecatedJsonSchemaTypeFactory'] = true;
+            $this->useDeprecatedJsonSchemaTypeFactory = $config['use_deprecated_json_schema_type_factory'];
+            unset($config['use_deprecated_json_schema_type_factory']);
+        }
+
+        if (array_key_exists('use_symfony_listeners', $config)) {
             $this->_usedProperties['useSymfonyListeners'] = true;
-            $this->useSymfonyListeners = $value['use_symfony_listeners'];
-            unset($value['use_symfony_listeners']);
+            $this->useSymfonyListeners = $config['use_symfony_listeners'];
+            unset($config['use_symfony_listeners']);
         }
 
-        if (array_key_exists('name_converter', $value)) {
+        if (array_key_exists('name_converter', $config)) {
             $this->_usedProperties['nameConverter'] = true;
-            $this->nameConverter = $value['name_converter'];
-            unset($value['name_converter']);
+            $this->nameConverter = $config['name_converter'];
+            unset($config['name_converter']);
         }
 
-        if (array_key_exists('asset_package', $value)) {
+        if (array_key_exists('asset_package', $config)) {
             $this->_usedProperties['assetPackage'] = true;
-            $this->assetPackage = $value['asset_package'];
-            unset($value['asset_package']);
+            $this->assetPackage = $config['asset_package'];
+            unset($config['asset_package']);
         }
 
-        if (array_key_exists('path_segment_name_generator', $value)) {
+        if (array_key_exists('path_segment_name_generator', $config)) {
             $this->_usedProperties['pathSegmentNameGenerator'] = true;
-            $this->pathSegmentNameGenerator = $value['path_segment_name_generator'];
-            unset($value['path_segment_name_generator']);
+            $this->pathSegmentNameGenerator = $config['path_segment_name_generator'];
+            unset($config['path_segment_name_generator']);
         }
 
-        if (array_key_exists('validator', $value)) {
+        if (array_key_exists('inflector', $config)) {
+            $this->_usedProperties['inflector'] = true;
+            $this->inflector = $config['inflector'];
+            unset($config['inflector']);
+        }
+
+        if (array_key_exists('validator', $config)) {
             $this->_usedProperties['validator'] = true;
-            $this->validator = new \Symfony\Config\ApiPlatform\ValidatorConfig($value['validator']);
-            unset($value['validator']);
+            $this->validator = new \Symfony\Config\ApiPlatform\ValidatorConfig($config['validator']);
+            unset($config['validator']);
         }
 
-        if (array_key_exists('eager_loading', $value)) {
+        if (array_key_exists('eager_loading', $config)) {
             $this->_usedProperties['eagerLoading'] = true;
-            $this->eagerLoading = new \Symfony\Config\ApiPlatform\EagerLoadingConfig($value['eager_loading']);
-            unset($value['eager_loading']);
+            $this->eagerLoading = \is_array($config['eager_loading']) ? new \Symfony\Config\ApiPlatform\EagerLoadingConfig($config['eager_loading']) : $config['eager_loading'];
+            unset($config['eager_loading']);
         }
 
-        if (array_key_exists('handle_symfony_errors', $value)) {
+        if (array_key_exists('handle_symfony_errors', $config)) {
             $this->_usedProperties['handleSymfonyErrors'] = true;
-            $this->handleSymfonyErrors = $value['handle_symfony_errors'];
-            unset($value['handle_symfony_errors']);
+            $this->handleSymfonyErrors = $config['handle_symfony_errors'];
+            unset($config['handle_symfony_errors']);
         }
 
-        if (array_key_exists('enable_swagger', $value)) {
+        if (array_key_exists('enable_swagger', $config)) {
             $this->_usedProperties['enableSwagger'] = true;
-            $this->enableSwagger = $value['enable_swagger'];
-            unset($value['enable_swagger']);
+            $this->enableSwagger = $config['enable_swagger'];
+            unset($config['enable_swagger']);
         }
 
-        if (array_key_exists('enable_swagger_ui', $value)) {
+        if (array_key_exists('enable_swagger_ui', $config)) {
             $this->_usedProperties['enableSwaggerUi'] = true;
-            $this->enableSwaggerUi = $value['enable_swagger_ui'];
-            unset($value['enable_swagger_ui']);
+            $this->enableSwaggerUi = $config['enable_swagger_ui'];
+            unset($config['enable_swagger_ui']);
         }
 
-        if (array_key_exists('enable_re_doc', $value)) {
+        if (array_key_exists('enable_re_doc', $config)) {
             $this->_usedProperties['enableReDoc'] = true;
-            $this->enableReDoc = $value['enable_re_doc'];
-            unset($value['enable_re_doc']);
+            $this->enableReDoc = $config['enable_re_doc'];
+            unset($config['enable_re_doc']);
         }
 
-        if (array_key_exists('enable_entrypoint', $value)) {
+        if (array_key_exists('enable_entrypoint', $config)) {
             $this->_usedProperties['enableEntrypoint'] = true;
-            $this->enableEntrypoint = $value['enable_entrypoint'];
-            unset($value['enable_entrypoint']);
+            $this->enableEntrypoint = $config['enable_entrypoint'];
+            unset($config['enable_entrypoint']);
         }
 
-        if (array_key_exists('enable_docs', $value)) {
+        if (array_key_exists('enable_docs', $config)) {
             $this->_usedProperties['enableDocs'] = true;
-            $this->enableDocs = $value['enable_docs'];
-            unset($value['enable_docs']);
+            $this->enableDocs = $config['enable_docs'];
+            unset($config['enable_docs']);
         }
 
-        if (array_key_exists('enable_profiler', $value)) {
+        if (array_key_exists('enable_profiler', $config)) {
             $this->_usedProperties['enableProfiler'] = true;
-            $this->enableProfiler = $value['enable_profiler'];
-            unset($value['enable_profiler']);
+            $this->enableProfiler = $config['enable_profiler'];
+            unset($config['enable_profiler']);
         }
 
-        if (array_key_exists('keep_legacy_inflector', $value)) {
+        if (array_key_exists('keep_legacy_inflector', $config)) {
             $this->_usedProperties['keepLegacyInflector'] = true;
-            $this->keepLegacyInflector = $value['keep_legacy_inflector'];
-            unset($value['keep_legacy_inflector']);
+            $this->keepLegacyInflector = $config['keep_legacy_inflector'];
+            unset($config['keep_legacy_inflector']);
         }
 
-        if (array_key_exists('enable_link_security', $value)) {
+        if (array_key_exists('enable_link_security', $config)) {
             $this->_usedProperties['enableLinkSecurity'] = true;
-            $this->enableLinkSecurity = $value['enable_link_security'];
-            unset($value['enable_link_security']);
+            $this->enableLinkSecurity = $config['enable_link_security'];
+            unset($config['enable_link_security']);
         }
 
-        if (array_key_exists('collection', $value)) {
+        if (array_key_exists('collection', $config)) {
             $this->_usedProperties['collection'] = true;
-            $this->collection = new \Symfony\Config\ApiPlatform\CollectionConfig($value['collection']);
-            unset($value['collection']);
+            $this->collection = new \Symfony\Config\ApiPlatform\CollectionConfig($config['collection']);
+            unset($config['collection']);
         }
 
-        if (array_key_exists('mapping', $value)) {
+        if (array_key_exists('mapping', $config)) {
             $this->_usedProperties['mapping'] = true;
-            $this->mapping = new \Symfony\Config\ApiPlatform\MappingConfig($value['mapping']);
-            unset($value['mapping']);
+            $this->mapping = new \Symfony\Config\ApiPlatform\MappingConfig($config['mapping']);
+            unset($config['mapping']);
         }
 
-        if (array_key_exists('resource_class_directories', $value)) {
+        if (array_key_exists('resource_class_directories', $config)) {
             $this->_usedProperties['resourceClassDirectories'] = true;
-            $this->resourceClassDirectories = $value['resource_class_directories'];
-            unset($value['resource_class_directories']);
+            $this->resourceClassDirectories = $config['resource_class_directories'];
+            unset($config['resource_class_directories']);
         }
 
-        if (array_key_exists('doctrine', $value)) {
+        if (array_key_exists('serializer', $config)) {
+            $this->_usedProperties['serializer'] = true;
+            $this->serializer = new \Symfony\Config\ApiPlatform\SerializerConfig($config['serializer']);
+            unset($config['serializer']);
+        }
+
+        if (array_key_exists('doctrine', $config)) {
             $this->_usedProperties['doctrine'] = true;
-            $this->doctrine = new \Symfony\Config\ApiPlatform\DoctrineConfig($value['doctrine']);
-            unset($value['doctrine']);
+            $this->doctrine = \is_array($config['doctrine']) ? new \Symfony\Config\ApiPlatform\DoctrineConfig($config['doctrine']) : $config['doctrine'];
+            unset($config['doctrine']);
         }
 
-        if (array_key_exists('doctrine_mongodb_odm', $value)) {
+        if (array_key_exists('doctrine_mongodb_odm', $config)) {
             $this->_usedProperties['doctrineMongodbOdm'] = true;
-            $this->doctrineMongodbOdm = \is_array($value['doctrine_mongodb_odm']) ? new \Symfony\Config\ApiPlatform\DoctrineMongodbOdmConfig($value['doctrine_mongodb_odm']) : $value['doctrine_mongodb_odm'];
-            unset($value['doctrine_mongodb_odm']);
+            $this->doctrineMongodbOdm = \is_array($config['doctrine_mongodb_odm']) ? new \Symfony\Config\ApiPlatform\DoctrineMongodbOdmConfig($config['doctrine_mongodb_odm']) : $config['doctrine_mongodb_odm'];
+            unset($config['doctrine_mongodb_odm']);
         }
 
-        if (array_key_exists('oauth', $value)) {
+        if (array_key_exists('oauth', $config)) {
             $this->_usedProperties['oauth'] = true;
-            $this->oauth = \is_array($value['oauth']) ? new \Symfony\Config\ApiPlatform\OauthConfig($value['oauth']) : $value['oauth'];
-            unset($value['oauth']);
+            $this->oauth = \is_array($config['oauth']) ? new \Symfony\Config\ApiPlatform\OauthConfig($config['oauth']) : $config['oauth'];
+            unset($config['oauth']);
         }
 
-        if (array_key_exists('graphql', $value)) {
+        if (array_key_exists('graphql', $config)) {
             $this->_usedProperties['graphql'] = true;
-            $this->graphql = \is_array($value['graphql']) ? new \Symfony\Config\ApiPlatform\GraphqlConfig($value['graphql']) : $value['graphql'];
-            unset($value['graphql']);
+            $this->graphql = \is_array($config['graphql']) ? new \Symfony\Config\ApiPlatform\GraphqlConfig($config['graphql']) : $config['graphql'];
+            unset($config['graphql']);
         }
 
-        if (array_key_exists('swagger', $value)) {
+        if (array_key_exists('swagger', $config)) {
             $this->_usedProperties['swagger'] = true;
-            $this->swagger = new \Symfony\Config\ApiPlatform\SwaggerConfig($value['swagger']);
-            unset($value['swagger']);
+            $this->swagger = new \Symfony\Config\ApiPlatform\SwaggerConfig($config['swagger']);
+            unset($config['swagger']);
         }
 
-        if (array_key_exists('http_cache', $value)) {
+        if (array_key_exists('http_cache', $config)) {
             $this->_usedProperties['httpCache'] = true;
-            $this->httpCache = new \Symfony\Config\ApiPlatform\HttpCacheConfig($value['http_cache']);
-            unset($value['http_cache']);
+            $this->httpCache = new \Symfony\Config\ApiPlatform\HttpCacheConfig($config['http_cache']);
+            unset($config['http_cache']);
         }
 
-        if (array_key_exists('mercure', $value)) {
+        if (array_key_exists('mercure', $config)) {
             $this->_usedProperties['mercure'] = true;
-            $this->mercure = \is_array($value['mercure']) ? new \Symfony\Config\ApiPlatform\MercureConfig($value['mercure']) : $value['mercure'];
-            unset($value['mercure']);
+            $this->mercure = \is_array($config['mercure']) ? new \Symfony\Config\ApiPlatform\MercureConfig($config['mercure']) : $config['mercure'];
+            unset($config['mercure']);
         }
 
-        if (array_key_exists('messenger', $value)) {
+        if (array_key_exists('messenger', $config)) {
             $this->_usedProperties['messenger'] = true;
-            $this->messenger = \is_array($value['messenger']) ? new \Symfony\Config\ApiPlatform\MessengerConfig($value['messenger']) : $value['messenger'];
-            unset($value['messenger']);
+            $this->messenger = \is_array($config['messenger']) ? new \Symfony\Config\ApiPlatform\MessengerConfig($config['messenger']) : $config['messenger'];
+            unset($config['messenger']);
         }
 
-        if (array_key_exists('elasticsearch', $value)) {
+        if (array_key_exists('elasticsearch', $config)) {
             $this->_usedProperties['elasticsearch'] = true;
-            $this->elasticsearch = \is_array($value['elasticsearch']) ? new \Symfony\Config\ApiPlatform\ElasticsearchConfig($value['elasticsearch']) : $value['elasticsearch'];
-            unset($value['elasticsearch']);
+            $this->elasticsearch = \is_array($config['elasticsearch']) ? new \Symfony\Config\ApiPlatform\ElasticsearchConfig($config['elasticsearch']) : $config['elasticsearch'];
+            unset($config['elasticsearch']);
         }
 
-        if (array_key_exists('openapi', $value)) {
+        if (array_key_exists('openapi', $config)) {
             $this->_usedProperties['openapi'] = true;
-            $this->openapi = new \Symfony\Config\ApiPlatform\OpenapiConfig($value['openapi']);
-            unset($value['openapi']);
+            $this->openapi = new \Symfony\Config\ApiPlatform\OpenapiConfig($config['openapi']);
+            unset($config['openapi']);
         }
 
-        if (array_key_exists('maker', $value)) {
+        if (array_key_exists('maker', $config)) {
             $this->_usedProperties['maker'] = true;
-            $this->maker = new \Symfony\Config\ApiPlatform\MakerConfig($value['maker']);
-            unset($value['maker']);
+            $this->maker = \is_array($config['maker']) ? new \Symfony\Config\ApiPlatform\MakerConfig($config['maker']) : $config['maker'];
+            unset($config['maker']);
         }
 
-        if (array_key_exists('exception_to_status', $value)) {
+        if (array_key_exists('exception_to_status', $config)) {
             $this->_usedProperties['exceptionToStatus'] = true;
-            $this->exceptionToStatus = $value['exception_to_status'];
-            unset($value['exception_to_status']);
+            $this->exceptionToStatus = $config['exception_to_status'];
+            unset($config['exception_to_status']);
         }
 
-        if (array_key_exists('formats', $value)) {
+        if (array_key_exists('formats', $config)) {
             $this->_usedProperties['formats'] = true;
-            $this->formats = array_map(fn ($v) => \is_array($v) ? new \Symfony\Config\ApiPlatform\FormatsConfig($v) : $v, $value['formats']);
-            unset($value['formats']);
+            $this->formats = array_map(fn ($v) => new \Symfony\Config\ApiPlatform\FormatsConfig($v), $config['formats']);
+            unset($config['formats']);
         }
 
-        if (array_key_exists('patch_formats', $value)) {
+        if (array_key_exists('patch_formats', $config)) {
             $this->_usedProperties['patchFormats'] = true;
-            $this->patchFormats = array_map(fn ($v) => \is_array($v) ? new \Symfony\Config\ApiPlatform\PatchFormatsConfig($v) : $v, $value['patch_formats']);
-            unset($value['patch_formats']);
+            $this->patchFormats = array_map(fn ($v) => new \Symfony\Config\ApiPlatform\PatchFormatsConfig($v), $config['patch_formats']);
+            unset($config['patch_formats']);
         }
 
-        if (array_key_exists('docs_formats', $value)) {
+        if (array_key_exists('docs_formats', $config)) {
             $this->_usedProperties['docsFormats'] = true;
-            $this->docsFormats = array_map(fn ($v) => \is_array($v) ? new \Symfony\Config\ApiPlatform\DocsFormatsConfig($v) : $v, $value['docs_formats']);
-            unset($value['docs_formats']);
+            $this->docsFormats = array_map(fn ($v) => new \Symfony\Config\ApiPlatform\DocsFormatsConfig($v), $config['docs_formats']);
+            unset($config['docs_formats']);
         }
 
-        if (array_key_exists('error_formats', $value)) {
+        if (array_key_exists('error_formats', $config)) {
             $this->_usedProperties['errorFormats'] = true;
-            $this->errorFormats = array_map(fn ($v) => \is_array($v) ? new \Symfony\Config\ApiPlatform\ErrorFormatsConfig($v) : $v, $value['error_formats']);
-            unset($value['error_formats']);
+            $this->errorFormats = array_map(fn ($v) => new \Symfony\Config\ApiPlatform\ErrorFormatsConfig($v), $config['error_formats']);
+            unset($config['error_formats']);
         }
 
-        if (array_key_exists('jsonschema_formats', $value)) {
+        if (array_key_exists('jsonschema_formats', $config)) {
             $this->_usedProperties['jsonschemaFormats'] = true;
-            $this->jsonschemaFormats = $value['jsonschema_formats'];
-            unset($value['jsonschema_formats']);
+            $this->jsonschemaFormats = $config['jsonschema_formats'];
+            unset($config['jsonschema_formats']);
         }
 
-        if (array_key_exists('defaults', $value)) {
+        if (array_key_exists('defaults', $config)) {
             $this->_usedProperties['defaults'] = true;
-            $this->defaults = \is_array($value['defaults']) ? new \Symfony\Config\ApiPlatform\DefaultsConfig($value['defaults']) : $value['defaults'];
-            unset($value['defaults']);
+            $this->defaults = \is_array($config['defaults']) ? new \Symfony\Config\ApiPlatform\DefaultsConfig($config['defaults']) : $config['defaults'];
+            unset($config['defaults']);
         }
 
-        if ([] !== $value) {
-            throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
+        if ($config) {
+            throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($config)));
         }
     }
 
@@ -1060,6 +1203,9 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
         if (isset($this->_usedProperties['eventListenersBackwardCompatibilityLayer'])) {
             $output['event_listeners_backward_compatibility_layer'] = $this->eventListenersBackwardCompatibilityLayer;
         }
+        if (isset($this->_usedProperties['useDeprecatedJsonSchemaTypeFactory'])) {
+            $output['use_deprecated_json_schema_type_factory'] = $this->useDeprecatedJsonSchemaTypeFactory;
+        }
         if (isset($this->_usedProperties['useSymfonyListeners'])) {
             $output['use_symfony_listeners'] = $this->useSymfonyListeners;
         }
@@ -1072,11 +1218,14 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
         if (isset($this->_usedProperties['pathSegmentNameGenerator'])) {
             $output['path_segment_name_generator'] = $this->pathSegmentNameGenerator;
         }
+        if (isset($this->_usedProperties['inflector'])) {
+            $output['inflector'] = $this->inflector;
+        }
         if (isset($this->_usedProperties['validator'])) {
             $output['validator'] = $this->validator->toArray();
         }
         if (isset($this->_usedProperties['eagerLoading'])) {
-            $output['eager_loading'] = $this->eagerLoading->toArray();
+            $output['eager_loading'] = $this->eagerLoading instanceof \Symfony\Config\ApiPlatform\EagerLoadingConfig ? $this->eagerLoading->toArray() : $this->eagerLoading;
         }
         if (isset($this->_usedProperties['handleSymfonyErrors'])) {
             $output['handle_symfony_errors'] = $this->handleSymfonyErrors;
@@ -1114,8 +1263,11 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
         if (isset($this->_usedProperties['resourceClassDirectories'])) {
             $output['resource_class_directories'] = $this->resourceClassDirectories;
         }
+        if (isset($this->_usedProperties['serializer'])) {
+            $output['serializer'] = $this->serializer->toArray();
+        }
         if (isset($this->_usedProperties['doctrine'])) {
-            $output['doctrine'] = $this->doctrine->toArray();
+            $output['doctrine'] = $this->doctrine instanceof \Symfony\Config\ApiPlatform\DoctrineConfig ? $this->doctrine->toArray() : $this->doctrine;
         }
         if (isset($this->_usedProperties['doctrineMongodbOdm'])) {
             $output['doctrine_mongodb_odm'] = $this->doctrineMongodbOdm instanceof \Symfony\Config\ApiPlatform\DoctrineMongodbOdmConfig ? $this->doctrineMongodbOdm->toArray() : $this->doctrineMongodbOdm;
@@ -1145,28 +1297,31 @@ class ApiPlatformConfig implements \Symfony\Component\Config\Builder\ConfigBuild
             $output['openapi'] = $this->openapi->toArray();
         }
         if (isset($this->_usedProperties['maker'])) {
-            $output['maker'] = $this->maker->toArray();
+            $output['maker'] = $this->maker instanceof \Symfony\Config\ApiPlatform\MakerConfig ? $this->maker->toArray() : $this->maker;
         }
         if (isset($this->_usedProperties['exceptionToStatus'])) {
             $output['exception_to_status'] = $this->exceptionToStatus;
         }
         if (isset($this->_usedProperties['formats'])) {
-            $output['formats'] = array_map(fn ($v) => $v instanceof \Symfony\Config\ApiPlatform\FormatsConfig ? $v->toArray() : $v, $this->formats);
+            $output['formats'] = array_map(fn ($v) => $v->toArray(), $this->formats);
         }
         if (isset($this->_usedProperties['patchFormats'])) {
-            $output['patch_formats'] = array_map(fn ($v) => $v instanceof \Symfony\Config\ApiPlatform\PatchFormatsConfig ? $v->toArray() : $v, $this->patchFormats);
+            $output['patch_formats'] = array_map(fn ($v) => $v->toArray(), $this->patchFormats);
         }
         if (isset($this->_usedProperties['docsFormats'])) {
-            $output['docs_formats'] = array_map(fn ($v) => $v instanceof \Symfony\Config\ApiPlatform\DocsFormatsConfig ? $v->toArray() : $v, $this->docsFormats);
+            $output['docs_formats'] = array_map(fn ($v) => $v->toArray(), $this->docsFormats);
         }
         if (isset($this->_usedProperties['errorFormats'])) {
-            $output['error_formats'] = array_map(fn ($v) => $v instanceof \Symfony\Config\ApiPlatform\ErrorFormatsConfig ? $v->toArray() : $v, $this->errorFormats);
+            $output['error_formats'] = array_map(fn ($v) => $v->toArray(), $this->errorFormats);
         }
         if (isset($this->_usedProperties['jsonschemaFormats'])) {
             $output['jsonschema_formats'] = $this->jsonschemaFormats;
         }
         if (isset($this->_usedProperties['defaults'])) {
             $output['defaults'] = $this->defaults instanceof \Symfony\Config\ApiPlatform\DefaultsConfig ? $this->defaults->toArray() : $this->defaults;
+        }
+        if ($this->_hasDeprecatedCalls) {
+            trigger_deprecation('symfony/config', '7.4', 'Calling any fluent method on "%s" is deprecated; pass the configuration to the constructor instead.', $this::class);
         }
 
         return $output;

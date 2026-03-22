@@ -71,34 +71,34 @@ class ApiPlatformConfig
         return $this;
     }
 
-    public function __construct(array $value = [])
+    public function __construct(array $config = [])
     {
-        if (array_key_exists('enabled', $value)) {
+        if (array_key_exists('enabled', $config)) {
             $this->_usedProperties['enabled'] = true;
-            $this->enabled = $value['enabled'];
-            unset($value['enabled']);
+            $this->enabled = $config['enabled'];
+            unset($config['enabled']);
         }
 
-        if (array_key_exists('check_path', $value)) {
+        if (array_key_exists('check_path', $config)) {
             $this->_usedProperties['checkPath'] = true;
-            $this->checkPath = $value['check_path'];
-            unset($value['check_path']);
+            $this->checkPath = $config['check_path'];
+            unset($config['check_path']);
         }
 
-        if (array_key_exists('username_path', $value)) {
+        if (array_key_exists('username_path', $config)) {
             $this->_usedProperties['usernamePath'] = true;
-            $this->usernamePath = $value['username_path'];
-            unset($value['username_path']);
+            $this->usernamePath = $config['username_path'];
+            unset($config['username_path']);
         }
 
-        if (array_key_exists('password_path', $value)) {
+        if (array_key_exists('password_path', $config)) {
             $this->_usedProperties['passwordPath'] = true;
-            $this->passwordPath = $value['password_path'];
-            unset($value['password_path']);
+            $this->passwordPath = $config['password_path'];
+            unset($config['password_path']);
         }
 
-        if ([] !== $value) {
-            throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
+        if ($config) {
+            throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($config)));
         }
     }
 

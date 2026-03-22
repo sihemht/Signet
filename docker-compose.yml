@@ -6,22 +6,22 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./nginx-conf:/etc/nginx/conf.d
       - .:/var/www/html
+      - ./nginx:/etc/nginx/conf.d # <--  pointe vers le dossier nginx/
+
     depends_on:
       - php
 
   php:
-    image: php:8.2-fpm
+    build:
+      context: .
+      dockerfile: php.Dockerfile # Utilise Dockerfile pour installer les extensions (pdo_pgsql, etc.)
     container_name: symfony_php
     volumes:
       - .:/var/www/html
-      - ./php.ini:/usr/local/etc/php/php.ini
     environment:
-      - COMPOSER_ALLOW_SUPERUSER=1
-    working_dir: /var/www/html
-    command: bash -c "apt-get update && apt-get install -y libicu-dev libonig-dev libxml2-dev unzip git && docker-php-ext-install intl mbstring xml opcache pdo pdo_mysql && composer install && php-fpm"
-
+      - DATABASE_URL=postgresql://app:!ChangeMe!@database:5432/app?serverVersion=16&charset=utf8
+    working_dir: /var/www/html/backend # <--  pointe sur le dossier Symfony
 
 
 ###> doctrine/doctrine-bundle ###
