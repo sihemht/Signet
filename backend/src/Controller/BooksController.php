@@ -105,24 +105,23 @@ class BooksController extends AbstractController
         $imageCover = $request->request->get('imageCover');
         $authorsRaw = $request->request->get('authors'); // C'est ici que ça arrive en "string"
 
-        // 2. On nettoie et on convertit la chaîne en tableau
-        // On gère le cas où l'API envoie "Auteur A, Auteur B"
+        // 2. Nettoie et on convertit la chaîne en tableau
+        // Le cas où l'API envoie "Auteur A, Auteur B"
         $authorsArray = [];
         if (!empty($authorsRaw)) {
             if (is_array($authorsRaw)) {
                 $authorsArray = $authorsRaw;
             } else {
-                // On découpe la chaîne par la virgule et on nettoie les espaces
+                //Découpe la chaîne par la virgule et on nettoie les espaces
                 $authorsArray = array_map('trim', explode(',', $authorsRaw));
             }
         }
 
-        // 3. On hydrate l'entité manuellement
         $book->setTitle($title);
         $book->setImageCover($imageCover);
-        $book->setAuthors($authorsArray); // On donne enfin un array !
+        $book->setAuthors($authorsArray);
 
-        // On définit des valeurs par défaut pour éviter d'autres erreurs de formulaire
+        //Définit des valeurs par défaut pour éviter d'autres erreurs de formulaire
         $book->setReadingStatus('to_read');
         $book->setRating(0);
 

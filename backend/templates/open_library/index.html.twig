@@ -76,8 +76,15 @@
                                     <input type="hidden" name="subjects[]" value="{{ sub }}">
                                 {% endfor %}
                             {% endif %}
-
-                            <button type="submit" class="btn btn-sm w-100 rounded-pill fw-bold border-2 btn-outline-primary">
+                            <button type="button"
+                                    class="btn btn-sm w-100 rounded-pill fw-bold border-2 btn-outline-primary"
+                                    onclick="openPreview(
+                                            '{{ book.key }}',
+                                            '{{ book.title|e('js') }}',
+                                            '{{ cover_url }}',
+                                            '{{ book.author_name|default([])|join(', ')|e('js') }}',
+                                            '{{ book.subject|default([])|slice(0, 5)|json_encode|e('js') }}'
+                                            )">
                                 + Ajouter
                             </button>
                         </form>
@@ -93,4 +100,103 @@
             {% endif %}
         {% endfor %}
     </div>
+    <div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
+                <div class="modal-body p-4 text-center">
+                    {# Loader (affiché pendant le chargement AJAX) #}
+                    <div id="modalLoader" class="py-5">
+                        <div class="spinner-border text-primary" role="status"></div>
+                        <p class="mt-2 text-muted small">Récupération du résumé...</p>
+                    </div>
+
+                    {# Contenu de la modale (caché au début) #}
+                    <div id="modalContent" class="d-none">
+                        <img id="prevCover" src="" class="rounded-3 shadow mb-3" style="width: 120px; height: 180px; object-fit: cover;">
+                        <h5 id="prevTitle" class="fw-bold mb-1"></h5>
+                        <p id="prevAuthors" class="text-muted small mb-3"></p>
+
+                        <div class="text-start bg-light p-3 rounded-3 mb-4">
+                            <h6 class="fw-bold small">Résumé</h6>
+                            <p id="prevDescription" class="text-muted small mb-0" style="max-height: 200px; overflow-y: auto;"></p>
+                        </div>
+
+                        <form action="{{ path('add_book') }}" method="post">
+                            <input type="hidden" name="openLibraryKey" id="formKey">
+                            <input type="hidden" name="title" id="formTitle">
+                            <input type="hidden" name="imageCover" id="formCover">
+                            <input type="hidden" name="authors" id="formAuthors">
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary rounded-pill fw-bold">Confirmer l'ajout</button>
+                                <button type="button" class="btn btn-link btn-sm text-muted text-decoration-none" data-bs-dismiss="modal">Annuler</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block javascripts %}
+        <script>
+            function openPreview(key, title, cover, authors, subjectsJson) {
+                const modalElement = document.getElementById('previewModal');
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+
+                // 1. Reset
+                document.getElementById('modalLoader').classList.remove('d-none');
+                document.getElementById('modalContent').classList.add('d-none');
+
+                // Nettoyer les anciens sujets cachés dans le formulaire de la modale
+                const form = document.querySelector('#previewModal form');
+                form.querySelectorAll('.temp-subject').forEach(el => el.remove());
+
+                // 2. Remplissage des données statiques
+                document.getElementById('prevTitle').innerText = title;
+                document.getElementById('prevCover').src = cover;
+                document.getElementById('prevAuthors').innerText = authors;
+
+                document.getElementById('formKey').value = key;
+                document.getElementById('formTitle').value = title;
+                document.getElementById('formCover').value = cover;
+                document.getElementById('formAuthors').value = authors;
+
+                // 3. Ajout des sujets dynamiquement dans le formulaire de la modale
+                if (subjectsJson) {
+                    const subjects = JSON.parse(subjectsJson);
+                    subjects.forEach(sub => {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'subjects[]';
+                        input.value = sub;
+                        input.className = 'temp-subject';
+                        form.appendChild(input);
+                    });
+                }
+
+                // 4. Fetch AJAX pour le résumé
+                const workId = key.replace('/works/', '');
+                const url = `/book-details/${workId}`;
+                fetch(`/book-details/${workId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("OBJET DATA REÇU :", data);
+                        console.log("TYPE DE DESCRIPTION :", typeof data.description)
+                        let description = "Aucun résumé disponible.";
+                        if (data.description) {
+                            description = typeof data.description === 'object' ? data.description.value : data.description;
+                        }
+                        document.getElementById('prevDescription').innerText = description;
+                        document.getElementById('modalLoader').classList.add('d-none');
+                        document.getElementById('modalContent').classList.remove('d-none');
+                    })
+                    .catch(error => {
+                        document.getElementById('prevDescription').innerText = "Erreur lors du chargement.";
+                        document.getElementById('modalLoader').classList.add('d-none');
+                        document.getElementById('modalContent').classList.remove('d-none');
+                    });
+            }
+        </script>
+{% endblock %}
 {% endblock %}

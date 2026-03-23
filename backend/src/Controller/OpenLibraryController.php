@@ -39,22 +39,11 @@ class OpenLibraryController extends AbstractController
         ]);
     }
 
-    #[Route('/book-details/{olid}', name: 'book_details', methods: ['GET'])]
-    public function getBookDetails(string $olid): JsonResponse
-    {
-        try {
-            $details = $this->openLibraryService->getBookDetails($olid);
-            return new JsonResponse($details);
-        } catch (\Exception $e) {
-            return new JsonResponse(['error' => $e->getMessage()], 500);
-        }
-    }
-
     #[Route('/add-book', name: 'add_book', methods: ['POST'])]
     public function addBook(Request $request, EntityManagerInterface $entityManager)
     {
         // 1. Récupère la clé du livre et les infos de base
-        $workKey = $request->request->get('openLibraryKey'); // ex: /works/OL12345W
+        $workKey = $request->request->get('openLibraryKey');
         $title = $request->request->get('title');
         $imageCover = $request->request->get('imageCover');
         $isbn = $request->request->get('isbn');
@@ -80,7 +69,6 @@ class OpenLibraryController extends AbstractController
             $subjects = array_slice($workDetails['subjects'], 0, 8);
         }
 
-        // 5. Création et hydratation de l'entité Books
         $book = new Books();
         $book->setTitle($title);
         $book->setImageCover($imageCover);
@@ -103,6 +91,19 @@ class OpenLibraryController extends AbstractController
         $this->addFlash('success', '📚 "' . $title . '" a été enrichi et ajouté à ta bibliothèque !');
 
         return $this->redirectToRoute('app_books_index');
+    }
+    #[Route('/book-details/{olid}', name: 'book_details', methods: ['GET'])]
+    public function getBookDetails(string $olid): JsonResponse
+    {
+        // Utilise  getWorkDetails car c'est elle qui contient le résumé
+        $details = $this->openLibraryService->getWorkDetails($olid);
+
+        // Si c'est vide, on renvoie quand même un message pour aider le JS
+        if (empty($details)) {
+            return new JsonResponse(['description' => 'Aucun résumé trouvé sur Open Library.'], 200);
+        }
+
+        return new JsonResponse($details);
     }
 
 }

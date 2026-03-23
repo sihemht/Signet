@@ -25,28 +25,23 @@ class OpenLibraryService
         return $data['docs'] ?? [];
     }
 
-    public function getBookDetails(string $olid): array
-    {
-        $response = $this->client->request('GET', 'https://openlibrary.org/api/books', [
-            'query' => [
-                'bibkeys' => 'OLID:' . $olid,
-                'format' => 'json',
-                'jscmd' => 'data',
-            ],
-        ]);
-
-        if ($response->getStatusCode() !== 200) {
-            throw new \Exception('Failed to fetch data from Open Library');
-        }
-
-        return $response->toArray();
-    }
-
     public function getWorkDetails(string $workKey): array{
-        $response = $this->client->request('GET', 'https://openlibrary.org'. $workKey.'.json' );
-        if ($response->getStatusCode() !== 200) {
-            throw new \Exception('Failed to fetch data from Open Library');
+
+        // Enlève les slashs superflus pour construire l'URL
+        $id = str_replace(['/works/', '/'], '', $workKey);
+
+        $url = "https://openlibrary.org/works/" . $id . ".json";
+
+        try {
+            $response = $this->client->request('GET', $url);
+
+            if ($response->getStatusCode() !== 200) {
+                return [];
+            }
+
+            return $response->toArray();
+        } catch (\Exception $e) {
+            return [];
         }
-        return $response->toArray();
     }
 }

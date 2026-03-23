@@ -32,6 +32,7 @@ class __TwigTemplate_953fde743696cbe11726d4be004bac1e extends Template
         $this->blocks = [
             'title' => [$this, 'block_title'],
             'body' => [$this, 'block_body'],
+            'javascripts' => [$this, 'block_javascripts'],
         ];
     }
 
@@ -235,8 +236,30 @@ $context["book"], "cover_i", [], "any", false, false, false, 37)) . "-L.jpg")) :
                 yield "                            ";
             }
             // line 79
-            yield "
-                            <button type=\"submit\" class=\"btn btn-sm w-100 rounded-pill fw-bold border-2 btn-outline-primary\">
+            yield "                            <button type=\"button\"
+                                    class=\"btn btn-sm w-100 rounded-pill fw-bold border-2 btn-outline-primary\"
+                                    onclick=\"openPreview(
+                                            '";
+            // line 82
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["book"], "key", [], "any", false, false, false, 82), "html", null, true);
+            yield "',
+                                            '";
+            // line 83
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["book"], "title", [], "any", false, false, false, 83), "js"), "html", null, true);
+            yield "',
+                                            '";
+            // line 84
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["cover_url"]) || array_key_exists("cover_url", $context) ? $context["cover_url"] : (function () { throw new RuntimeError('Variable "cover_url" does not exist.', 84, $this->source); })()), "html", null, true);
+            yield "',
+                                            '";
+            // line 85
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::join(((CoreExtension::getAttribute($this->env, $this->source, $context["book"], "author_name", [], "any", true, true, false, 85)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, $context["book"], "author_name", [], "any", false, false, false, 85), [])) : ([])), ", "), "js"), "html", null, true);
+            yield "',
+                                            '";
+            // line 86
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(json_encode(Twig\Extension\CoreExtension::slice($this->env->getCharset(), ((CoreExtension::getAttribute($this->env, $this->source, $context["book"], "subject", [], "any", true, true, false, 86)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, $context["book"], "subject", [], "any", false, false, false, 86), [])) : ([])), 0, 5)), "js"), "html", null, true);
+            yield "'
+                                            )\">
                                 + Ajouter
                             </button>
                         </form>
@@ -246,26 +269,147 @@ $context["book"], "cover_i", [], "any", false, false, false, 37)) . "-L.jpg")) :
         ";
             $context['_iterated'] = true;
         }
-        // line 87
+        // line 94
         if (!$context['_iterated']) {
-            // line 88
+            // line 95
             yield "            ";
-            if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 88, $this->source); })()), "request", [], "any", false, false, false, 88), "query", [], "any", false, false, false, 88), "get", ["query"], "method", false, false, false, 88)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-                // line 89
+            if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 95, $this->source); })()), "request", [], "any", false, false, false, 95), "query", [], "any", false, false, false, 95), "get", ["query"], "method", false, false, false, 95)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                // line 96
                 yield "                <div class=\"col-12 text-center py-5\">
                     <img src=\"https://illustrations.popsy.co/amber/search-not-found.svg\" alt=\"Not found\" style=\"height: 150px;\">
                     <p class=\"text-muted mt-3\">Aucun livre trouvé pour cette recherche.</p>
                 </div>
             ";
             }
-            // line 94
+            // line 101
             yield "        ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['book'], $context['_parent'], $context['_iterated']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 95
+        // line 102
         yield "    </div>
+    <div class=\"modal fade\" id=\"previewModal\" tabindex=\"-1\" aria-hidden=\"true\">
+        <div class=\"modal-dialog modal-dialog-centered\">
+            <div class=\"modal-content border-0 shadow-lg\" style=\"border-radius: 20px;\">
+                <div class=\"modal-body p-4 text-center\">
+                    ";
+        // line 108
+        yield "                    <div id=\"modalLoader\" class=\"py-5\">
+                        <div class=\"spinner-border text-primary\" role=\"status\"></div>
+                        <p class=\"mt-2 text-muted small\">Récupération du résumé...</p>
+                    </div>
+
+                    ";
+        // line 114
+        yield "                    <div id=\"modalContent\" class=\"d-none\">
+                        <img id=\"prevCover\" src=\"\" class=\"rounded-3 shadow mb-3\" style=\"width: 120px; height: 180px; object-fit: cover;\">
+                        <h5 id=\"prevTitle\" class=\"fw-bold mb-1\"></h5>
+                        <p id=\"prevAuthors\" class=\"text-muted small mb-3\"></p>
+
+                        <div class=\"text-start bg-light p-3 rounded-3 mb-4\">
+                            <h6 class=\"fw-bold small\">Résumé</h6>
+                            <p id=\"prevDescription\" class=\"text-muted small mb-0\" style=\"max-height: 200px; overflow-y: auto;\"></p>
+                        </div>
+
+                        <form action=\"";
+        // line 124
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("add_book");
+        yield "\" method=\"post\">
+                            <input type=\"hidden\" name=\"openLibraryKey\" id=\"formKey\">
+                            <input type=\"hidden\" name=\"title\" id=\"formTitle\">
+                            <input type=\"hidden\" name=\"imageCover\" id=\"formCover\">
+                            <input type=\"hidden\" name=\"authors\" id=\"formAuthors\">
+
+                            <div class=\"d-grid gap-2\">
+                                <button type=\"submit\" class=\"btn btn-primary rounded-pill fw-bold\">Confirmer l'ajout</button>
+                                <button type=\"button\" class=\"btn btn-link btn-sm text-muted text-decoration-none\" data-bs-dismiss=\"modal\">Annuler</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    ";
+        // line 140
+        yield from $this->unwrap()->yieldBlock('javascripts', $context, $blocks);
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        yield from [];
+    }
+
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_javascripts(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
+
+        // line 141
+        yield "        <script>
+            function openPreview(key, title, cover, authors, subjectsJson) {
+                const modalElement = document.getElementById('previewModal');
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+
+                // 1. Reset
+                document.getElementById('modalLoader').classList.remove('d-none');
+                document.getElementById('modalContent').classList.add('d-none');
+
+                // Nettoyer les anciens sujets cachés dans le formulaire de la modale
+                const form = document.querySelector('#previewModal form');
+                form.querySelectorAll('.temp-subject').forEach(el => el.remove());
+
+                // 2. Remplissage des données statiques
+                document.getElementById('prevTitle').innerText = title;
+                document.getElementById('prevCover').src = cover;
+                document.getElementById('prevAuthors').innerText = authors;
+
+                document.getElementById('formKey').value = key;
+                document.getElementById('formTitle').value = title;
+                document.getElementById('formCover').value = cover;
+                document.getElementById('formAuthors').value = authors;
+
+                // 3. Ajout des sujets dynamiquement dans le formulaire de la modale
+                if (subjectsJson) {
+                    const subjects = JSON.parse(subjectsJson);
+                    subjects.forEach(sub => {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'subjects[]';
+                        input.value = sub;
+                        input.className = 'temp-subject';
+                        form.appendChild(input);
+                    });
+                }
+
+                // 4. Fetch AJAX pour le résumé
+                const workId = key.replace('/works/', '');
+                const url = `/book-details/\${workId}`;
+                fetch(`/book-details/\${workId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(\"OBJET DATA REÇU :\", data);
+                        console.log(\"TYPE DE DESCRIPTION :\", typeof data.description)
+                        let description = \"Aucun résumé disponible.\";
+                        if (data.description) {
+                            description = typeof data.description === 'object' ? data.description.value : data.description;
+                        }
+                        document.getElementById('prevDescription').innerText = description;
+                        document.getElementById('modalLoader').classList.add('d-none');
+                        document.getElementById('modalContent').classList.remove('d-none');
+                    })
+                    .catch(error => {
+                        document.getElementById('prevDescription').innerText = \"Erreur lors du chargement.\";
+                        document.getElementById('modalLoader').classList.add('d-none');
+                        document.getElementById('modalContent').classList.remove('d-none');
+                    });
+            }
+        </script>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -294,7 +438,7 @@ $context["book"], "cover_i", [], "any", false, false, false, 37)) . "-L.jpg")) :
      */
     public function getDebugInfo(): array
     {
-        return array (  268 => 95,  262 => 94,  255 => 89,  252 => 88,  250 => 87,  238 => 79,  235 => 78,  226 => 76,  221 => 75,  218 => 74,  213 => 71,  209 => 70,  205 => 69,  201 => 68,  197 => 67,  192 => 66,  188 => 63,  184 => 61,  178 => 59,  176 => 58,  170 => 55,  166 => 54,  161 => 51,  155 => 48,  152 => 47,  150 => 46,  144 => 43,  138 => 40,  135 => 39,  133 => 37,  132 => 36,  129 => 35,  124 => 31,  119 => 30,  116 => 29,  105 => 19,  100 => 16,  91 => 11,  85 => 6,  75 => 5,  58 => 3,  41 => 1,);
+        return array (  353 => 141,  336 => 140,  317 => 124,  305 => 114,  298 => 108,  291 => 102,  285 => 101,  278 => 96,  275 => 95,  273 => 94,  260 => 86,  256 => 85,  252 => 84,  248 => 83,  244 => 82,  239 => 79,  236 => 78,  227 => 76,  222 => 75,  219 => 74,  214 => 71,  210 => 70,  206 => 69,  202 => 68,  198 => 67,  193 => 66,  189 => 63,  185 => 61,  179 => 59,  177 => 58,  171 => 55,  167 => 54,  162 => 51,  156 => 48,  153 => 47,  151 => 46,  145 => 43,  139 => 40,  136 => 39,  134 => 37,  133 => 36,  130 => 35,  125 => 31,  120 => 30,  117 => 29,  106 => 19,  101 => 16,  92 => 11,  86 => 6,  76 => 5,  59 => 3,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -377,8 +521,15 @@ $context["book"], "cover_i", [], "any", false, false, false, 37)) . "-L.jpg")) :
                                     <input type=\"hidden\" name=\"subjects[]\" value=\"{{ sub }}\">
                                 {% endfor %}
                             {% endif %}
-
-                            <button type=\"submit\" class=\"btn btn-sm w-100 rounded-pill fw-bold border-2 btn-outline-primary\">
+                            <button type=\"button\"
+                                    class=\"btn btn-sm w-100 rounded-pill fw-bold border-2 btn-outline-primary\"
+                                    onclick=\"openPreview(
+                                            '{{ book.key }}',
+                                            '{{ book.title|e('js') }}',
+                                            '{{ cover_url }}',
+                                            '{{ book.author_name|default([])|join(', ')|e('js') }}',
+                                            '{{ book.subject|default([])|slice(0, 5)|json_encode|e('js') }}'
+                                            )\">
                                 + Ajouter
                             </button>
                         </form>
@@ -394,6 +545,105 @@ $context["book"], "cover_i", [], "any", false, false, false, 37)) . "-L.jpg")) :
             {% endif %}
         {% endfor %}
     </div>
+    <div class=\"modal fade\" id=\"previewModal\" tabindex=\"-1\" aria-hidden=\"true\">
+        <div class=\"modal-dialog modal-dialog-centered\">
+            <div class=\"modal-content border-0 shadow-lg\" style=\"border-radius: 20px;\">
+                <div class=\"modal-body p-4 text-center\">
+                    {# Loader (affiché pendant le chargement AJAX) #}
+                    <div id=\"modalLoader\" class=\"py-5\">
+                        <div class=\"spinner-border text-primary\" role=\"status\"></div>
+                        <p class=\"mt-2 text-muted small\">Récupération du résumé...</p>
+                    </div>
+
+                    {# Contenu de la modale (caché au début) #}
+                    <div id=\"modalContent\" class=\"d-none\">
+                        <img id=\"prevCover\" src=\"\" class=\"rounded-3 shadow mb-3\" style=\"width: 120px; height: 180px; object-fit: cover;\">
+                        <h5 id=\"prevTitle\" class=\"fw-bold mb-1\"></h5>
+                        <p id=\"prevAuthors\" class=\"text-muted small mb-3\"></p>
+
+                        <div class=\"text-start bg-light p-3 rounded-3 mb-4\">
+                            <h6 class=\"fw-bold small\">Résumé</h6>
+                            <p id=\"prevDescription\" class=\"text-muted small mb-0\" style=\"max-height: 200px; overflow-y: auto;\"></p>
+                        </div>
+
+                        <form action=\"{{ path('add_book') }}\" method=\"post\">
+                            <input type=\"hidden\" name=\"openLibraryKey\" id=\"formKey\">
+                            <input type=\"hidden\" name=\"title\" id=\"formTitle\">
+                            <input type=\"hidden\" name=\"imageCover\" id=\"formCover\">
+                            <input type=\"hidden\" name=\"authors\" id=\"formAuthors\">
+
+                            <div class=\"d-grid gap-2\">
+                                <button type=\"submit\" class=\"btn btn-primary rounded-pill fw-bold\">Confirmer l'ajout</button>
+                                <button type=\"button\" class=\"btn btn-link btn-sm text-muted text-decoration-none\" data-bs-dismiss=\"modal\">Annuler</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block javascripts %}
+        <script>
+            function openPreview(key, title, cover, authors, subjectsJson) {
+                const modalElement = document.getElementById('previewModal');
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+
+                // 1. Reset
+                document.getElementById('modalLoader').classList.remove('d-none');
+                document.getElementById('modalContent').classList.add('d-none');
+
+                // Nettoyer les anciens sujets cachés dans le formulaire de la modale
+                const form = document.querySelector('#previewModal form');
+                form.querySelectorAll('.temp-subject').forEach(el => el.remove());
+
+                // 2. Remplissage des données statiques
+                document.getElementById('prevTitle').innerText = title;
+                document.getElementById('prevCover').src = cover;
+                document.getElementById('prevAuthors').innerText = authors;
+
+                document.getElementById('formKey').value = key;
+                document.getElementById('formTitle').value = title;
+                document.getElementById('formCover').value = cover;
+                document.getElementById('formAuthors').value = authors;
+
+                // 3. Ajout des sujets dynamiquement dans le formulaire de la modale
+                if (subjectsJson) {
+                    const subjects = JSON.parse(subjectsJson);
+                    subjects.forEach(sub => {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'subjects[]';
+                        input.value = sub;
+                        input.className = 'temp-subject';
+                        form.appendChild(input);
+                    });
+                }
+
+                // 4. Fetch AJAX pour le résumé
+                const workId = key.replace('/works/', '');
+                const url = `/book-details/\${workId}`;
+                fetch(`/book-details/\${workId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(\"OBJET DATA REÇU :\", data);
+                        console.log(\"TYPE DE DESCRIPTION :\", typeof data.description)
+                        let description = \"Aucun résumé disponible.\";
+                        if (data.description) {
+                            description = typeof data.description === 'object' ? data.description.value : data.description;
+                        }
+                        document.getElementById('prevDescription').innerText = description;
+                        document.getElementById('modalLoader').classList.add('d-none');
+                        document.getElementById('modalContent').classList.remove('d-none');
+                    })
+                    .catch(error => {
+                        document.getElementById('prevDescription').innerText = \"Erreur lors du chargement.\";
+                        document.getElementById('modalLoader').classList.add('d-none');
+                        document.getElementById('modalContent').classList.remove('d-none');
+                    });
+            }
+        </script>
+{% endblock %}
 {% endblock %}", "open_library/index.html.twig", "/var/www/html/backend/templates/open_library/index.html.twig");
     }
 }
