@@ -61,30 +61,6 @@
             "migrations/.gitignore"
         ]
     },
-    "easycorp/easyadmin-bundle": {
-        "version": "4.28",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "4.14",
-            "ref": "13b3e524d1038a6861ad6c7fc64e31b644ba0c54"
-        },
-        "files": [
-            "config/routes/easyadmin.yaml"
-        ]
-    },
-    "lexik/jwt-authentication-bundle": {
-        "version": "2.20",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "2.5",
-            "ref": "e9481b233a11ef7e15fe055a2b21fd3ac1aa2bb7"
-        },
-        "files": [
-            "config/packages/lexik_jwt_authentication.yaml"
-        ]
-    },
     "nelmio/api-doc-bundle": {
         "version": "4.38",
         "recipe": {
@@ -142,18 +118,6 @@
         },
         "files": [
             ".env"
-        ]
-    },
-    "symfony/form": {
-        "version": "7.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "7.2",
-            "ref": "7d86a6723f4a623f59e2bf966b6aad2fc461d36b"
-        },
-        "files": [
-            "config/packages/csrf.yaml"
         ]
     },
     "symfony/framework-bundle": {
@@ -249,19 +213,6 @@
             "config/routes/security.yaml"
         ]
     },
-    "symfony/translation": {
-        "version": "7.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "6.3",
-            "ref": "620a1b84865ceb2ba304c8f8bf2a185fbf32a843"
-        },
-        "files": [
-            "config/packages/translation.yaml",
-            "translations/.gitignore"
-        ]
-    },
     "symfony/twig-bundle": {
         "version": "7.4",
         "recipe": {
@@ -273,27 +224,6 @@
         "files": [
             "config/packages/twig.yaml",
             "templates/base.html.twig"
-        ]
-    },
-    "symfony/uid": {
-        "version": "7.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "7.0",
-            "ref": "0df5844274d871b37fc3816c57a768ffc60a43a5"
-        }
-    },
-    "symfony/ux-twig-component": {
-        "version": "2.32",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "2.13",
-            "ref": "f367ae2a1faf01c503de2171f1ec22567febeead"
-        },
-        "files": [
-            "config/packages/twig_component.yaml"
         ]
     },
     "symfony/validator": {
@@ -308,22 +238,6 @@
             "config/packages/validator.yaml"
         ]
     },
-    "symfony/webpack-encore-bundle": {
-        "version": "2.1",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "2.0",
-            "ref": "082d754b3bd54b3fc669f278f1eea955cfd23cf5"
-        },
-        "files": [
-            "assets/app.js",
-            "assets/styles/app.css",
-            "config/packages/webpack_encore.yaml",
-            "package.json",
-            "webpack.config.js"
-        ]
-    },
     "symfony/workflow": {
         "version": "7.4",
         "recipe": {
@@ -335,9 +249,6 @@
         "files": [
             "config/packages/workflow.yaml"
         ]
-    },
-    "twig/extra-bundle": {
-        "version": "v3.23.0"
     },
     "zenstruck/foundry": {
         "version": "1.38",

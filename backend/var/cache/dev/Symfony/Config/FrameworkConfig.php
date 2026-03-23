@@ -373,7 +373,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
      * @template TValue of array|bool
      * @param TValue $value
      * Form configuration
-     * @default {"enabled":true,"csrf_protection":{"enabled":null,"token_id":null,"field_name":"_token","field_attr":{"data-controller":"csrf-protection"}}}
+     * @default {"enabled":false,"csrf_protection":{"enabled":null,"token_id":null,"field_name":"_token","field_attr":{"data-controller":"csrf-protection"}}}
      * @return \Symfony\Config\Framework\FormConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\Framework\FormConfig : static)
      * @deprecated since Symfony 7.4
@@ -720,7 +720,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
      * @template TValue of array|bool
      * @param TValue $value
      * Translator configuration
-     * @default {"enabled":true,"fallbacks":[],"logging":false,"formatter":"translator.formatter.default","cache_dir":"%kernel.cache_dir%\/translations","default_path":"%kernel.project_dir%\/translations","paths":[],"pseudo_localization":{"enabled":false,"accents":true,"expansion_factor":1,"brackets":true,"parse_html":false,"localizable_html_attributes":[]},"providers":[],"globals":[]}
+     * @default {"enabled":false,"fallbacks":[],"logging":false,"formatter":"translator.formatter.default","cache_dir":"%kernel.cache_dir%\/translations","default_path":"%kernel.project_dir%\/translations","paths":[],"pseudo_localization":{"enabled":false,"accents":true,"expansion_factor":1,"brackets":true,"parse_html":false,"localizable_html_attributes":[]},"providers":[],"globals":[]}
      * @return \Symfony\Config\Framework\TranslatorConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\Framework\TranslatorConfig : static)
      * @deprecated since Symfony 7.4
@@ -1280,7 +1280,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
      * @template TValue of array|bool
      * @param TValue $value
      * Uid configuration
-     * @default {"enabled":true,"default_uuid_version":7,"name_based_uuid_version":5,"time_based_uuid_version":7}
+     * @default {"enabled":false,"default_uuid_version":7,"name_based_uuid_version":5,"time_based_uuid_version":7}
      * @return \Symfony\Config\Framework\UidConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\Framework\UidConfig : static)
      * @deprecated since Symfony 7.4

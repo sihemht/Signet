@@ -12,8 +12,6 @@ return [PHP_INT_MAX, new class() implements \Symfony\Component\Cache\Traits\Cach
                     'ApiPlatform\\State\\ApiResource\\Error',
                     'ApiPlatform\\Symfony\\Validator\\Exception\\ValidationException',
                     'ApiPlatform\\Validator\\Exception\\ValidationException',
-                    'App\\Entity\\Event',
-                    'App\\Entity\\Vote',
                 ],
             ],
         ],

@@ -148,7 +148,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         cookie_name?: scalar|Param|null, // The name of the cookie to use when using stateless protection. // Default: "csrf-token"
  *     },
  *     form?: bool|array{ // Form configuration
- *         enabled?: bool|Param, // Default: true
+ *         enabled?: bool|Param, // Default: false
  *         csrf_protection?: bool|array{
  *             enabled?: scalar|Param|null, // Default: null
  *             token_id?: scalar|Param|null, // Default: null
@@ -302,7 +302,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         },
  *     },
  *     translator?: bool|array{ // Translator configuration
- *         enabled?: bool|Param, // Default: true
+ *         enabled?: bool|Param, // Default: false
  *         fallbacks?: list<scalar|Param|null>,
  *         logging?: bool|Param, // Default: false
  *         formatter?: scalar|Param|null, // Default: "translator.formatter.default"
@@ -645,7 +645,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         }>,
  *     },
  *     uid?: bool|array{ // Uid configuration
- *         enabled?: bool|Param, // Default: true
+ *         enabled?: bool|Param, // Default: false
  *         default_uuid_version?: 7|6|4|1|Param, // Default: 7
  *         name_based_uuid_version?: 5|3|Param, // Default: 5
  *         name_based_uuid_namespace?: scalar|Param|null,
@@ -1002,9 +1002,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             filter?: scalar|Param|null, // Default: "({uid_key}={user_identifier})"
  *             password_attribute?: scalar|Param|null, // Default: null
  *         },
- *         lexik_jwt?: array{
- *             class?: scalar|Param|null, // Default: "Lexik\\Bundle\\JWTAuthenticationBundle\\Security\\User\\JWTUser"
- *         },
  *     }>,
  *     firewalls: array<string, array{ // Default: []
  *         pattern?: scalar|Param|null,
@@ -1062,10 +1059,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         remote_user?: array{
  *             provider?: scalar|Param|null,
  *             user?: scalar|Param|null, // Default: "REMOTE_USER"
- *         },
- *         jwt?: array{
- *             provider?: scalar|Param|null, // Default: null
- *             authenticator?: scalar|Param|null, // Default: "lexik_jwt_authentication.security.jwt_authenticator"
  *         },
  *         login_link?: array{
  *             check_route: scalar|Param|null, // Route that will validate the login link - e.g. "app_login_link_verify".
@@ -1265,105 +1258,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         roles?: list<scalar|Param|null>,
  *     }>,
  *     role_hierarchy?: array<string, string|list<scalar|Param|null>>,
- * }
- * @psalm-type LexikJwtAuthenticationConfig = array{
- *     private_key_path?: scalar|Param|null, // Deprecated: The "lexik_jwt_authentication.private_key_path.private_key_path" configuration key is deprecated since version 2.5. Use "lexik_jwt_authentication.private_key_path.secret_key" instead. // Default: null
- *     public_key_path?: scalar|Param|null, // Deprecated: The "lexik_jwt_authentication.public_key_path.public_key_path" configuration key is deprecated since version 2.5. Use "lexik_jwt_authentication.public_key_path.public_key" instead. // Default: null
- *     public_key?: scalar|Param|null, // The key used to sign tokens (useless for HMAC). If not set, the key will be automatically computed from the secret key. // Default: null
- *     additional_public_keys?: list<scalar|Param|null>,
- *     secret_key?: scalar|Param|null, // The key used to sign tokens. It can be a raw secret (for HMAC), a raw RSA/ECDSA key or the path to a file itself being plaintext or PEM. // Default: null
- *     pass_phrase?: scalar|Param|null, // The key passphrase (useless for HMAC) // Default: ""
- *     token_ttl?: scalar|Param|null, // Default: 3600
- *     allow_no_expiration?: bool|Param, // Allow tokens without "exp" claim (i.e. indefinitely valid, no lifetime) to be considered valid. Caution: usage of this should be rare. // Default: false
- *     clock_skew?: scalar|Param|null, // Default: 0
- *     encoder?: array{
- *         service?: scalar|Param|null, // Default: "lexik_jwt_authentication.encoder.lcobucci"
- *         signature_algorithm?: scalar|Param|null, // Default: "RS256"
- *         crypto_engine?: "openssl"|"phpseclib"|Param, // Deprecated: The "lexik_jwt_authentication.encoder.crypto_engine.crypto_engine" configuration key is deprecated since version 2.5, built-in encoders support OpenSSL only // Default: "openssl"
- *     },
- *     user_identity_field?: scalar|Param|null, // Deprecated: The "lexik_jwt_authentication.user_identity_field.user_identity_field" configuration key is deprecated since version 2.16, use "lexik_jwt_authentication.user_identity_field.user_id_claim" or implement "Symfony\Component\Security\Core\User\UserInterface::getUserIdentifier()" instead. // Default: "username"
- *     user_id_claim?: scalar|Param|null, // If null, the user ID claim will have the same name as the one defined by the option "user_identity_field" // Default: null
- *     token_extractors?: array{
- *         authorization_header?: bool|array{
- *             enabled?: bool|Param, // Default: true
- *             prefix?: scalar|Param|null, // Default: "Bearer"
- *             name?: scalar|Param|null, // Default: "Authorization"
- *         },
- *         cookie?: bool|array{
- *             enabled?: bool|Param, // Default: false
- *             name?: scalar|Param|null, // Default: "BEARER"
- *         },
- *         query_parameter?: bool|array{
- *             enabled?: bool|Param, // Default: false
- *             name?: scalar|Param|null, // Default: "bearer"
- *         },
- *         split_cookie?: bool|array{
- *             enabled?: bool|Param, // Default: false
- *             cookies?: list<scalar|Param|null>,
- *         },
- *     },
- *     remove_token_from_body_when_cookies_used?: scalar|Param|null, // Default: true
- *     set_cookies?: array<string, array{ // Default: []
- *         lifetime?: scalar|Param|null, // The cookie lifetime. If null, the "token_ttl" option value will be used // Default: null
- *         samesite?: "none"|"lax"|"strict"|Param, // Default: "lax"
- *         path?: scalar|Param|null, // Default: "/"
- *         domain?: scalar|Param|null, // Default: null
- *         secure?: scalar|Param|null, // Default: true
- *         httpOnly?: scalar|Param|null, // Default: true
- *         partitioned?: scalar|Param|null, // Default: false
- *         split?: list<scalar|Param|null>,
- *     }>,
- *     api_platform?: bool|array{ // API Platform compatibility: add check_path in OpenAPI documentation.
- *         enabled?: bool|Param, // Default: false
- *         check_path?: scalar|Param|null, // The login check path to add in OpenAPI. // Default: null
- *         username_path?: scalar|Param|null, // The path to the username in the JSON body. // Default: null
- *         password_path?: scalar|Param|null, // The path to the password in the JSON body. // Default: null
- *     },
- *     access_token_issuance?: bool|array{
- *         enabled?: bool|Param, // Default: false
- *         signature?: array{
- *             algorithm: scalar|Param|null, // The algorithm use to sign the access tokens.
- *             key: scalar|Param|null, // The signature key. It shall be JWK encoded.
- *         },
- *         encryption?: bool|array{
- *             enabled?: bool|Param, // Default: false
- *             key_encryption_algorithm: scalar|Param|null, // The key encryption algorithm is used to encrypt the token.
- *             content_encryption_algorithm: scalar|Param|null, // The key encryption algorithm is used to encrypt the token.
- *             key: scalar|Param|null, // The encryption key. It shall be JWK encoded.
- *         },
- *     },
- *     access_token_verification?: bool|array{
- *         enabled?: bool|Param, // Default: false
- *         signature?: array{
- *             header_checkers?: list<scalar|Param|null>,
- *             claim_checkers?: list<scalar|Param|null>,
- *             mandatory_claims?: list<scalar|Param|null>,
- *             allowed_algorithms?: list<scalar|Param|null>,
- *             keyset: scalar|Param|null, // The signature keyset. It shall be JWKSet encoded.
- *         },
- *         encryption?: bool|array{
- *             enabled?: bool|Param, // Default: false
- *             continue_on_decryption_failure?: bool|Param, // If enable, non-encrypted tokens or tokens that failed during decryption or verification processes are accepted. // Default: false
- *             header_checkers?: list<scalar|Param|null>,
- *             allowed_key_encryption_algorithms?: list<scalar|Param|null>,
- *             allowed_content_encryption_algorithms?: list<scalar|Param|null>,
- *             keyset: scalar|Param|null, // The encryption keyset. It shall be JWKSet encoded.
- *         },
- *     },
- *     blocklist_token?: bool|array{
- *         enabled?: bool|Param, // Default: false
- *         cache?: scalar|Param|null, // Storage to track blocked tokens // Default: "cache.app"
- *     },
- * }
- * @psalm-type WebpackEncoreConfig = array{
- *     output_path: scalar|Param|null, // The path where Encore is building the assets - i.e. Encore.setOutputPath()
- *     crossorigin?: false|"anonymous"|"use-credentials"|Param, // crossorigin value when Encore.enableIntegrityHashes() is used, can be false (default), anonymous or use-credentials // Default: false
- *     preload?: bool|Param, // preload all rendered script and link tags automatically via the http2 Link header. // Default: false
- *     cache?: bool|Param, // Enable caching of the entry point file(s) // Default: false
- *     strict_mode?: bool|Param, // Throw an exception if the entrypoints.json file is missing or an entry is missing from the data // Default: true
- *     builds?: array<string, scalar|Param|null>,
- *     script_attributes?: array<string, scalar|Param|null>,
- *     link_attributes?: array<string, scalar|Param|null>,
  * }
  * @psalm-type NelmioCorsConfig = array{
  *     defaults?: array{
@@ -1878,110 +1772,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         }>,
  *     },
  * }
- * @psalm-type ZenstruckFoundryConfig = array{
- *     auto_refresh_proxies?: bool|Param|null, // Whether to auto-refresh proxies by default (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#auto-refresh) // Default: null
- *     faker?: array{ // Configure faker to be used by your factories.
- *         locale?: scalar|Param|null, // Change the default faker locale. // Default: null
- *         seed?: int|Param, // Random number generator seed to produce the same fake values every run // Default: null
- *         service?: scalar|Param|null, // Customize the faker service. // Default: null
- *     },
- *     instantiator?: array{ // Configure the default instantiator used by your factories.
- *         without_constructor?: bool|Param, // Deprecated: Configuration "zenstruck_foundry.instantiator.without_constructor" is deprecated and will be removed in 2.0. Use "zenstruck_foundry.instantiator.use_constructor" instead. // Whether or not to call an object's constructor during instantiation.
- *         use_constructor?: bool|Param, // Use the constructor to instantiate objects.
- *         allow_extra_attributes?: bool|Param, // Whether or not to allow extra attributes. // Default: false
- *         always_force_properties?: bool|Param, // Whether or not to skip setters and force set object properties (public/private/protected) directly. // Default: false
- *         service?: scalar|Param|null, // Customize the instantiator service. // Default: null
- *     },
- *     orm?: array{
- *         reset?: array{
- *             connections?: list<scalar|Param|null>,
- *             entity_managers?: list<scalar|Param|null>,
- *             mode?: "schema"|"migrate"|Param, // Reset mode to use with ResetDatabase trait // Default: "schema"
- *         },
- *     },
- *     mongo?: array{
- *         reset?: array{
- *             document_managers?: list<scalar|Param|null>,
- *         },
- *     },
- *     database_resetter?: bool|array{ // Deprecated: Configuration "zenstruck_foundry.database_resetter" is deprecated and will be removed in 2.0. Use "zenstruck_foundry.orm.reset" or "zenstruck_foundry.mongo.reset" instead. // Configure database reset mechanism.
- *         enabled?: bool|Param, // Default: true
- *         orm?: array{
- *             connections?: list<scalar|Param|null>,
- *             object_managers?: list<scalar|Param|null>,
- *             reset_mode?: "schema"|"migrate"|Param, // Whether to use doctrine:schema:update or migrations when resetting schema. // Default: "schema"
- *         },
- *         odm?: array{
- *             object_managers?: list<scalar|Param|null>,
- *         },
- *     },
- *     global_state?: list<scalar|Param|null>,
- *     make_factory?: array{
- *         default_namespace?: scalar|Param|null, // Default namespace where factories will be created by maker. // Default: "Factory"
- *     },
- *     make_story?: array{
- *         default_namespace?: scalar|Param|null, // Default namespace where stories will be created by maker. // Default: "Story"
- *     },
- * }
- * @psalm-type TwigExtraConfig = array{
- *     cache?: bool|array{
- *         enabled?: bool|Param, // Default: false
- *     },
- *     html?: bool|array{
- *         enabled?: bool|Param, // Default: true
- *     },
- *     markdown?: bool|array{
- *         enabled?: bool|Param, // Default: false
- *     },
- *     intl?: bool|array{
- *         enabled?: bool|Param, // Default: false
- *     },
- *     cssinliner?: bool|array{
- *         enabled?: bool|Param, // Default: false
- *     },
- *     inky?: bool|array{
- *         enabled?: bool|Param, // Default: false
- *     },
- *     string?: bool|array{
- *         enabled?: bool|Param, // Default: false
- *     },
- *     commonmark?: array{
- *         renderer?: array{ // Array of options for rendering HTML.
- *             block_separator?: scalar|Param|null,
- *             inner_separator?: scalar|Param|null,
- *             soft_break?: scalar|Param|null,
- *         },
- *         html_input?: "strip"|"allow"|"escape"|Param, // How to handle HTML input.
- *         allow_unsafe_links?: bool|Param, // Remove risky link and image URLs by setting this to false. // Default: true
- *         max_nesting_level?: int|Param, // The maximum nesting level for blocks. // Default: 9223372036854775807
- *         max_delimiters_per_line?: int|Param, // The maximum number of strong/emphasis delimiters per line. // Default: 9223372036854775807
- *         slug_normalizer?: array{ // Array of options for configuring how URL-safe slugs are created.
- *             instance?: mixed,
- *             max_length?: int|Param, // Default: 255
- *             unique?: mixed,
- *         },
- *         commonmark?: array{ // Array of options for configuring the CommonMark core extension.
- *             enable_em?: bool|Param, // Default: true
- *             enable_strong?: bool|Param, // Default: true
- *             use_asterisk?: bool|Param, // Default: true
- *             use_underscore?: bool|Param, // Default: true
- *             unordered_list_markers?: list<scalar|Param|null>,
- *         },
- *         ...<mixed>
- *     },
- * }
- * @psalm-type TwigComponentConfig = array{
- *     defaults?: array<string, string|array{ // Default: ["__deprecated__use_old_naming_behavior"]
- *         template_directory?: scalar|Param|null, // Default: "components"
- *         name_prefix?: scalar|Param|null, // Default: ""
- *     }>,
- *     anonymous_template_directory?: scalar|Param|null, // Defaults to `components`
- *     profiler?: bool|array{ // Enables the profiler for Twig Component
- *         enabled?: bool|Param, // Default: "%kernel.debug%"
- *         collect_components?: bool|Param, // Collect components instances // Default: true
- *     },
- *     controllers_json?: scalar|Param|null, // Deprecated: The "twig_component.controllers_json" config option is deprecated, and will be removed in 3.0. // Default: null
- * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -1990,15 +1780,11 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     doctrine?: DoctrineConfig,
  *     doctrine_migrations?: DoctrineMigrationsConfig,
  *     security?: SecurityConfig,
- *     lexik_jwt_authentication?: LexikJwtAuthenticationConfig,
- *     webpack_encore?: WebpackEncoreConfig,
  *     nelmio_cors?: NelmioCorsConfig,
  *     monolog?: MonologConfig,
  *     twig?: TwigConfig,
  *     api_platform?: ApiPlatformConfig,
  *     nelmio_api_doc?: NelmioApiDocConfig,
- *     twig_extra?: TwigExtraConfig,
- *     twig_component?: TwigComponentConfig,
  *     "when@dev"?: array{
  *         imports?: ImportsConfig,
  *         parameters?: ParametersConfig,
@@ -2008,16 +1794,11 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         doctrine?: DoctrineConfig,
  *         doctrine_migrations?: DoctrineMigrationsConfig,
  *         security?: SecurityConfig,
- *         lexik_jwt_authentication?: LexikJwtAuthenticationConfig,
- *         webpack_encore?: WebpackEncoreConfig,
  *         nelmio_cors?: NelmioCorsConfig,
  *         monolog?: MonologConfig,
  *         twig?: TwigConfig,
  *         api_platform?: ApiPlatformConfig,
  *         nelmio_api_doc?: NelmioApiDocConfig,
- *         zenstruck_foundry?: ZenstruckFoundryConfig,
- *         twig_extra?: TwigExtraConfig,
- *         twig_component?: TwigComponentConfig,
  *     },
  *     "when@prod"?: array{
  *         imports?: ImportsConfig,
@@ -2027,15 +1808,11 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         doctrine?: DoctrineConfig,
  *         doctrine_migrations?: DoctrineMigrationsConfig,
  *         security?: SecurityConfig,
- *         lexik_jwt_authentication?: LexikJwtAuthenticationConfig,
- *         webpack_encore?: WebpackEncoreConfig,
  *         nelmio_cors?: NelmioCorsConfig,
  *         monolog?: MonologConfig,
  *         twig?: TwigConfig,
  *         api_platform?: ApiPlatformConfig,
  *         nelmio_api_doc?: NelmioApiDocConfig,
- *         twig_extra?: TwigExtraConfig,
- *         twig_component?: TwigComponentConfig,
  *     },
  *     "when@test"?: array{
  *         imports?: ImportsConfig,
@@ -2045,16 +1822,11 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         doctrine?: DoctrineConfig,
  *         doctrine_migrations?: DoctrineMigrationsConfig,
  *         security?: SecurityConfig,
- *         lexik_jwt_authentication?: LexikJwtAuthenticationConfig,
- *         webpack_encore?: WebpackEncoreConfig,
  *         nelmio_cors?: NelmioCorsConfig,
  *         monolog?: MonologConfig,
  *         twig?: TwigConfig,
  *         api_platform?: ApiPlatformConfig,
  *         nelmio_api_doc?: NelmioApiDocConfig,
- *         zenstruck_foundry?: ZenstruckFoundryConfig,
- *         twig_extra?: TwigExtraConfig,
- *         twig_component?: TwigComponentConfig,
  *     },
  *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
  *         imports?: ImportsConfig,
