@@ -12,7 +12,29 @@ Signet est une application web développée avec **Symfony**, conçue pour les p
     - Système de filtres par catégories (Subjects) avec compteurs dynamiques.
     - Suivi du statut de lecture (À lire, En cours, Terminé) via un système de Workflow.
 - **📱 Design Responsive** : Interface "Mobile-First" épurée avec Bootstrap 5.
+## 📖 Logique de lecture (Workflow)
 
+L'application utilise une machine à états (State Machine) pour gérer la progression de vos lectures. Voici le cycle de vie d'un livre dans **Signet** :
+
+```mermaid
+graph LR
+    %% Définition des états
+    place0(["📚 À lire"])
+    place1(("📖 En cours"))
+    place2(("✅ Terminé"))
+    place3(("❌ Abandonné"))
+
+    %% Transitions
+    place0 -->|"start_reading"| place1
+    place1 -->|"finish_reading"| place2
+    place0 -->|"abandon_book"| place3
+    place1 -->|"abandon_book"| place3
+    place1 -->|"reset_to_read"| place0
+
+    %% Styles
+    style place1 fill:#634832,color:#fff
+    style place2 fill:#d4a373,color:#fff
+   ```
 ## 🛠️ Stack Technique
 
 - **Backend** : PHP 8.2+ & Symfony 6.4/7.0
@@ -43,7 +65,7 @@ docker compose exec php composer install -d backend
 
 ### 3. Initialiser la base de données
 ```bash
-# Créer la base
+# Créer la base de donées
 docker compose exec php php bin/console doctrine:database:create
 
 # Créer le schéma

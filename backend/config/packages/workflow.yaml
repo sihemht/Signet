@@ -1,6 +1,5 @@
 framework:
     workflows:
-        # Pour tes livres
         book_reading:
             type: 'state_machine'
             marking_store:
@@ -20,3 +19,9 @@ framework:
                 finish_reading:
                     from: reading
                     to: completed
+                abandon_book:
+                    from: [ to_read, reading ]
+                    to: abandoned
+                reset_to_read:
+                    from: reading
+                    to: to_read

@@ -373,7 +373,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
      * @template TValue of array|bool
      * @param TValue $value
      * Form configuration
-     * @default {"enabled":false,"csrf_protection":{"enabled":null,"token_id":null,"field_name":"_token","field_attr":{"data-controller":"csrf-protection"}}}
+     * @default {"enabled":true,"csrf_protection":{"enabled":null,"token_id":null,"field_name":"_token","field_attr":{"data-controller":"csrf-protection"}}}
      * @return \Symfony\Config\Framework\FormConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\Framework\FormConfig : static)
      * @deprecated since Symfony 7.4

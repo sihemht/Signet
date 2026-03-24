@@ -73,6 +73,32 @@
                     .card:hover {
                         transform: translateY(-5px);
                     }
+
+                    /* Style des inputs */
+                    .form-control, .form-select {
+                        border: 1px solid #eee;
+                        padding: 0.75rem 1rem;
+                        background-color: #fcfcfc;
+                        transition: all 0.3s;
+                    }
+
+                    .form-control:focus {
+                        background-color: #fff;
+                        border-color: var(--accent-color);
+                        box-shadow: 0 0 0 0.25 margin rgba(212, 163, 115, 0.15);
+                    }
+
+                    /* Style spécifique pour les arrondis mobiles */
+                    .rounded-4 { border-radius: 12px !important; }
+                    .rounded-start-4 { border-top-left-radius: 12px !important; border-bottom-left-radius: 12px !important; }
+                    .rounded-end-4 { border-top-right-radius: 12px !important; border-bottom-right-radius: 12px !important; }
+
+                    /* Masquer les flèches des inputs number pour un look plus clean */
+                    input::-webkit-outer-spin-button,
+                    input::-webkit-inner-spin-button {
+                        -webkit-appearance: none;
+                        margin: 0;
+                    }
                 </style>
 
                 {% block stylesheets %}{% endblock %}
