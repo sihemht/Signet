@@ -1,0 +1,7 @@
+parameters:
+    level: 5 # On commence doucement (0 à 9)
+    paths:
+        - backend/src
+    symfony:
+        container_xml_path: var/cache/dev/App_KernelDevDebugContainer.xml
+    checkGenericClassInNonGenericObjectType: false
