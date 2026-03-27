@@ -2,7 +2,7 @@ name: Symfony CI
 
 on:
   push:
-    branches: [ "main", "ci/setup-github-actions" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -29,3 +29,12 @@ jobs:
         run: |
           php bin/console lint:twig templates
           php bin/console lint:yaml config
+
+      - name: Static Analysis with PHPStan
+        run: vendor/bin/phpstan analyse src/
+
+      - name: Check PSR-12 Code Style
+        run: vendor/bin/phpcs --standard=PSR12 src/
+
+      - name: Security Audit
+        run: composer audit
