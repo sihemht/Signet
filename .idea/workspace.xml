@@ -5,43 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="157bea1c-f3f1-414a-b5f1-e2b35549ccb1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/packages/framework.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/config/packages/workflow.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/packages/workflow.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/config/reference.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/reference.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/Form/BooksType.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/Form/BooksType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/backend/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/templates/books/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/backend/templates/books/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/templates/books/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/backend/templates/books/new.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/templates/open_library/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/backend/templates/open_library/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.php.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.php.meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.php.meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.preload.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.preload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.ser" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.xml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.xml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.xml.meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainer.xml.meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainerCompiler.log" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainerCompiler.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainerDeprecations.log" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/App_KernelDevDebugContainerDeprecations.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/Symfony/Config/Framework/FormConfig.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/Symfony/Config/Framework/FormConfig.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/Symfony/Config/FrameworkConfig.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/Symfony/Config/FrameworkConfig.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/pools/system/AlEWtDakCC/G/6/TnLOm8ytLlNyqd4HqKrg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/pools/system/sXrbhc+jzk/8/I/pkzRVLA9IiX6fkMWP1Nw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/pools/system/sXrbhc+jzk/C/V/dOSOd2lefZUYRxHepG-Q" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/pools/system/sXrbhc+jzk/F/P/308+rc+WjoDPoFEISMMw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/cache/dev/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/cache/dev/validation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/var/log/dev.log" beforeDir="false" afterPath="$PROJECT_DIR$/backend/var/log/dev.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_classmap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/autoload_files.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_files.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/autoload_psr4.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_psr4.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/autoload_static.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/installed.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/installed.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/vendor/composer/installed.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/vendor/composer/installed.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -239,7 +204,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "refactor/clean-architecture",
+    "git-widget-placeholder": "ci/setup-github-actions",
     "last_opened_file_path": "/Users/sihem/kitab/api/public/images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.stylelint": "true",
