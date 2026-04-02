@@ -51,7 +51,7 @@
 # Embedded web-server pid file
 /.web-server-pid
 
-# Symfony Récent
+# Symfony
 .env.local
 .env.local.php
 .env.*.local
