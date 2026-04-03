@@ -11,6 +11,9 @@ use Symfony\Component\Workflow\Annotation\WorkflowMetadata;
 #[ORM\Entity(repositoryClass: BooksRepository::class)]
 class Books
 {
+    /**
+     * @var int|null
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -44,16 +47,15 @@ class Books
     private ?int $rating = null;
 
 
+    /**
+     * @var string[]
+     */
     #[ORM\Column(type: 'json', nullable: true)]
     private ?array $authors = [];
 
-
-    private ?string $authorsText = null;
-
-
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $genresText = null;
-
+    /**
+     * @var string[]
+     */
     #[ORM\Column(type: 'json', nullable: true)]
     private ?array $genres = [];
 
@@ -70,8 +72,11 @@ class Books
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $isbn = null;
 
+    /**
+     * @var string[]
+     */
     #[ORM\Column(nullable: true)]
-    private ?array $subjects = null;
+    private ?array $subjects = [];
 
     public function getId(): ?int
     {
@@ -162,44 +167,35 @@ class Books
         return $this;
     }
 
-    public function getAuthorsText(): ?string
-    {
-        return $this->authorsText;
-    }
 
-    public function setAuthorsText(?string $authorsText): self
-    {
-        $this->authorsText = $authorsText;
-        return $this;
-    }
-
+    /**
+     * @return string[]
+     */
     public function getAuthors(): ?array
     {
         return $this->authors;
     }
 
+    /**
+     * @param string[] $authors
+     */
     public function setAuthors(?array $authors): self
     {
         $this->authors = $authors;
         return $this;
     }
 
-    public function getGenresText(): ?string
-    {
-        return $this->genresText;
-    }
-
-    public function setGenresText(?string $genresText): self
-    {
-        $this->genresText = $genresText;
-        return $this;
-    }
-
+    /**
+     * @return string[]|null
+     */
     public function getGenres(): ?array
     {
         return $this->genres;
     }
 
+    /**
+     * @param string[]|null $genres
+     */
     public function setGenres(?array $genres): self
     {
         $this->genres = $genres;
@@ -253,11 +249,17 @@ class Books
         return $this;
     }
 
+    /**
+     * @return string[]|null
+     */
     public function getSubjects(): ?array
     {
         return $this->subjects;
     }
 
+    /**
+     * @param string[]|null $subjects
+     */
     public function setSubjects(?array $subjects): static
     {
         $this->subjects = $subjects;

@@ -2,6 +2,11 @@
 
 namespace App\Service;
 
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class OpenLibraryService
@@ -11,8 +16,10 @@ class OpenLibraryService
         private HttpClientInterface $client
     ) {
     }
-
-    public function searchBooks(string $query): array
+    /**
+     * @return array<mixed>
+     */
+    public function searchBooks(string $query)
     {
         $response = $this->client->request(
             'GET',
@@ -25,6 +32,9 @@ class OpenLibraryService
         return $data['docs'] ?? [];
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getWorkDetails(string $workKey): array{
 
         // Enlève les slashs superflus pour construire l'URL

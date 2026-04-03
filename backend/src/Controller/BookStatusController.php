@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class BookStatusController extends AbstractController
 {
-    private $workflowRegistry;
+    private Registry $workflowRegistry;
 
     public function __construct(Registry $workflowRegistry)
     {

@@ -23,9 +23,9 @@
                     </div>
 
                     <div class="mb-4">
-                        {{ form_label(form.authorsText, null, {'label_attr': {'class': 'fw-bold small mb-1'}}) }}
-                        {{ form_widget(form.authorsText) }}
-                        <div class="form-text mt-1">{{ form.authorsText.vars.help }}</div>
+                        {{ form_label(form.authors, null, {'label_attr': {'class': 'fw-bold small mb-1'}}) }}
+                        {{ form_widget(form.authors) }}
+                        <div class="form-text mt-1">{{ form.authors.vars.help }}</div>
                     </div>
 
                     {# Section 2 : Saga (Côte à côte) #}
@@ -53,8 +53,8 @@
                     </div>
 
                     <div class="mb-0">
-                        {{ form_label(form.genresText, "Genres / Catégories", {'label_attr': {'class': 'fw-bold small mb-1'}}) }}
-                        {{ form_widget(form.genresText) }}
+                        {{ form_label(form.genres, "Genres / Catégories", {'label_attr': {'class': 'fw-bold small mb-1'}}) }}
+                        {{ form_widget(form.genres) }}
                     </div>
 
                     {# Section spécifique UPDATE (Status & Note) #}

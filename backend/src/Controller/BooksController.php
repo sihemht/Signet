@@ -33,19 +33,6 @@ class BooksController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Convert authorsText to array and set it in the book entity
-            $authorsText = $book->getAuthorsText();
-            if ($authorsText) {
-                $authorsArray = array_map('trim', explode(',', $authorsText));
-                $book->setAuthors($authorsArray);
-            }
-
-            // Convert genresText to array and set it in the book entity
-            if ($book->getGenresText()) {
-                $genresArray = array_map('trim', explode(',', $book->getGenresText()));
-                $book->setGenres($genresArray);
-            }
-
             $entityManager->persist($book);
             $entityManager->flush();
 
@@ -95,32 +82,26 @@ class BooksController extends AbstractController
         return $this->redirectToRoute('app_books_index', [], Response::HTTP_SEE_OTHER);
     }
 
+
     #[Route('/add-from-api', name: 'add_book', methods: ['POST'])]
     public function addFromApi(Request $request, EntityManagerInterface $entityManager): Response
     {
         $book = new Books();
 
-        // 1. On récupère les données du POST manuellement
+        // 1. On recup les données du POST
         $title = $request->request->get('title');
         $imageCover = $request->request->get('imageCover');
-        $authorsRaw = $request->request->get('authors'); // C'est ici que ça arrive en "string"
+        $authorsRaw = $request->request->get('authors');
 
-        // 2. Nettoie et on convertit la chaîne en tableau
-        // Le cas où l'API envoie "Auteur A, Auteur B"
-        $authorsArray = [];
-        if (!empty($authorsRaw)) {
-            if (is_array($authorsRaw)) {
-                $authorsArray = $authorsRaw;
-            } else {
-                //Découpe la chaîne par la virgule et on nettoie les espaces
-                $authorsArray = array_map('trim', explode(',', $authorsRaw));
-            }
+        $authorsRaw = (string) ($authorsRaw ?? '');
+        $authorsArray = array_map('trim', explode(',', $authorsRaw));
+        if ($authorsRaw === '') {
+            $authorsArray = [];
         }
 
         $book->setTitle($title);
         $book->setImageCover($imageCover);
         $book->setAuthors($authorsArray);
-
         //Définit des valeurs par défaut pour éviter d'autres erreurs de formulaire
         $book->setReadingStatus('to_read');
         $book->setRating(0);
