@@ -40,8 +40,11 @@ class OpenLibraryController extends AbstractController
     }
 
     #[Route('/add-book', name: 'add_book', methods: ['POST'])]
-    public function addBook(Request $request, EntityManagerInterface $entityManager): \Symfony\Component\HttpFoundation\RedirectResponse
-    {
+    public function addBook(
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): \Symfony\Component\HttpFoundation\RedirectResponse {
+
         // Récupère la clé du livre et les infos de base
         $workKey = $request->request->get('openLibraryKey');
         $title = $request->request->get('title');
@@ -107,5 +110,4 @@ class OpenLibraryController extends AbstractController
 
         return new JsonResponse($details);
     }
-
 }

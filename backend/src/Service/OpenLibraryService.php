@@ -11,7 +11,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class OpenLibraryService
 {
-
     public function __construct(
         private HttpClientInterface $client
     ) {
@@ -35,8 +34,8 @@ class OpenLibraryService
     /**
      * @return array<mixed>
      */
-    public function getWorkDetails(string $workKey): array{
-
+    public function getWorkDetails(string $workKey): array
+    {
         // Enlève les slashs superflus pour construire l'URL
         $id = str_replace(['/works/', '/'], '', $workKey);
 

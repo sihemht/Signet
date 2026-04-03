@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Workflow\Registry;
 
-
 #[Route('/books')]
 class BooksController extends AbstractController
 {
@@ -32,7 +31,6 @@ class BooksController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $entityManager->persist($book);
             $entityManager->flush();
 
