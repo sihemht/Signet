@@ -33,7 +33,6 @@ class OpenLibraryController extends AbstractController
                 $this->addFlash('error', 'An error occurred while searching for books.');
             }
         }
-
         return $this->render('open_library/index.html.twig', [
             'books' => $books,
         ]);

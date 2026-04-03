@@ -6,10 +6,10 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src', $vendorDir . '/phpdocumentor/reflection-common/src'),
+    'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src'),
     'Zenstruck\\Foundry\\Utils\\Rector\\' => array($vendorDir . '/zenstruck/foundry/utils/rector/src'),
     'Zenstruck\\Foundry\\' => array($vendorDir . '/zenstruck/foundry/src'),
-    'Zenstruck\\' => array($vendorDir . '/zenstruck/callback/src', $vendorDir . '/zenstruck/assert/src'),
+    'Zenstruck\\' => array($vendorDir . '/zenstruck/assert/src', $vendorDir . '/zenstruck/callback/src'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'Twig\\' => array($vendorDir . '/twig/twig/src'),
     'Symfony\\Runtime\\Symfony\\Component\\' => array($vendorDir . '/symfony/runtime/Internal'),
