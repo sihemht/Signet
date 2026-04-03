@@ -24,7 +24,9 @@ jobs:
           coverage: none
 
       - name: Install Dependencies
-        run: composer install --no-interaction --optimize-autoloader
+        run: |
+          cp .env.test .env
+          composer install --no-interaction --optimize-autoloader
 
       - name: Symfony Lint (Twig & YAML)
         run: |
