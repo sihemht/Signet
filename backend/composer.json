@@ -39,7 +39,9 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.6",
+        "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^9.5",
+        "squizlabs/php_codesniffer": "^4.0",
         "symfony/browser-kit": "^7.1",
         "symfony/css-selector": "^7.1",
         "symfony/maker-bundle": "^1.58",
