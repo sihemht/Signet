@@ -1,0 +1,11 @@
+parameters:
+    level: 6
+    paths:
+        - bin/
+        - config/
+        - public/
+        - src/
+    ignoreErrors:
+            -
+                message: '#Property App\\Entity\\Books::\$id \(int\|null\) is never assigned int#'
+                path: src/Entity/Books.php

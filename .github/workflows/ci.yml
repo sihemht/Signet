@@ -37,7 +37,7 @@ jobs:
         run: vendor/bin/phpstan analyse src/
 
       - name: Check PSR-12 Code Style
-        run: vendor/bin/phpcs --standard=PSR12 src --error-format=github
+        run: vendor/bin/phpcs --standard=PSR12 src
 
       - name: Security Audit
         run: composer audit
