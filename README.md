@@ -5,6 +5,8 @@
 
 Signet est une application web développée avec **Symfony**, conçue pour les passionnés de lecture. Elle permet de gérer sa collection de livres physique ou numérique de manière intuitive en s'appuyant sur les données riches de l'API Open Library.
 
+---
+
 ## ✨ Fonctionnalités
 
 - **🔍 Recherche Intelligente** : Recherche de livres par titre, auteur ou ISBN via l'API Open Library.
@@ -15,6 +17,8 @@ Signet est une application web développée avec **Symfony**, conçue pour les p
     - Système de filtres par catégories (Subjects) avec compteurs dynamiques.
     - Suivi du statut de lecture (À lire, En cours, Terminé) via un système de Workflow.
 - **📱 Design Responsive** : Interface "Mobile-First" épurée avec Bootstrap 5.
+---
+
 ## 📖 Logique de lecture (Workflow)
 
 L'application utilise une machine à états (State Machine) pour gérer la progression de vos lectures. Voici le cycle de vie d'un livre dans **Signet** :
@@ -38,43 +42,79 @@ graph LR
     style place1 fill:#634832,color:#fff
     style place2 fill:#d4a373,color:#fff
    ```
+---
+
 ## 🛠️ Stack Technique
 
 - **Backend** : PHP 8.2+ & Symfony 6.4/7.0
 - **Database** : PostgreSQL (Doctrine ORM)
 - **Frontend** : Twig, JavaScript (Fetch API), Bootstrap 5
 - **API Externe** : Open Library API
+---
 
+## 🏗️ Infrastructure & Qualité
+
+### 🐳 Environnement Docker-Ready
+Le projet est entièrement conteneurisé pour garantir un environnement de développement identique sur toutes les machines :
+- **PHP 8.2-FPM** : Optimisé pour Symfony.
+- **Nginx** : Serveur web performant.
+- **PostgreSQL 15** : Base de données relationnelle robuste.
+---
+
+### ⚙️ Pipeline CI/CD (GitHub Actions)
+Chaque modification du code est automatiquement validée par notre workflow d'intégration continue :
+
+![Symfony CI](https://github.com/sihemht/Signet/actions/workflows/ci.yml/badge.svg)
+
+**Garanties du pipeline :**
+- ✅ **Analyse de syntaxe** : Linting complet (PHP, Twig, YAML).
+- ✅ **Portabilité** : Vérification que le projet "build" correctement sur un système vierge.
+- ✅ **Sécurité** : Audit automatique des vulnérabilités des dépendances Composer.
 ---
 
 ## 🛠 Pré-requis
 
 - **Docker** & **Docker Compose**
 - (Optionnel) PHP 8.2+ localement
-
 ---
 
 ## 🚀 Installation rapide
 
 ### 1. Cloner le projet
 ```bash
-git clone <url-du-repo>
+git clone https://github.com/sihemht/Signet
 ```
 
-### 2. Installer les dépendances PHP
+## 🔐 Configuration de l'environnement
+
+Le projet utilise des variables d'environnement pour Docker et Symfony.
+
+### 2. Configuration Docker (Racine)
+Copiez le fichier d'exemple à la racine pour configurer les conteneurs :
 ```bash
-docker compose exec php composer install -d backend
+cp .env.example .env
 ```
 
-### 3. Initialiser la base de données
+### 3 . Configuration Symfony (Backend)
+Copiez le fichier d'exemple dans le dossier backend pour configurer l'application :
 ```bash
-# Créer la base de donées
+cp backend/.env.test backend/.env.local
+```
+
+### 4. Démarrer les conteneurs et installer les dépendances
+```bash
+docker compose up -d --build
+docker compose exec php composer install --working-directory=backend
+```
+
+### 5. Initialiser la base de données
+```bash
+# Créer la base de données
 docker compose exec php php bin/console doctrine:database:create
 
 # Créer le schéma
 docker compose exec php php bin/console doctrine:schema:create
 ```
-
 ---
 
 ## 🛠️ Commandes Utiles (Docker)
