@@ -78,6 +78,12 @@
                                 <span class="small">{{ book.saga|default('-') }} {% if book.number %}(T.{{ book.number }}){% endif %}</span>
                             </div>
                             <div class="col-6">
+                                <small class="text-muted d-block small fw-bold text-uppercase" style="font-size: 0.6rem;">Genre(s)</small>
+                                <span class="small">
+                                    {{ book.genres|join(', ')|default('-') }}
+                                </span>
+                            </div>
+                            <div class="col-6">
                                 <small class="text-muted d-block small fw-bold text-uppercase" style="font-size: 0.6rem;">Pages</small>
                                 <span class="small">{{ book.numberOfPage|default('Non précisé') }}</span>
                             </div>

@@ -8,12 +8,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[AsController]
 class OpenLibraryController extends AbstractController
 {
-    private $openLibraryService;
+    private OpenLibraryService $openLibraryService;
 
     public function __construct(OpenLibraryService $openLibraryService)
     {
@@ -21,7 +22,7 @@ class OpenLibraryController extends AbstractController
     }
 
     #[Route('/search-books', name: 'search_books', methods: ['GET'])]
-    public function searchBooks(Request $request)
+    public function searchBooks(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         $query = $request->query->get('query');
 
@@ -33,26 +34,28 @@ class OpenLibraryController extends AbstractController
                 $this->addFlash('error', 'An error occurred while searching for books.');
             }
         }
-
         return $this->render('open_library/index.html.twig', [
             'books' => $books,
         ]);
     }
 
     #[Route('/add-book', name: 'add_book', methods: ['POST'])]
-    public function addBook(Request $request, EntityManagerInterface $entityManager)
-    {
-        // 1. Récupère la clé du livre et les infos de base
+    public function addBook(
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): \Symfony\Component\HttpFoundation\RedirectResponse {
+
+        // Récupère la clé du livre et les infos de base
         $workKey = $request->request->get('openLibraryKey');
         $title = $request->request->get('title');
         $imageCover = $request->request->get('imageCover');
         $isbn = $request->request->get('isbn');
         $authorsRaw = $request->request->get('authors');
 
-        // 2. Appel au service pour récupérer le résumé (Work)
+        // Appel au service pour récupérer le résumé (Work)
         $workDetails = $this->openLibraryService->getWorkDetails($workKey);
 
-        // 3. Extraction de la description (Résumé)
+        // Extraction de la description (Résumé)
         $description = "Aucun résumé disponible pour ce livre.";
         if (!empty($workDetails) && isset($workDetails['description'])) {
             if (is_array($workDetails['description'])) {
@@ -62,7 +65,7 @@ class OpenLibraryController extends AbstractController
             }
         }
 
-        // 4. Extraction des sujets (Catégories)
+        // Extraction des sujets (Catégories)
         $subjects = [];
         if (!empty($workDetails) && isset($workDetails['subjects'])) {
             // On prend les 8 premiers sujets pour ne pas surcharger
@@ -76,9 +79,11 @@ class OpenLibraryController extends AbstractController
         $book->setSubjects($subjects);
         $book->setIsbn($isbn ?: 'Non précisé');
 
-        // Gestion des auteurs (conversion string -> array si besoin)
-        $authorsArray = is_array($authorsRaw) ? $authorsRaw : array_map('trim', explode(',', (string)$authorsRaw));
+
+        $authorsRaw = (string)$request->request->get('authors', '');
+        $authorsArray = array_filter(array_map('trim', explode(',', $authorsRaw)));
         $book->setAuthors($authorsArray);
+
 
         // Valeurs par défaut
         $book->setReadingStatus('to_read');
@@ -105,5 +110,4 @@ class OpenLibraryController extends AbstractController
 
         return new JsonResponse($details);
     }
-
 }

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Books;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer; // <--- NE PAS OUBLIER
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -21,39 +22,28 @@ class BooksType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Titre du livre',
-                'attr'  => [
-                    'placeholder' => 'Ex : Le Seigneur des Anneaux',
-        ],
+                'attr'  => ['placeholder' => 'Ex : Le Seigneur des Anneaux'],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Le titre est obligatoire.',
-                    ]),
-                    new Length([
-                        'max' => 255,
-                        'maxMessage' => 'Le titre ne peut pas dépasser {{ limit }} caractères.',
-                    ]),
+                    new NotBlank(['message' => 'Le titre est obligatoire.']),
+                    new Length(['max' => 255]),
                 ],
             ])
             ->add('saga', TextType::class, [
                 'label'    => 'Saga / Série',
                 'required' => false,
-                'attr'     => ['placeholder' => 'Nom de la saga'],
             ])
             ->add('number', IntegerType::class, [
                 'label'    => 'Tome n°',
                 'required' => false,
-                'attr'     => ['placeholder' => '1'],
             ])
-            ->add('authorsText', TextType::class, [
+            ->add('authors', TextType::class, [
                 'label'    => 'Auteur(s)',
                 'required' => false,
-                'attr'     => ['placeholder' => 'J.R.R. Tolkien...'],
                 'help'     => 'Séparez par une virgule',
             ])
-            ->add('genresText', TextType::class, [
+            ->add('genres', TextType::class, [
                 'label'    => 'Genre(s)',
                 'required' => false,
-                'attr'     => ['placeholder' => 'Ex : Fantasy, Aventure'],
                 'help'     => 'Séparez plusieurs genres par une virgule.',
             ])
             ->add('month_of_purchase', DateType::class, [
@@ -64,16 +54,27 @@ class BooksType extends AbstractType
             ->add('number_of_page', IntegerType::class, [
                 'label'    => 'Nombre de pages',
                 'required' => false,
-                'attr'     => ['placeholder' => 'Ex : 320', 'min' => 1],
                 'constraints' => [
-                    new Range(min: 1, minMessage: 'Le nombre de pages doit être supérieur à 0.'),
+                    new Range(min: 1),
                 ],
             ]);
+
+        // --- TRANSFORMERS ---
+        // Transformer pour Authors
+        $builder->get('authors')->addModelTransformer(new CallbackTransformer(
+            fn ($authorsAsArray) => is_array($authorsAsArray) ? implode(', ', $authorsAsArray) : '',
+            fn ($authorsAsString) => $authorsAsString ? array_map('trim', explode(',', (string)$authorsAsString)) : []
+        ));
+
+        // Transformer pour Genres
+        $builder->get('genres')->addModelTransformer(new CallbackTransformer(
+            fn ($genresAsArray) => is_array($genresAsArray) ? implode(', ', $genresAsArray) : '',
+            fn ($genresAsString) => $genresAsString ? array_map('trim', explode(',', (string)$genresAsString)) : []
+        ));
 
         if ($options['update']) {
             $builder
                 ->add('readingStatus', ChoiceType::class, [
-                    'label'   => 'Statut de lecture',
                     'choices' => [
                         '📚 À lire'    => 'to_read',
                         '📖 En cours'  => 'reading',
@@ -82,16 +83,7 @@ class BooksType extends AbstractType
                     ],
                 ])
                 ->add('rating', IntegerType::class, [
-                    'label'    => 'Note (sur 5)',
-                    'required' => false,
-                    'attr'     => ['placeholder' => 'Entre 0 et 5', 'min' => 0, 'max' => 5],
-                    'constraints' => [
-                        new Range(
-                            min: 0,
-                            max: 5,
-                            notInRangeMessage: 'La note doit être comprise entre {{ min }} et {{ max }}.',
-                        ),
-                    ],
+                    'constraints' => [new Range(min: 0, max: 5)],
                 ]);
         }
     }
